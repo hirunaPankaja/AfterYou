@@ -1,0 +1,74 @@
+/* LandingPage.css */
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #dddddd;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .textContainer {
+    position: absolute;
+    left: 91px;
+    top: 265px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .afterText {
+    font-size: 128px;
+    font-family: 'Odor Mean Chey', serif;
+    color: #ff6262;
+    margin-bottom: 20px;
+  }
+  
+  .youText {
+    font-size: 128px;
+    font-family: 'Odor Mean Chey', serif;
+    color: #2b2b2b;
+  }
+  
+  .image {
+    position: absolute;
+    right: 154px;
+    top: 159px;
+    width: 806px;
+    height: 794px;
+    border-radius: 48px;
+  }
+  
+  .buttonContainer {
+    position: absolute;
+    top: 21px;
+    right: 32px;
+    display: flex;
+    gap: 32px;
+  }
+  
+  .button {
+    width: 117px;
+    height: 39px;
+    background-color: #000000;
+    border-radius: 12px;
+    border: none;
+    color: #ffffff;
+    font-family: 'Mplus 1p Bold', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .button:hover {
+    transform: scale(1.05);
+  }
+  
+  .button:active {
+    transform: scale(1);
+  }
+  
