@@ -1,0 +1,138 @@
+/* General Layout */
+.privacy-policy-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px 15px;
+    background-color: #f4f4f9;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+/* Content Container */
+.background-overlay {
+    width: 900px;
+    max-width: 100%;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Logo & Header */
+.logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.company-name {
+    font-size: 32px;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+}
+
+/* Highlighted Words */
+.after {
+    color: #FF5733;
+}
+
+.you {
+    color: #000000;
+}
+
+/* Privacy Policy Content */
+.privacy-content {
+    font-size: 16px;
+    line-height: 1.6; /* Standard for readability */
+    color: #333;
+    padding: 0 10px;
+}
+
+/* Headings */
+.privacy-content h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.privacy-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+/* Paragraphs */
+.privacy-content p {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #444;
+}
+
+/* Lists */
+.privacy-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-bottom: 12px;
+}
+
+.privacy-content li {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+/* Contact Section */
+.contact-section {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .privacy-policy-layout {
+        padding: 15px;
+    }
+    
+    .background-overlay {
+        padding: 20px;
+    }
+    
+    .company-name {
+        font-size: 28px;
+    }
+    
+    .privacy-content {
+        font-size: 14px;
+        padding: 0 8px;
+    }
+
+    .privacy-content h2 {
+        font-size: 18px;
+    }
+
+    .privacy-content h3 {
+        font-size: 16px;
+    }
+
+    .privacy-content p, 
+    .privacy-content li {
+        font-size: 14px;
+    }
+}

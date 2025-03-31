@@ -1,74 +1,342 @@
-/* LandingPage.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
 
-.container {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #dddddd;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  
-  .textContainer {
-    position: absolute;
-    left: 91px;
-    top: 265px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .afterText {
-    font-size: 128px;
-    font-family: 'Odor Mean Chey', serif;
-    color: #ff6262;
-    margin-bottom: 20px;
-  }
-  
-  .youText {
-    font-size: 128px;
-    font-family: 'Odor Mean Chey', serif;
-    color: #2b2b2b;
-  }
-  
-  .image {
-    position: absolute;
-    right: 154px;
-    top: 159px;
-    width: 806px;
-    height: 794px;
-    border-radius: 48px;
-  }
-  
-  .buttonContainer {
-    position: absolute;
-    top: 21px;
-    right: 32px;
-    display: flex;
-    gap: 32px;
-  }
-  
-  .button {
-    width: 117px;
-    height: 39px;
-    background-color: #000000;
-    border-radius: 12px;
-    border: none;
-    color: #ffffff;
-    font-family: 'Mplus 1p Bold', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  
-  .button:hover {
-    transform: scale(1.05);
-  }
-  
-  .button:active {
-    transform: scale(1);
-  }
-  
+
+
+.landing-page {
+  width: 100%;
+  max-width: 1400px;
+  padding-top: 5px; /* Match header height */
+  position: relative;
+  z-index: 1; /* Lower than header */
+}
+
+header.landing-page-header { 
+  position: fixed; /* Keeps the header fixed at the top */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: top; /* Proper vertical alignment */
+  padding: 20px 5%; /* Adjust padding */
+  background-color: transparent; /* Transparent background */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  height: 10px; /* Explicitly set height */
+  z-index: 1000; /* Ensure it stays above other content */
+  box-shadow: none; /* Remove any shadow */
+ /* pointer-events: none; /* Allow clicks to pass through */
+}
+
+.logo img {
+  height: 40px; /* Adjust the size of the logo */
+  margin: 0; /* Remove any default margins */
+}
+
+nav {
+  gap: 20px; /* Adjust spacing between links */
+  display:flex; /* Use flexbox for layout */
+  margin: 0; /* Remove any default margins */
+  padding: 0; /* Remove any default padding */
+  height: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  height: 20px; /* Remove underline from links */
+  color: #333; /* Set text color */
+  font-weight: 500; /* Slightly bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+  padding: 5px 10px; /* Add padding for clickable area */
+}
+
+nav a:hover {
+  color: #ff6b6b; /* Change text color on hover */
+}
+
+.login-btn {
+  padding: 5px 15px; /* Adjust padding to reduce height */
+  height: 35px; /* Ensure height is not fixed */
+  border: 1px solid #333;
+  border-radius: 20px;
+  background: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #333;
+  color: white;
+}
+
+/* Hero Section */
+.hero {
+  padding-top: 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 120px 5% 80px;
+  min-height: 100vh;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-text h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #ff6b6b;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.signup {
+  padding: 12px 25px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s;
+}
+
+.signup:hover {
+  background-color: #ff6b6b;
+  transform: translateY(-2px);
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10rem;
+}
+
+/* About Section */
+.about {
+  padding: 80px 5%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.about p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  text-align: center;
+}
+
+/* Features Section */
+.features {
+  padding: 80px 5%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.features h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.features > p {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+  color: #666;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  padding: 30px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* How It Works Section */
+.how-it-works {
+  padding: 80px 5%;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.how-it-works h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.step {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.step-number {
+  font-size: 2rem;
+  background-color: #ff6b6b;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.step-content h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.step-content p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Footer Styles */
+.footer {
+  padding: 40px 5%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+
+.footer-links {
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #bbb;
+  font-size: 1rem;
+  margin: 0 15px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ff6b6b;
+}
+
+.contact-btn {
+  padding: 12px 30px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.contact-btn:hover {
+  background-color: #333;
+}
+/* Modal Overlay Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Higher than header */
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 10px;
+  overflow: auto;
+  padding: 20px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  z-index: 2001;
+}
+
+.modal-close-btn:hover {
+  color: #ff6b6b;
+}
+
+/* Adjust the signup form to fit nicely in the modal */
+.modal-content .signup-container {
+  padding: 0;
+  margin: 0;
+  height: auto;
+}
+
+.modal-content .form-card {
+  box-shadow: none;
+  max-width: 100%;
+}

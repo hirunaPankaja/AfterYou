@@ -1,30 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ProfileHeader from '../componenets/Header';
+import Accounts from '../main-screens/AccountsPage';
 import '../style/Home.css';
+import ProfilePage from './ProfilePage';
 
-const Home = ({ 
-  onHomeClick = () => console.log('Home clicked'),
-  onProfileClick = () => console.log('Profile clicked')
-}) => {
+function Home() {
+  const [activePage, setActivePage] = useState('home');
+
+  const goToHome = (e) => {
+    e.preventDefault();
+    setActivePage('home');
+  };
+
+  const goToAccounts = (e) => {
+    e.preventDefault();
+    setActivePage('accounts');
+  };
+
+  const goToSubscription = (e) => {
+    e.preventDefault();
+    setActivePage('subscription');
+  };
+
+  const goToUser = (e) => {
+    e.preventDefault();
+    setActivePage('user');
+  };
+
+  let content;
+  switch (activePage) {
+    case 'accounts':
+      content = <Accounts />;
+      break;
+    case 'subscription':
+      content = <Subscription />;
+      break;
+    case 'user':
+      content = <UserProfile />;
+      break;
+    default:
+      content = <ProfilePage/>;
+  }
+
   return (
-    <div className="header">
-      <div className="header-content">
-        <img src="https://dashboard.codeparrot.ai/api/image/Z-EX9Ws0ZhD5c3dI/logo.png" alt="Logo" className="logo" />
-        
-        <div className="nav-item" onClick={onHomeClick}>
-          <span className="nav-text">Home</span>
-          <div className="underline"></div>
-        </div>
-
-        <button className="profile-button" onClick={onProfileClick}>
-          <img src="https://dashboard.codeparrot.ai/api/image/Z-EX9Ws0ZhD5c3dI/icons-8-u.png" alt="Profile" className="profile-icon" />
-        </button>
+    <div className="home-container">
+      <ProfileHeader
+        goToHome={goToHome}
+        goToAccounts={goToAccounts}
+        goToSubscription={goToSubscription}
+        goToUser={goToUser}
+      />
+      <div className="content-container">
+        {content}
       </div>
-
-      <button className="action-button" onClick={onHomeClick}>
-        <img src="https://dashboard.codeparrot.ai/api/image/Z-EX9Ws0ZhD5c3dI/button.png" alt="Action" className="action-icon" />
-      </button>
     </div>
   );
-};
+}
 
 export default Home;

@@ -1,0 +1,49 @@
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  height: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.header-logo {
+  width: 30px;
+  height: 30px;
+}
+
+.navigation {
+  display: flex;
+  gap: 20px;
+  padding: 8px 15px;
+  border-radius: 10px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-name {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.header-user-avatar {
+  width: 40px;
+  height: 40px;
+}

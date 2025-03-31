@@ -1,0 +1,90 @@
+.assign-executor-container {
+  width: 100%;
+  max-width: 1366px;
+  background-color: #d9d9d9;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  margin: 15px 0;
+}
+
+.divider {
+  width: 95%;
+  height: 2px;
+  background-color: #fff;
+  margin: 20px auto;
+}
+
+.warning-text {
+  max-width: 750px;
+  text-align: center;
+  color: #b62810;
+  font-size: 14px;
+  margin: 20px auto;
+  line-height: 1.5;
+}
+
+.options-container {
+  display: flex;
+  justify-content: center;
+  gap: 160px;
+  margin: 40px 0;
+}
+
+.family-member-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.option-card:hover {
+  transform: scale(1.05);
+}
+
+.option-icon {
+  width: 73px;
+  height: 73px;
+  margin-bottom: 15px;
+}
+
+.option-text {
+  font-family: 'Jersey 25', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1366px) {
+  .assign-executor-container {
+    width: 100%;
+  }
+  
+  .divider {
+    width: 95%;
+  }
+  
+  .options-container {
+    gap: 80px;
+  }
+}
+

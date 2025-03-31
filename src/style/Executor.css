@@ -1,0 +1,104 @@
+.welcome-executor {
+  width: 100%;
+  min-height: 635px;
+  background-color: #dddddd;
+  padding: 18px 25px;
+  font-family: 'Odor Mean Chey', serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 59.49px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 40px;
+  color: #000000;
+  margin: 0;
+}
+
+.title span {
+  color: #ff0000;
+}
+
+.main-content {
+  margin-top: 50px;
+}
+
+.welcome-section {
+  margin-left: 88px;
+}
+
+.welcome-heading {
+  font-size: 36px;
+  color: #000000;
+  margin: 0 0 20px 0;
+}
+
+.executor-title {
+  font-size: 24px;
+  color: #000000;
+  margin: 0 0 20px 0;
+}
+
+.instructions {
+  font-size: 20px;
+  color: #636262;
+  margin: 0;
+  max-width: 779px;
+}
+
+.divider {
+  width: 1230px;
+  height: 2px;
+  background-color: #ffffff;
+  margin: 30px auto;
+}
+
+.will-card {
+  width: 450.4px;
+  height: 129.41px;
+  background-color: #6c6c6c;
+  border-radius: 15px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 9px 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.will-card:hover {
+  transform: scale(1.02);
+}
+
+.profile-image {
+  width: 112px;
+  height: 112px;
+  object-fit: contain;
+}
+
+.will-details {
+  margin-left: 16px;
+  color: #ffffff;
+}
+
+.will-title {
+  font-size: 20px;
+  margin: 0 0 10px 0;
+}
+
+.assigned-date {
+  font-size: 11px;
+  color: #d9d9d9;
+  margin: 0;
+}
+

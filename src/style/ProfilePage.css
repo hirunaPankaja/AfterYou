@@ -1,0 +1,90 @@
+/* Profile page container */
+.profile-page {
+  min-height: 100vh;
+  padding: 15px 25px;
+  margin-top: 40px;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden; /* Prevent scrolling */
+  box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+}
+
+/* Main content padding */
+.profile-main-content {
+  padding: 0 145px;
+  box-sizing: border-box; /* Include padding in width calculations */
+  width: 100%; /* Ensure full use of width without causing overflow */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Greeting text */
+.greeting {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Welcome text */
+.welcome-text {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* Divider between sections */
+.divider {
+  height: 2px;
+  background-color: #ffffff;
+  margin: 40px 0;
+}
+
+/* Profile action buttons container */
+.profile-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 150px;
+  margin-top: 60px;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Profile action item (icon and text) */
+.profile-action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Profile action button styles */
+.profile-action-button {
+  width: 81px;
+  height: 65px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  overflow: hidden; /* Ensure no overflow */
+}
+
+/* Hover effect for action button */
+.profile-action-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Action icon size */
+.action-icon {
+  width: 40px;
+  height: 35px;
+}
+
+/* Profile action text */
+.profile-action-text {
+  font-family: 'Jersey', sans-serif;
+  font-size: 16px;
+  color: #000000;
+}
