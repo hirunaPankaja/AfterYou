@@ -3,6 +3,7 @@ import ProfileHeader from '../componenets/Header';
 import Accounts from '../main-screens/AccountsPage';
 import '../style/Home.css';
 import ProfilePage from './ProfilePage';
+import SubscriptionDashboard from './SubscriptionDashboard';
 
 function Home() {
   const [activePage, setActivePage] = useState('home');
@@ -33,7 +34,7 @@ function Home() {
       content = <Accounts />;
       break;
     case 'subscription':
-      content = <Subscription />;
+      content = <SubscriptionDashboard />;
       break;
     case 'user':
       content = <UserProfile />;

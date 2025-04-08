@@ -5,7 +5,7 @@ import '../style/Login.css';
 
 
 const Login = () => {
-  const { goToProfile } = useNavigation();
+  const { goToHome } = useNavigation();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -55,7 +55,7 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="login-button" onClick={goToProfile}>
+          <button type="submit" className="login-button" onClick={goToHome}>
             Login
           </button>
         </form>

@@ -6,6 +6,7 @@
   padding: 0 15px;
   height: 30px;
   margin-top: 20px;
+  background-color: #ffffff;
   margin-bottom: 20px;
 }
 
@@ -24,8 +25,9 @@
 .nav-link {
   text-decoration: none;
   color: #000000;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .nav-link:hover {
