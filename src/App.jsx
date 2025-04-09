@@ -15,11 +15,11 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/home" element={<Home />} /> {/*User dashboard*/}
+        <Route path="/signup" element={<SignUpForm />} />{/*User signup*/ }
+        <Route path="/privacy-policy" element={<PrivacyPolicy/>} />{/*Privacy policy page */}
+        <Route path="/login" element={<Login/>} />{/*User login*/}
+        <Route path="/profile" element={<ProfilePage />} />{/*User home */}
         <Route path="/accounts" element={<AccountsPage />} />
         <Route path="/executors" element={<ProfilePage />} />     
         <Route path="/user" element={<ProfilePage />} />
