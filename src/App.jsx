@@ -20,7 +20,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy/>} />{/*Privacy policy page */}
         <Route path="/login" element={<Login/>} />{/*User login*/}
         <Route path="/profile" element={<ProfilePage />} />{/*User home */}
-        <Route path="/accounts" element={<AccountsPage />} />
+        <Route path="/accounts" element={<AccountsPage />} />{/*User account page */}
         <Route path="/executors" element={<ProfilePage />} />     
         <Route path="/user" element={<ProfilePage />} />
         <Route path="/subscription" element={<ProfilePage />} />
