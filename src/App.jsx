@@ -22,7 +22,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />{/*User home */}
         <Route path="/accounts" element={<AccountsPage />} />{/*User account page */}
         <Route path="/executors" element={<ProfilePage />} />     {/*executor */}
-        <Route path="/user" element={<ProfilePage />} />
+        <Route path="/user" element={<ProfilePage />} /> {/*user dashboard */}
         <Route path="/subscription" element={<ProfilePage />} />
         <Route path="/executor" element={<Executor />} />
       </Routes>
