@@ -24,7 +24,7 @@ function App() {
         <Route path="/executors" element={<ProfilePage />} />     {/*executor */}
         <Route path="/user" element={<ProfilePage />} /> {/*user dashboard */}
         <Route path="/subscription" element={<ProfilePage />} /> {/*user dashboard */}
-        <Route path="/executor" element={<Executor />} />
+        <Route path="/executor" element={<Executor />} />{/**/}
       </Routes>
     </Router>
   );
