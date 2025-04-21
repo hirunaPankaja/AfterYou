@@ -6,9 +6,9 @@ function AccountCard({ platform }) {
     Twitter: '🐦',
     Instagram: '📸',
     Gmail: '📧',
-    // Add more as needed
+    
   };
-
+// check 
   return (
     <div className="account-card">
       <h3>{platformIcons[platform]} {platform}</h3>
