@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import '../style/LandingPage.css';
 import logo from '../assets/logo.png';
 import useNavigation from "../hooks/useNavigate";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "../popups-screens/SignUpForm";
 
 const LandingPage = () => {
   const aboutRef = useRef(null);

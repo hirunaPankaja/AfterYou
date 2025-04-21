@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/AccountsPage.css';
+import AccountCard from './AccountCard'; // 👈 Import the component
 
 const AccountsPage = () => {
   const defaultAccounts = [
@@ -22,8 +23,6 @@ const AccountsPage = () => {
 
   return (
     <div className="page-container">
-    
-
       <main className="main-content">
         <div className="content-wrapper">
           <div className="left-section">
@@ -36,32 +35,9 @@ const AccountsPage = () => {
           <div className="right-section">
             <h2 className="section-title">Accounts</h2>
             <div className="divider"></div>
-            
+
             {defaultAccounts.map(account => (
-              <div key={account.id} className="account-card">
-                <img src={account.icon} alt={account.platform} className="platform-icon" />
-                <div className="account-details">
-                  <p className="detail-row">Profile |: {account.profile}</p>
-                  <p className="detail-row">Action |: {account.action}</p>
-                  {account.receiver && (
-                    <p className="detail-row">Reciver |: {account.receiver}</p>
-                  )}
-                </div>
-                <div className="action-buttons">
-                  <button className="action-btn delete">
-                    <img 
-                      src="https://dashboard.codeparrot.ai/api/image/Z-o7rXn5m-GBkPHN/icons-8-d-2.png" 
-                      alt="Delete" 
-                    />
-                  </button>
-                  <button className="action-btn update">
-                    <img 
-                      src="https://dashboard.codeparrot.ai/api/image/Z-o7rXn5m-GBkPHN/icons-8-u-2.png" 
-                      alt="Update" 
-                    />
-                  </button>
-                </div>
-              </div>
+              <AccountCard key={account.id} account={account} />
             ))}
           </div>
         </div>
@@ -71,4 +47,3 @@ const AccountsPage = () => {
 };
 
 export default AccountsPage;
-
