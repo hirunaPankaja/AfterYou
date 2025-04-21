@@ -1,11 +1,18 @@
-HELP.md
+# Build system files
 .gradle
 build/
+target/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### STS ###
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+
+# IDE files (STS, Eclipse, IntelliJ, NetBeans, VS Code)
 .apt_generated
 .classpath
 .factorypath
@@ -14,24 +21,23 @@ build/
 .springBeans
 .sts4-cache
 bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 .vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Ignore secret config files
+application-prod.properties
+application-secrets.properties
+
