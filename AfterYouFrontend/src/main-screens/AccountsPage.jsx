@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/AccountsPage.css';
-import AccountCard from '../componenets/AccountCard'; // Import the AccountCard component
+import AccountCard from '../componenets/AccountCard'; // 👈 Import the component
 
 const AccountsPage = () => {
   const defaultAccounts = [
