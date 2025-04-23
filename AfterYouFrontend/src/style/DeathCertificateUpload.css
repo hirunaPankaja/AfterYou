@@ -1,0 +1,130 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #e4e4e4;
+    border-radius: 20px;
+    padding: 40px 20px 80px 20px;
+    margin: 30px auto;
+    max-width: 1100px;
+    position: relative;
+  }
+  
+  .panel {
+    background: #f7f7f7;
+    border-radius: 18px;
+    padding: 30px 40px;
+    width: 48%;
+    box-sizing: border-box;
+  }
+  
+  .left-panel h2,
+  .right-panel h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  form label {
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 6px;
+    font-size: 1rem;
+  }
+  
+  form input[type="text"],
+  form input[type="date"],
+  .file-upload input[type="file"] {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+  
+  .file-upload {
+    display: flex;
+    align-items: center;
+  }
+  
+  .camera-icon {
+    margin-left: 8px;
+    font-size: 1.2rem;
+    color: #888;
+  }
+  
+  .submit-btn {
+    margin-top: 18px;
+    padding: 10px 36px;
+    border-radius: 16px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .right-panel p {
+    margin-bottom: 30px;
+    color: #444;
+  }
+  
+  .status-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .status-row span:first-child {
+    width: 180px;
+    font-size: 1rem;
+  }
+  
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 8px;
+    padding: 2px 14px;
+    margin-left: 12px;
+    font-size: 1rem;
+  }
+  
+  .dot {
+    width: 14px;
+    height: 14px;
+    background: #ffeb3b;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .processing-time {
+    width: 80px;
+    margin-left: 12px;
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .done-btn {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    padding: 12px 48px;
+    border-radius: 18px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  

@@ -8,7 +8,7 @@ function AccountCard({ platform }) {
     Gmail: '📧',
     
   };
-// check wowkihugyftdrcd41414144
+
   return (
     <div className="account-card">
       <h3>{platformIcons[platform]} {platform}</h3>

@@ -1,0 +1,88 @@
+
+  
+  .lw-container {
+    background: #d7d7d7;
+    min-height: 100vh;
+    text-align: center;
+    padding-top: 40px;
+  }
+  
+  .lw-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 48px;
+    font-family: 'Georgia', serif;
+  }
+  
+  .lw-stepper-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 36px;
+  }
+  
+  .lw-stepper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .lw-stepper-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .lw-stepper-circle {
+    width: 28px;
+    height: 28px;
+    background: #38b000;
+    border-radius: 50%;
+    margin: 0;
+    border: 2px solid #38b000;
+  }
+  
+  .lw-stepper-line {
+    width: 4px;
+    height: 36px;
+    background: #38b000;
+  }
+  
+  .lw-steps-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .lw-step-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 1.2rem;
+    font-family: 'Georgia', serif;
+  }
+  
+  .lw-step-label {
+    margin-right: 18px;
+  }
+  
+  .lw-check {
+    color: #38b000;
+    font-size: 1.5rem;
+    margin-left: 8px;
+  }
+  
+  .lw-done-btn {
+    margin-top: 60px;
+    padding: 14px 60px;
+    border-radius: 18px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+  }
+  

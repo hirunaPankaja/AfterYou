@@ -1,5 +1,5 @@
-import React from 'react';
-import '../style/PrivacyPolicy.css';
+import React from 'react'; // Importing React library
+import '../style/PrivacyPolicy.css';  // Importing CSS styles for the Privacy Policy component
 import logo from '../assets/logo.png';
 
 const PrivacyPolicy = () => {
