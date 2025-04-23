@@ -1,15 +1,19 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  .left-section,
+  .right-section {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }
-
-
 
 .landing-page {
   width: 100%;
-  max-width: 1400px;
+
   padding-top: 5px; /* Match header height */
   position: relative;
   z-index: 1; /* Lower than header */
@@ -20,7 +24,7 @@ header.landing-page-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: top; /* Proper vertical alignment */
+  align-items: start; /* Proper vertical alignment */
   padding: 20px 5%; /* Adjust padding */
   background-color: transparent; /* Transparent background */
   transition: background-color 0.3s ease; /* Smooth transition for background color */
