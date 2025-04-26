@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../style/DeathCertificateUpload.css';
 
 const DeathCertificateUpload = () => {
@@ -7,11 +7,44 @@ const DeathCertificateUpload = () => {
   const [deathCertificate, setDeathCertificate] = useState(null);
   const [status, setStatus] = useState('Pending');
   const [processingTime, setProcessingTime] = useState('48 hrs');
+  const [loadingWidth, setLoadingWidth] = useState(0);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (isProcessing) {
+      const totalTimeInMilliseconds = 5000; // Simulated backend response time
+      const updateInterval = 100; // Update every 100ms
+      const increment = 100 / (totalTimeInMilliseconds / updateInterval);
+
+      const loadingInterval = setInterval(() => {
+        setLoadingWidth((prev) => {
+          if (prev + increment >= 100) {
+            clearInterval(loadingInterval);
+            return 100;
+          }
+          return prev + increment;
+        });
+      }, updateInterval);
+
+      return () => clearInterval(loadingInterval);
+    }
+  }, [isProcessing]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Submitted:', { fullName, dateOfDeath, deathCertificate });
+    setStatus('Processing');
+    setIsProcessing(true);
+    setLoadingWidth(0);
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 5000)); // Replace with real API call
+      setStatus('Approved');
+    } catch (error) {
+      console.error('Error:', error);
+      setStatus('Error');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleFileChange = (e) => {
@@ -19,8 +52,8 @@ const DeathCertificateUpload = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px', border: '1px solid #ccc' }}>
-      <div style={{ width: '45%' }}>
+    <div className="death-certificate-container">
+      <div className="left-section">
         <h2>Upload Death Certificate</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -52,19 +85,30 @@ const DeathCertificateUpload = () => {
           <button type="submit">Submit</button>
         </form>
       </div>
-      <div style={{ width: '45%' }}>
+      <div className="right-section">
         <h2>Waiting For Legal Approval</h2>
         <p>Your request is under review.</p>
-        <div>
+        <div className="status-container">
           <label>Status</label>
-          <span style={{ color: 'yellow' }}>●</span>
-          <span>{status}</span>
+          <span
+            className={`status-indicator ${status === 'Approved' ? 'approved' : ''}`}
+          >
+            ●
+          </span>
+          <span className="status-value">{status}</span>
         </div>
-        <div>
-          <label>Expected Processing Time</label>
-          <span>{processingTime}</span>
+        <div className="processing-time-container">
+          <label className="processing-time-label">Expected Processing Time</label>
+          <span className="processing-time-value">
+            {isProcessing ? 'Loading...' : processingTime}
+          </span>
+          {isProcessing && (
+            <div className="loading-bar">
+              <div className="loading-fill" style={{ width: `${loadingWidth}%` }}></div>
+            </div>
+          )}
         </div>
-        <button>Done</button>
+        <button className="done-button" disabled={status !== 'Approved'}>Done</button>
       </div>
     </div>
   );

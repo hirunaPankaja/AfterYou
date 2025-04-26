@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../style/Executor.css';
 
 const Executor = ({ 
@@ -9,6 +10,13 @@ const Executor = ({
     avatarUrl: "https://dashboard.codeparrot.ai/api/image/Z-pCHwz4-w8v6RrF/icons-8-m-2.png"
   }
 }) => {
+  
+  const navigate = useNavigate(); 
+  
+  const handleCardClick = () => {
+    navigate('/deathdertificateupload'); // Navigate to the page on click
+  };
+
   return (
     <div className="welcome-executor">
       <header className="header">
@@ -27,7 +35,8 @@ const Executor = ({
 
         <div className="divider"></div>
 
-        <div className="will-card">
+
+        <div className="will-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
           <img 
             src={assignedWill.avatarUrl} 
             alt="Profile" 
@@ -44,4 +53,3 @@ const Executor = ({
 };
 
 export default Executor;
-
