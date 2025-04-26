@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Executor from './main-screens/Executor'; 
+import './App.css';
+import DeathCertificateUpload from './main-screens/DeathCertificateUpload';
 import LandingPage from './main-screens/LandingPage';
 import Home from './main-screens/Home';
 import SignUpForm from './popups-screens/SignUpForm';
@@ -28,6 +31,7 @@ function App() {
         <Route path="/executor" element={<Executor />} />{/*m222jijijjij2n*/}
         <Route path="/VerifyDeathCertificate" element={<ExecutorUploadDeathCertificate />} />{/*m222jijijjij2n*/}
         <Route path="/LastWillStepper" element={<LastWillStepper />} />{/*m222jijijjij2n*/}
+
 
       </Routes>
     </Router>

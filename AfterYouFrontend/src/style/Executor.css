@@ -1,9 +1,11 @@
+/* Base styles remain unchanged */
 .welcome-executor {
-  width: 100%;
-  min-height: 635px;
+  width: 96%;
+  height: 92vh; /* Ensures it fits the viewport height */
   background-color: #dddddd;
-  padding: 18px 25px;
+  padding: 20px 30px;
   font-family: 'Odor Mean Chey', serif;
+  overflow: hidden; /* Removes scrolling if elements exceed the viewport */
 }
 
 .header {
@@ -13,13 +15,13 @@
 }
 
 .logo {
-  width: 59.49px;
-  height: 56px;
+  width: 65px;
+  height: 65px;
   object-fit: contain;
 }
 
 .title {
-  font-size: 40px;
+  font-size: 44px;
   color: #000000;
   margin: 0;
 }
@@ -29,65 +31,71 @@
 }
 
 .main-content {
-  margin-top: 50px;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align content */
+  justify-content: space-between; /* Distribute content */
+  height: calc(100vh - 160px); /* Adjust to fit space excluding header */
 }
 
 .welcome-section {
-  margin-left: 88px;
+  margin: 0 auto;
 }
 
 .welcome-heading {
-  font-size: 36px;
+  font-size: 40px;
   color: #000000;
-  margin: 0 0 20px 0;
+  margin: 0 0 25px 0;
 }
 
 .executor-title {
-  font-size: 24px;
+  font-size: 26px;
   color: #000000;
-  margin: 0 0 20px 0;
+  margin: 0 0 25px 0;
 }
 
 .instructions {
-  font-size: 20px;
+  font-size: 22px;
   color: #636262;
-  margin: 0;
-  max-width: 779px;
+  margin: 0 auto;
+  max-width: 900px;
 }
 
 .divider {
-  width: 1230px;
+  width: 80%; /* Relative width for flexibility */
   height: 2px;
   background-color: #ffffff;
-  margin: 30px auto;
+  margin: 35px auto;
 }
 
 .will-card {
-  width: 450.4px;
-  height: 129.41px;
+  width: 450px; /* Scaled size for proper fit */
+  height: 120px;
   background-color: #6c6c6c;
   border-radius: 15px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  padding: 9px 10px;
+  margin-bottom: 140px;
+  padding: 10px;
   box-sizing: border-box;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 
 .will-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .profile-image {
-  width: 112px;
-  height: 112px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
 }
 
 .will-details {
-  margin-left: 16px;
+  margin-left: 18px;
   color: #ffffff;
 }
 
@@ -97,8 +105,46 @@
 }
 
 .assigned-date {
-  font-size: 11px;
+  font-size: 12px;
   color: #d9d9d9;
   margin: 0;
 }
 
+/* Media queries for 1920x1080 resolution */
+@media screen and (min-width: 1920px) and (min-height: 1080px) {
+  .welcome-executor {
+    padding: 25px 40px;
+    height: 100vh; /* Adjust height dynamically */
+  }
+
+  .main-content {
+    height: calc(100vh - 160px); /* Ensures no scrollbars appear */
+  }
+
+  .divider {
+    width: 75%; /* Adjusted divider size */
+  }
+
+  .will-card {
+    width: 500px; /* Enhanced size for space utilization */
+    height: 140px;
+  }
+
+  .welcome-heading {
+    font-size: 42px;
+  }
+
+  .executor-title {
+    font-size: 28px;
+  }
+
+  .instructions {
+    font-size: 24px;
+    max-width: 1000px;
+  }
+
+  .profile-image {
+    width: 120px;
+    height: 120px;
+  }
+}
