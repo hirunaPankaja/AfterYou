@@ -6,7 +6,6 @@ const ProfilePage = ({ userName = "Shey Silva" }) => {
   return (
     <div className="profile-page">
       
-
       <main className="profile-main-content">
         <h2 className="greeting">Hello {userName}!</h2>
         <h1 className="welcome-text">Welcome to your profile.</h1>

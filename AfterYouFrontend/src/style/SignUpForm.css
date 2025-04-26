@@ -9,7 +9,7 @@
 .background-image {
   width: 100%;
   min-height: 100vh;
-  background-image: url('https://dashboard.codeparrot.ai/api/image/Z-EbG_8PKu40N2NN/photo-15.png');
+
   background-size: cover;
   background-position: center;
   display: flex;
@@ -17,25 +17,63 @@
   align-items: center;
 }
 
+.form-topic{
+  width: 100%;
+  padding: 10px;
+  align-items: center;
+  align-content: center;
+
+}
+.form-topic h2{
+  text-align: center;
+}
+
+.heading-divider{
+  height: 2px;
+  background-color: #ffffff;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 20px;
+}
+
+.next-button{
+  width: 98%;
+  text-align: end;
+
+}
+
+.per-inf-next-button {
+  padding: 12px 25px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s;
+  margin-left: initial ;
+}
 .form-card {
   background-color: #d9d9d9;
   border-radius: 23px;
   padding: 40px;
-  width: 100%;
-  max-width: 1065px;
-  margin: 75px auto;
+  width: 75%;
+  margin: 10px;
 }
 
 .form-grid {
+  padding: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
+  box-sizing: border-box;
 }
 
 .form-field {
-  display: flex;
+  display: grid;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .form-field.full-width {
@@ -109,4 +147,3 @@ input:focus {
     padding: 20px;
   }
 }
-

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';//encdcd
 import '../style/Header.css';
 function ProfileHeader({ goToHome, goToAccounts, goToSubscription, goToUser }) {
   return (

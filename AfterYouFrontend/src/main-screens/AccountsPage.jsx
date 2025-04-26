@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/AccountsPage.css';
-import AccountCard from './AccountCard'; // 👈 Import the component
+import AccountCard from '../componenets/AccountCard'; // 👈 Import the component
 
 const AccountsPage = () => {
   const defaultAccounts = [
@@ -11,8 +11,8 @@ const AccountsPage = () => {
       profile: 'Shey Silva',
       action: 'Delete'
     },
-    {
-      id: 2, 
+    { 
+      id: 20, 
       platform: 'google',
       icon: 'https://dashboard.codeparrot.ai/api/image/Z-o7rXn5m-GBkPHN/icons-8-g.png',
       profile: 'Shey Silva',

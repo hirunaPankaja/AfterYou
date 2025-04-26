@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../style/SignUpForm.css';
+import logo from '../assets/logo.png';
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -30,9 +31,15 @@ const SignUpForm = () => {
   };
 
   return (
+
     <div className="signup-container">
-      <div className="background-image">
-        <div className="form-card">
+      <div className="background-image" >
+        <div className="form-card" style={{ backgroundImage: `url(${logo})` }}>
+
+          <div className="form-topic">
+            <h2 className="form-heading">Personal Information</h2>
+          </div>
+          <div className="heading-divider"></div>
           <div className="form-grid">
             <div className="form-field">
               <label>First Name</label>
@@ -131,6 +138,10 @@ const SignUpForm = () => {
                 onChange={handleInputChange}
               />
             </div>
+
+          </div>
+          <div className="next-button">
+            <button className="per-inf-next-button" >NEXT </button>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-# 🧾 Digital Death Cleanup Web Application – Final Year Project
+# 🧾 Digital Death Cleanup Web Application – Final Year Project..
 
 > **Securely manage your digital legacy and automate digital asset handling after death.**
 
