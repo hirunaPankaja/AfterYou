@@ -30,7 +30,7 @@ function App() {
         <Route path="/subscription" element={<ProfilePage />} /> {/*user dashboard */}
         <Route path="/executor" element={<Executor />} />{/*m222jijijjij2n*/}
         <Route path="/VerifyDeathCertificate" element={<ExecutorUploadDeathCertificate />} />{/*m222jijijjij2n*/}
-        <Route path="/LastWillStepper" element={<LastWillStepper />} />{/*m222jijijjij2n*/}
+        <Route path="/LastWillStepper" element={<LastWillStepper />} />{/*m2ij2n*/}
 
 
       </Routes>
