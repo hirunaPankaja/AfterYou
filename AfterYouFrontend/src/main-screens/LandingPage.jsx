@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import '../style/LandingPage.css';
 import logo from '../assets/logo.png';
 import useNavigation from "../hooks/useNavigate";
-import SignUpForm from "../popups-screens/SignUpForm";
+import SignUpStep1 from "../popups-screens/SignUpStep1";
 
 const LandingPage = () => {
   const aboutRef = useRef(null);
@@ -41,7 +41,7 @@ const LandingPage = () => {
       <div className="modal-overlay" onClick={handleCloseSignUp}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <button className="close" onClick={handleCloseSignUp}>X</button>
-          <SignUpForm />
+          <SignUpStep1 />
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../style/SignUpForm.css';
+import '../style/SignUpStep1.css';
 import logo from '../assets/logo.png';
 
 const SignUpForm = () => {
