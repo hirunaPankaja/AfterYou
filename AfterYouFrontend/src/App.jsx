@@ -10,7 +10,6 @@ import Login from './popups-screens/Login';
 import PrivacyPolicy from './componenets/PrivacyPolicy';
 import ProfilePage from './main-screens/ProfilePage';
 import AccountsPage from './main-screens/AccountsPage';
-import Executor from './main-screens/Executor';
 import ExecutorUploadDeathCertificate from './main-screens/ExecutorDeathVerify';
 import LastWillStepper from './main-screens/LastWillStepper';
 
