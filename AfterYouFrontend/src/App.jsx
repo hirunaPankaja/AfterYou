@@ -5,12 +5,12 @@ import './App.css';
 import DeathCertificateUpload from './main-screens/DeathCertificateUpload';
 import LandingPage from './main-screens/LandingPage';
 import Home from './main-screens/Home';
-import SignUpForm from './popups-screens/SignUpForm';
+import SignUpStep1 from './popups-screens/SignUpStep1';
 import Login from './popups-screens/Login';
 import PrivacyPolicy from './componenets/PrivacyPolicy';
 import ProfilePage from './main-screens/ProfilePage';
 import AccountsPage from './main-screens/AccountsPage';
-import Executor from './main-screens/Executor';
+
 import ExecutorUploadDeathCertificate from './main-screens/ExecutorDeathVerify';
 import LastWillStepper from './main-screens/LastWillStepper';
 
@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} /> {/*User dashbjjoard*/}
-        <Route path="/signup" element={<SignUpForm />} />{/*User signup*/ }
+        <Route path="/signup" element={<SignUpStep1 />} />{/*User signup*/ }
         <Route path="/privacy-policy" element={<PrivacyPolicy/>} />{/*Privacy policyuhuxhuehd page */}
         <Route path="/login" element={<Login/>} />{/*User login*/}
         <Route path="/profile" element={<ProfilePage />} />{/*User home */}
