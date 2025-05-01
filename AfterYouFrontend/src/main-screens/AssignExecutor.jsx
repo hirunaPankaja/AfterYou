@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../style/AssignExecutor.css";
 import Header from "../components/Header.jsx";
 import AssignLawyer from "../popups-screens/AssignLawyer.jsx";
+import AssignExecutorForm from "../popups-screens/AssignExecutorForm.jsx";
 
 const AssignExecutor = ({
                             title = "Assign Executor",
@@ -31,7 +32,7 @@ const AssignExecutor = ({
                     </button>
 
                     {/* You can later use conditional rendering here if you want to show different UIs */}
-                    <AssignLawyer />
+                    {modalType == "lawyer" ? <AssignLawyer /> : <AssignExecutorForm/>}
                 </div>
             </div>
         );
