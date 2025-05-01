@@ -1,21 +1,17 @@
 
-/* Profile page container */
-.profile-page {
-  min-height: 100vh;
-  padding: 15px 25px;
-  background-color: #dddddd;
-  border-radius: 12px;
-  margin-top: 40px;  
-  overflow: hidden; /* Prevent scrolling */
-  box-sizing: border-box; /* Ensure padding doesn't cause overflow */
-}
-
 /* Main content padding */
 .profile-main-content {
   padding: 0 145px;
   box-sizing: border-box; /* Include padding in width calculations */
   width: 100%; /* Ensure full use of width without causing overflow */
   overflow-x: hidden; /* Prevent horizontal scroll */
+  min-height: 100vh;
+  padding: 15px 25px;
+
+  border-radius: 12px;
+  margin-top: 40px;  
+  overflow: hidden; /* Prevent scrolling */
+  box-sizing: border-box;
 }
 
 /* Greeting text */

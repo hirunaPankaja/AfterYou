@@ -1,116 +1,129 @@
-/* Subscription section styling */
-.subscription-section {
-  background-color: #d9d9d9;
-  border-radius: 18px;
-  padding: 20px;
+/* Flex layout for the main container */
+.dashboard-container {
   display: flex;
-  flex-wrap: wrap; /* Ensure responsiveness */
-  gap: 20px;
-  width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f7f7f7;
+  padding: 20px;
 }
 
-/* Left section with an image */
+/* Main content area */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Subscription section */
+.subscription-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Subscription image */
 .subscription-image {
-  flex: 1;
-  max-width: 450px;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .management-image {
-  width: 100%;
+  max-width: 100%;
   height: auto;
-  max-height: 300px;
-  border-radius: 12px;
   object-fit: cover;
-}
-
-/* Right section with subscription details */
-.subscription-list {
-  flex: 2;
-  min-width: 300px;
+  border-radius: 10px;
 }
 
 /* Subscription title */
 .subscription-title {
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-/* Divider styling */
+/* Divider */
 .divider {
   height: 2px;
-  background-color: #ddd;
-  margin: 15px 0;
+  background-color: #e0e0e0;
+  margin-bottom: 20px;
 }
 
-/* Subscription card styling (same as account card) */
+/* Grid for subscription cards */
+.subscription-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Subscription card */
 .subscription-card {
-  display: flex;
-  align-items: center;
   background-color: #ffffff;
-  border-radius: 15px;
-  padding: 15px;
-  margin-bottom: 15px;
-  width: 100%;
-  max-width: 600px; /* Prevent excessive stretching */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-/* Hover effect for subscription card */
-.subscription-card:hover {
-  transform: scale(1.02);
-}
-
-/* Subscription service icon */
-.service-icon {
-  width: 50px;
-  height: 50px;
-}
-
-/* Subscription details */
-.subscription-details {
-  margin-left: 15px;
-  flex: 1;
-}
-
-/* Subscription text styling (same as detail row) */
-.subscription-text {
-  font-family: 'Odor Mean Chey', serif;
-  font-size: 12px;
-  color: #696969;
-  margin: 5px 0;
+  border: 1px solid #e4e6ef;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.2s ease;
   text-align: center;
 }
 
-/* Subscription action buttons */
+.subscription-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Service icon inside subscription card */
+.service-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Profile text below the service icon */
+.profile-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Action buttons (Edit and Delete) */
 .subscription-actions {
   display: flex;
   gap: 10px;
 }
 
-/* Subscription action button styling */
-.subscription-btn {
-  background: none;
-  border: none;
+.action-button {
+  background-color: none;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
   cursor: pointer;
-  padding: 5px;
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
 }
 
-.subscription-btn:hover {
-  transform: scale(1.1);
+.edit-btn:hover {
+  background-color: #007bff;
+  color: white;
 }
 
-/* Subscription button icon */
-.subscription-btn img {
-  width: 25px;
-  height: 25px;
+.delete-btn:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Ensuring responsiveness */
+@media (max-width: 768px) {
+  .subscription-cards-grid {
+    grid-template-columns: 1fr;
+  }
 }
