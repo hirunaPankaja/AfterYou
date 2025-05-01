@@ -1,5 +1,5 @@
 import React, { useState } from 'react';  //encdcdde
-import ProfileHeader from '../componenets/Header';
+import ProfileHeader from '../components/Header';
 import Accounts from '../main-screens/AccountsPage';
 import '../style/Home.css';
 import ProfilePage from './ProfilePage';

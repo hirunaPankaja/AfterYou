@@ -1,0 +1,49 @@
+.assign-lawyer-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.assign-lawyer-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+. {
+    margin-bottom: 16px;
+}
+
+.assign-lable-lable {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.assign-lawyer-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.assign-lawyer-submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1d4ed8;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.assign-lawyer-submit-button:hover {
+    background-color: #2563eb;
+}

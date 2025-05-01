@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/AccountsPage.css';
-import AccountCard from '../componenets/AccountCard'; // Make sure the path is correct
+import AccountCard from '../components/AccountCard'; // Make sure the path is correct
 
 // ✅ Define 3 dummy account objects
 const defaultAccounts = [
