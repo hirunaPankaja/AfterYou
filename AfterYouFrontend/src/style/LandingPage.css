@@ -351,3 +351,10 @@ nav a:hover {
   box-shadow: none;
   max-width: 100%;
 }
+
+.close{
+  padding: 5px;
+}
+.close:hover{
+  background-color: rgba(207, 36, 36, 0.67);
+}

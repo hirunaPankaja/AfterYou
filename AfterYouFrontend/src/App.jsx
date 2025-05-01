@@ -12,6 +12,7 @@ import ProfilePage from './main-screens/ProfilePage';
 import AccountsPage from './main-screens/AccountsPage';
 import AssignExecutor from "./main-screens/AssignExecutor.jsx";
 import AssignLawyer from "./popups-screens/AssignLawyer.jsx";
+import AssignExecutorForm from "./main-screens/AssignExecutorForm.jsx";
 import ExecutorUploadDeathCertificate from './main-screens/ExecutorDeathVerify';
 import LastWillStepper from './main-screens/LastWillStepper';
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/accounts" element={<AccountsPage />} />{/*User account page */}
         <Route path="/executors" element={<AssignExecutor />} />     {/*executor */}
         <Route path="/assign-lawyer" element={<AssignLawyer />} />
+        <Route path="/assign-executor" element={<AssignExecutorForm />} />
         <Route path="/user" element={<ProfilePage />} /> {/*user dashboard */}
         <Route path="/subscription" element={<ProfilePage />} /> {/*user dashboard */}
         <Route path="/executor" element={<Executor />} />{/*m222jijijjij2n*/}

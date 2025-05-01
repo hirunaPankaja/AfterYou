@@ -16,12 +16,13 @@ const AssignLawyer = () => {
     };
 
     return (
-        <div>
+        <div className="assign-modal-content">
 
             <div className="assign-lawyer-container">
                 <h1 className="assign-lawyer-title">Assign Lawyer</h1>
 
-                <div className="assign-lawyer-container">
+                <div className="divider" />
+                <div className="assign-lawyer-content">
                     <label className="assign-lawyer-lable">Lawyer Name</label>
                     <input
                         type="text"
@@ -31,7 +32,7 @@ const AssignLawyer = () => {
                     />
                 </div>
 
-                <div className="assign-lawyer-container">
+                <div className="assign-lawyer-content">
                     <label className="assign-lawyer-lable">Lawyer Email</label>
                     <input
                         type="email"
@@ -41,7 +42,7 @@ const AssignLawyer = () => {
                     />
                 </div>
 
-                <div className="assign-lawyer-container">
+                <div className="assign-lawyer-content">
                     <label className="assign-lawyer-lable">Lawyer Contact</label>
                     <input
                         type="text"

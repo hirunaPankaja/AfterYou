@@ -1,18 +1,18 @@
-.assign-lawyer-container {
+.assign-executorform-container {
     max-width: 600px;
     margin: 10px auto;
     padding: 10px;
     border-radius: 12px;
 }
 
-.assign-lawyer-content{
+.assign-executorform-content{
     margin: 10px auto;
     padding: 10px;
     border-radius: 12px;
     max-width: 600px;
 }
 
-.assign-lawyer-title {
+.assign-executorform-title {
     font-size: 28px;
     font-weight: bold;
     margin-top: 2px;
@@ -28,12 +28,7 @@
     padding: 20px;
 }
 
-.executoeform-chechbox{
-    max-width: 2px;
-    height: 8px;
-}
-
-.assign-lowyer-lable {
+.assign-executorform-lable {
     display: block;
     margin-bottom: 8px;
     display: block;
@@ -45,8 +40,7 @@
     text-align: left;
 }
 
-
-.assign-lawyer-input {
+.assign-executorform-input {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
@@ -62,7 +56,7 @@
     padding: 5px;
 }
 
-.assign-lawyer-submit-button {
+.assign-executorform-submit-button {
     width: 30%;
     padding: 12px;
     background-color: #000000;
@@ -80,7 +74,7 @@
 }
 
 
-.assign-lawyer-submit-button:hover {
+.assign-executorform-submit-button:hover {
     background-color: #FF6262;
 }
 
