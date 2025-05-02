@@ -30,7 +30,7 @@
 }
 .content-container {
  width: 100%;
-  max-width: 1200px; /* Set a max width for the content */
+  /* Set a max width for the content */
   margin: 0 auto; /* Center the content */
   padding: 20px; /* Add some padding */
   background-color: #fff; /* White background for the content area */

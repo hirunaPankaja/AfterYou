@@ -64,9 +64,11 @@ const AssignExecutorForm = () => {
                     />
                 </div>
 
-                <div className="executorform-checkbox">
+                <div className="executorform-input">
                     <label className="assign-executorform-lable">Executor Verification</label>
-                    <input className="executorform-checkbox" type="checkbox"/>
+                    <div className="executorform-checkbox">
+                        <input className="executorform-checkbox-input" type="checkbox"/>  Send Verification Email to Executor
+                    </div>
                 </div>
 
                 <button className="assign-executorform-submit-button" onClick={handleSubmit}>

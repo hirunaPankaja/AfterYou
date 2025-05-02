@@ -81,3 +81,23 @@
 .closs:hover{
     background-color: #fb0303;
 }
+
+.executorform-checkbox {
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+    padding: 8px 8%; /* Adds padding around the checkbox */
+    border: none;
+    border-radius: 5px; /* Rounds the corners */
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}
+
+.executorform-checkbox input {
+    width: 20px; /* Adjust width for the checkbox */
+    height: 20px; /* Adjust height for the checkbox */
+    margin-right: 8px; /* Adds space between checkbox and label */
+}
+
+.executorform-lable {
+    margin: 0; /* Removes default margin */
+}
