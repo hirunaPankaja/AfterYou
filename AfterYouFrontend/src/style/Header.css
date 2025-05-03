@@ -41,7 +41,7 @@
 }
 
 .user-name {
-  font-weight: 700;
+  font-weight: 70;
   font-size: 13px;
 }
 
@@ -53,24 +53,38 @@
   position: absolute;
   top: 70px;
   right: 20px;
-  background: #7d9d9c;
+  background: #dbdfde;
   border-radius: 16px;
   box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
   width: 260px;
   padding: 16px;
   z-index: 1000;
   color: black;
-  font-family: Arial, sans-serif;
 }
 
 .popup-header {
   text-align: center;
-  background: #356c6c;
+  background: #606161;
   border-radius: 12px;
-  padding: 16px;
+  padding: 16px;  
   color: white;
 }
+.popup-header h4 {
+  margin: 8px 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
+  color: #333;
+}
+
+.popup-header p {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  font-size: 14px;
+  color: #ffffff;
+}
 .popup-avatar {
   width: 60px;
   height: 60px;
@@ -83,13 +97,13 @@
   padding: 12px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 2px;
   cursor: pointer;
   font-size: 14px;
 }
 
 .popup-option:hover {
-  background-color: #6b8f8f;
+  background-color: #b2bbbb;
   border-radius: 8px;
 }
 

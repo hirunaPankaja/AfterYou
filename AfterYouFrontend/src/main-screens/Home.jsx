@@ -1,9 +1,9 @@
-import React, { useState } from 'react';  //encdcdde
+import React, { useState } from 'react';
 import ProfileHeader from '../components/Header';
 import Accounts from '../main-screens/AccountsPage';
-import '../style/Home.css';
 import ProfilePage from './ProfilePage';
 import SubscriptionDashboard from './SubscriptionDashboard';
+import '../style/Home.css';
 
 function Home() {
   const [activePage, setActivePage] = useState('home');
@@ -25,7 +25,14 @@ function Home() {
 
   const goToUser = (e) => {
     e.preventDefault();
-    setActivePage('user');
+    setActivePage('profile');
+  };
+
+  // Function to refresh the current page content
+  const refreshPage = () => {
+    // You can implement specific refresh logic here
+    console.log(`Refreshing ${activePage} page content`);
+    // For example, you could re-fetch data for the current page
   };
 
   let content;
@@ -36,21 +43,24 @@ function Home() {
     case 'subscription':
       content = <SubscriptionDashboard />;
       break;
-    case 'user':
+    case 'profile':
       content = <UserProfile />;
       break;
     default:
-      content = <ProfilePage/>;
+      content = <ProfilePage />;
   }
 
   return (
     <div className="home-container">
       <ProfileHeader
+        activePage={activePage}
+        refreshPage={refreshPage}
         goToHome={goToHome}
         goToAccounts={goToAccounts}
         goToSubscription={goToSubscription}
         goToUser={goToUser}
       />
+
       <div className="content-container">
         {content}
       </div>
