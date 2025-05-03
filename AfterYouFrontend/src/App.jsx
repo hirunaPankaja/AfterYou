@@ -13,8 +13,11 @@ import AccountsPage from './main-screens/AccountsPage';
 import AssignExecutor from "./main-screens/AssignExecutor.jsx";
 import AssignLawyer from "./popups-screens/AssignLawyer.jsx";
 import AssignExecutorForm from "./main-screens/AssignExecutorForm.jsx";
+
 import ExecutorUploadDeathCertificate from './main-screens/ExecutorDeathVerify';
 import LastWillStepper from './main-screens/LastWillStepper';
+import AccountForm from './popups-screens/AddAccount.jsx';
+import ExecutorForm from './popups-screens/AddSubscription.jsx';
 
 function App() {
   return (
@@ -35,6 +38,8 @@ function App() {
         <Route path="/executor" element={<Executor />} />{/*m222jijijjij2n*/}
         <Route path="/VerifyDeathCertificate" element={<ExecutorUploadDeathCertificate />} />{/*m222jijijjij2n*/}
         <Route path="/LastWillStepper" element={<LastWillStepper />} />{/*m2ij2n*/}
+        <Route path="/accountform" element={<AccountForm />} />{/*m222jijijjij2n*/}
+        <Route path="/subscriptionForm" element={<ExecutorForm />} />{/*m222jijijjij2n*/}
 
 
       </Routes>

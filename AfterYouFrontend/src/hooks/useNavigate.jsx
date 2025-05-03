@@ -39,6 +39,14 @@ const useNavigation = () => {
     navigate("/deathdertificateupload");
   }
 
+  const goToAccountForm = () => {
+    navigate("/accountform");
+  } 
+
+  const goToSubscriptionForm = () => {
+    navigate("/subscriptionform");
+  }
+
   return {
     goToLogin,
     goToPrivacy,
@@ -48,7 +56,9 @@ const useNavigation = () => {
     goToUser,
     goToHome,
     goToDeathCertificateUpload,
-    goToSubscription
+    goToSubscription,
+    goToAccountForm,
+    goToSubscriptionForm
   };
 };
 
