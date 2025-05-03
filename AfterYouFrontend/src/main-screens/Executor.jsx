@@ -1,21 +1,20 @@
-
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import React from 'react'; 
+import { useNavigate } from 'react-router-dom';
 import '../style/Executor.css';
+
 const Executor = ({ 
   userName = "Max",
   assignedWill = {
-    name: "Shey Silva's Last will",
+    name: "Shey Silva's Last Will",
     date: "25-03-2025",
     avatarUrl: "https://dashboard.codeparrot.ai/api/image/Z-pCHwz4-w8v6RrF/icons-8-m-2.png"
   }
 }) => {
 
   const navigate = useNavigate(); 
-  
+
   const handleCardClick = () => {
-    navigate('/deathcertificateupload'); // Navigate to the page on click
+    navigate('/deathcertificateupload'); 
   };
 
   return (
@@ -26,17 +25,17 @@ const Executor = ({
       </header>
 
       <main className="main-content">
-        <div className="welcome-section">
+        <section className="welcome-section">
           <h2 className="welcome-heading">Welcome, {userName}</h2>
-          <h3 className="executor-title">You're assigned as a executor,</h3>
+          <h3 className="executor-title">You have been assigned as an executor.</h3>
           <p className="instructions">
-            Follow their predefined preferences and ensure their digital assets are handled securely.
+            Follow predefined preferences and ensure digital assets are handled securely.
           </p>
-        </div>
+        </section>
 
         <div className="divider"></div>
 
-        <div className="will-card">
+        <div className="will-card" onClick={handleCardClick} role="button" tabIndex={0}>
           <img 
             src={assignedWill.avatarUrl} 
             alt="Profile" 
@@ -44,7 +43,7 @@ const Executor = ({
           />
           <div className="will-details">
             <h4 className="will-title">{assignedWill.name}</h4>
-            <p className="assigned-date">Assigned date | {assignedWill.date}</p>
+            <p className="assigned-date">Assigned Date: {assignedWill.date}</p>
           </div>
         </div>
       </main>
@@ -53,4 +52,3 @@ const Executor = ({
 };
 
 export default Executor;
-
