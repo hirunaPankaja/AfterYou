@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Executor from './main-screens/Executor'; 
@@ -13,16 +14,21 @@ import AccountsPage from './main-screens/AccountsPage';
 import AssignExecutor from "./main-screens/AssignExecutor.jsx";
 import AssignLawyer from "./popups-screens/AssignLawyer.jsx";
 import AssignExecutorForm from "./main-screens/AssignExecutorForm.jsx";
-
 import ExecutorUploadDeathCertificate from './main-screens/ExecutorDeathVerify';
 import LastWillStepper from './main-screens/LastWillStepper';
 import AccountForm from './popups-screens/AddAccount.jsx';
 import ExecutorForm from './popups-screens/AddSubscription.jsx';
+import Executor from './main-screens/Executor';
+import DeathCertificateUpload from './main-screens/DeathCertificateUpload';
+import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
+import './App.css';
+
 
 function App() {
   return (
     <Router>
       <Routes>
+
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} /> {/*User dashbjjoard*/}
         <Route path="/signup" element={<SignUpStep1 />} />{/*User signup*/ }
@@ -40,11 +46,15 @@ function App() {
         <Route path="/LastWillStepper" element={<LastWillStepper />} />{/*m2ij2n*/}
         <Route path="/accountform" element={<AccountForm />} />{/*m222jijijjij2n*/}
         <Route path="/subscriptionForm" element={<ExecutorForm />} />{/*m222jijijjij2n*/}
-
-
+        <Route path="/" element={<Executor />} /> {/* Set Executor as default page */}
+        <Route path="/executors" element={<Executor />} />
+        <Route path="/deathcertificateupload" element={<DeathCertificateUpload />} /> {/* Corrected spelling */}
+        <Route path="/executorExecutingProcess" element={<ExecutorExecutingProcess />} />
+        <Route path="*" element={<div>Page Not Found</div>} /> {/* Fallback for undefined routes */}
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
