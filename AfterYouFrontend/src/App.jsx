@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Executor from './main-screens/Executor'; 
@@ -55,4 +54,3 @@ function App() {
 }
 
 export default App;
-
