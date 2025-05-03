@@ -1,11 +1,11 @@
 /* Base styles remain unchanged */
 .welcome-executor {
-  width: 96%;
-  height: 92vh; /* Ensures it fits the viewport height */
+  width: 100%;
+  height: 100vh;
   background-color: #dddddd;
-  padding: 20px 30px;
+  padding: 50px 50px;
   font-family: 'Odor Mean Chey', serif;
-  overflow: hidden; /* Removes scrolling if elements exceed the viewport */
+  overflow: hidden;
 }
 
 .header {
@@ -34,9 +34,9 @@
   margin-top: 60px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center-align content */
-  justify-content: space-between; /* Distribute content */
-  height: calc(100vh - 160px); /* Adjust to fit space excluding header */
+  align-items: center;
+  justify-content: space-between;
+  height: calc(100vh - 160px);
 }
 
 .welcome-section {
@@ -63,14 +63,14 @@
 }
 
 .divider {
-  width: 80%; /* Relative width for flexibility */
+  width: 80%;
   height: 2px;
   background-color: #ffffff;
   margin: 35px auto;
 }
 
 .will-card {
-  width: 450px; /* Scaled size for proper fit */
+  width: 450px;
   height: 120px;
   background-color: #6c6c6c;
   border-radius: 15px;
@@ -110,41 +110,41 @@
   margin: 0;
 }
 
-/* Media queries for 1920x1080 resolution */
-@media screen and (min-width: 1920px) and (min-height: 1080px) {
+/* Responsive Design for max-width: 768px */
+@media screen and (max-width: 768px) {
   .welcome-executor {
-    padding: 25px 40px;
-    height: 100vh; /* Adjust height dynamically */
+    width: 90%;
+    padding: 25px;
+  }
+
+  .title {
+    font-size: 32px;
   }
 
   .main-content {
-    height: calc(100vh - 160px); /* Ensures no scrollbars appear */
-  }
-
-  .divider {
-    width: 75%; /* Adjusted divider size */
-  }
-
-  .will-card {
-    width: 500px; /* Enhanced size for space utilization */
-    height: 140px;
+    margin-top: 30px;
   }
 
   .welcome-heading {
-    font-size: 42px;
-  }
-
-  .executor-title {
     font-size: 28px;
   }
 
+  .executor-title {
+    font-size: 20px;
+  }
+
   .instructions {
-    font-size: 24px;
-    max-width: 1000px;
+    font-size: 18px;
+    max-width: 600px;
+  }
+
+  .will-card {
+    width: 90%;
+    height: 100px;
   }
 
   .profile-image {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
   }
 }
