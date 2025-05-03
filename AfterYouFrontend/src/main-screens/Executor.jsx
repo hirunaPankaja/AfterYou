@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import React from 'react'; //feffl
 import '../style/Executor.css';
 
 const Executor = ({ 
@@ -16,7 +14,7 @@ const Executor = ({
   const navigate = useNavigate(); 
   
   const handleCardClick = () => {
-    navigate('/deathdertificateupload'); // Navigate to the page on click
+    navigate('/deathcertificateupload'); // Navigate to the page on click
   };
 
   return (

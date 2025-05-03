@@ -36,7 +36,7 @@ const useNavigation = () => {
   }
 
   const goToDeathCertificateUpload = () => {  
-    navigate("/deathdertificateupload");
+    navigate("/deathcertificateupload");
   }
 
   return {
