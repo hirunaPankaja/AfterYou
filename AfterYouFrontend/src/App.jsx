@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Executor from './main-screens/Executor'; 
 import './App.css';
 import DeathCertificateUpload from './main-screens/DeathCertificateUpload';
 import LandingPage from './main-screens/LandingPage';
@@ -19,7 +17,6 @@ import LastWillStepper from './main-screens/LastWillStepper';
 import AccountForm from './popups-screens/AddAccount.jsx';
 import ExecutorForm from './popups-screens/AddSubscription.jsx';
 import Executor from './main-screens/Executor';
-import DeathCertificateUpload from './main-screens/DeathCertificateUpload';
 import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
 import './App.css';
 

@@ -3,53 +3,23 @@ import { useNavigate } from "react-router-dom";
 const useNavigation = () => {
   const navigate = useNavigate();
 
-  const goToLogin = () => {
-    navigate("/login");
+  const goToLogin = () => navigate("/login");
+  const goToPrivacy = () => navigate("/privacy-policy");
+  const goToProfile = () => navigate("/profile");
+  const goToHome = () => navigate("/home");
+  const goToAccounts = () => navigate("/accounts");
+  const goToExecutors = () => navigate("/executors");
+  const goToUser = () => navigate("/user");
+  const goToSubscription = () => navigate("/subscription");
+  const goToDeathCertificateUpload = () => navigate("/deathcertificateupload");
+  const goToAccountForm = () => navigate("/accountform");
+  const goToSubscriptionForm = () => navigate("/subscriptionform");
+  const goToExecutorExecutingProcess = () => navigate("/executorExecutingProcess");
+  const goToAssignExecutor = () => navigate("/assignexecutor");
+
+  const refreshPage = () => {
+    window.location.reload(); // Assuming you meant this
   };
-
-  const goToPrivacy = () => {
-    navigate("/privacy-policy");
-  };
-
-  const goToProfile = () => {
-    navigate("/profile");
-  }
-
-  const goToHome = () => {
-    navigate("/home");
-  } 
-
-  const goToAccounts = () => {
-    navigate("/accounts");
-  }
-
-  const goToExecutors = () => {
-    navigate("/executors");
-  }
-
-  const goToUser = () => {
-    navigate("/user");
-  }
-
-  const goToSubscription = () => {  
-    navigate("/subscription");
-  }
-
-  const goToDeathCertificateUpload = () => {  
-    navigate("/deathcertificateupload");
-  }
-
-  const goToAccountForm = () => {
-    navigate("/accountform");
-  } 
-
-  const goToSubscriptionForm = () => {
-    navigate("/subscriptionform");
-
-  const goToExecutorExecutingProcess = () => {  
-    navigate("/executorExecutingProcess");
-
-  }
 
   return {
     goToLogin,
@@ -62,12 +32,11 @@ const useNavigation = () => {
     goToDeathCertificateUpload,
     goToSubscription,
     goToAccountForm,
+    goToAssignExecutor,
+    refreshPage,
     goToSubscriptionForm,
     goToExecutorExecutingProcess,
-    goToSubscription
-
   };
 };
-}
 
 export default useNavigation;
