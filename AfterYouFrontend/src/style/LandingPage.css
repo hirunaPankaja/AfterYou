@@ -226,6 +226,8 @@ nav a:hover {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  text-align: start;
+  padding: 80px;
 }
 
 .step {
@@ -233,18 +235,49 @@ nav a:hover {
   align-items: center;
   gap: 30px;
   padding: 30px;
-  background-color: #f8f8f8;
+
+}
+
+
+.step-content-left{
+  flex: 1;
+  margin-right: 20%;
+}
+.step-content-right{
+  flex: 1;
+  margin-left: 20%;
+}
+.step-content h3 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+
+}
+
+.step-content-left p {
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 16px;
+  padding-top: 20px;
+  text-align: justify;
+}
+
+.step-content-right p {
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 16px;
+  padding-top: 20px;
+  text-align: justify;
 }
 
 .landing-page-image {
-  width: 35%;
+  width: 45%;
   height: 1%;
   max-height: 300px;
   border-radius: 8px;
   overflow: hidden;
-  justify-items: center;
-  align-items: center;
-  text-align: center;
 }
 
 .landing-page-image img:hover {
@@ -256,38 +289,6 @@ nav a:hover {
   height: 100%;
   object-fit: revert;
   transition: transform 0.3s ease;
-}
-
-.step-number {
-  min-width: 50px;
-  height: 50px;
-  background: #4CAF50;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.step-content{
-  flex: 1;
-  background-color: #4CAF50;
-}
-.step-content h3 {
-  font-size: 1.6rem;
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
-.step-content p {
-  color: #555;
-  line-height: 1.6;
-  margin: 0;
-  font-size: 16px;
-
 }
 
 /* Footer Styles */
