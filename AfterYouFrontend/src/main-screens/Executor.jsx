@@ -1,6 +1,8 @@
-import React from 'react'; //feffl
-import '../style/Executor.css';
 
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React from 'react'; 
+import '../style/Executor.css';
 const Executor = ({ 
   userName = "Max",
   assignedWill = {
@@ -9,6 +11,13 @@ const Executor = ({
     avatarUrl: "https://dashboard.codeparrot.ai/api/image/Z-pCHwz4-w8v6RrF/icons-8-m-2.png"
   }
 }) => {
+
+  const navigate = useNavigate(); 
+  
+  const handleCardClick = () => {
+    navigate('/deathcertificateupload'); // Navigate to the page on click
+  };
+
   return (
     <div className="welcome-executor">
       <header className="header">

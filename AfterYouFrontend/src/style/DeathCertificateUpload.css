@@ -1,167 +1,141 @@
-
-/* Container styling */
-.death-certificate-container {
+/* Main container */
+.certificate-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 40px;
   max-width: 1100px;
   margin: 50px auto;
-  background: rgb(226, 224, 224);
+  background: #e2e0e0;
   border-radius: 15px;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* Left section styling */
-.left-section {
-  width: 60%;
-  padding: 1%;
+/* Upload Section */
+.upload-section {
+  width: 55%;
+  padding: 20px;
 }
 
-.left-section h2 {
-  font-size: 2rem;
+.section-title {
+  font-size: 1.8rem;
   margin-bottom: 15px;
   color: #1f2937;
   border-bottom: 2px solid #4f46e5;
   padding-bottom: 5px;
 }
 
-.left-section form {
+.certificate-form {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 }
 
-.left-section label {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 20%; 
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  font-size: 1rem;
+  font-weight: bold;
   color: #4b5563;
 }
 
-
-.left-section input[type="text"],
-.left-section input[type="date"],
-.left-section input[type="file"] {
+.certificate-input {
   padding: 10px;
-  margin-left: 2%;
   font-size: 1rem;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   background: #f9fafb;
-  transition: all 0.3s ease;
+  transition: 0.3s ease-in-out;
 }
 
-.left-section input[type="text"]:focus,
-.left-section input[type="date"]:focus,
-.left-section input[type="file"]:focus {
-  outline: none;
+.certificate-input:focus {
   border-color: #4f46e5;
   box-shadow: 0 0 8px rgba(79, 70, 229, 0.2);
+  outline: none;
 }
 
-.left-section button[type="submit"] {
-  padding: 14px;
+.submit-button {
+  padding: 12px;
   font-size: 1rem;
-  background-color: #2d2d2f;
+  background-color: #000000;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
-.left-section button[type="submit"]:hover {
-  background-color: #3730a3;
+.submit-button:hover {
+  background-color: #4c4343;
 }
 
-/* Right section styling */
-.right-section {
-  width: 50%;
-  padding: 35px;
+/* Approval Section */
+.approval-section {
+  width: 40%;
+  padding: 30px;
   background-color: #f9fafb;
   border-radius: 15px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.05);
 }
 
-/* Status Styling */
+.review-text {
+  font-size: 1rem;
+  color: #666;
+}
+
 .status-container {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 10px;
 }
 
 .status-indicator {
   font-size: 1.3rem;
-  color: #eab308; /* Yellow for Pending status */
+  margin-bottom: 2%;
+  color: #eab308;
 }
 
 .status-indicator.approved {
-  color: #10b981; /* Green for Approved status */
+  color: #10b981;
 }
 
-.status-value {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #4b5563;
-}
-
-/* Expected Processing Time Styling */
-.processing-time-container {
+.processing-container {
   display: flex;
+  margin-top: 2%;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 15px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  background: #ffffff;
-  margin-top: 10px;
 }
 
-.processing-time-label {
+.processing-label {
   font-size: 1rem;
+  margin-bottom: 4%;
   font-weight: bold;
-  color: #4b5563;
-  margin-bottom: 8px;
-  margin-left: -4%;
- 
-}
-
-.processing-time-value {
-  font-size: 1rem;
-  font-weight: normal;
-  color: #1f2937;
-  margin-left: 43%;
 }
 
 .loading-bar {
   width: 100%;
   height: 6px;
   background: #e5e7eb;
+  
   border-radius: 5px;
-  overflow: hidden;
 }
 
 .loading-fill {
-  width: 0;
   height: 100%;
   background: #4f46e5;
   border-radius: 5px;
 }
 
-/* Done Button Styling */
+/* Done Button */
 .done-button {
-  padding: 14px;
-  font-size: 1rem;
-  background-color: #10b981;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 15px;
+  padding: 12px;
   margin-left: 42%;
+  margin-top: 5%;
+  font-size: 1rem;
+  background-color: #10b943;
+  color: rgb(255, 255, 255);
+  border-radius: 8px;
 }
 
 .done-button:hover {
@@ -169,152 +143,6 @@
 }
 
 .done-button[disabled] {
-  background-color: #d1d5db;
+  background-color: #d9dbd1;
   cursor: not-allowed;
 }
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .death-certificate-container {
-    flex-direction: column;
-    padding: 20px;
-  }
-
-  .left-section,
-  .right-section {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-}
-
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background: #e4e4e4;
-    border-radius: 20px;
-    padding: 40px 20px 80px 20px;
-    margin: 30px auto;
-    max-width: 1100px;
-    position: relative;
-  }
-  
-  .panel {
-    background: #f7f7f7;
-    border-radius: 18px;
-    padding: 30px 40px;
-    width: 48%;
-    box-sizing: border-box;
-  }
-  
-  .left-panel h2,
-  .right-panel h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  form label {
-    display: block;
-    margin-top: 18px;
-    margin-bottom: 6px;
-    font-size: 1rem;
-  }
-  
-  form input[type="text"],
-  form input[type="date"],
-  .file-upload input[type="file"] {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    font-size: 1rem;
-  }
-  
-  .file-upload {
-    display: flex;
-    align-items: center;
-  }
-  
-  .camera-icon {
-    margin-left: 8px;
-    font-size: 1.2rem;
-    color: #888;
-  }
-  
-  .submit-btn {
-    margin-top: 18px;
-    padding: 10px 36px;
-    border-radius: 16px;
-    background: #000;
-    color: #fff;
-    border: none;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .right-panel p {
-    margin-bottom: 30px;
-    color: #444;
-  }
-  
-  .status-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .status-row span:first-child {
-    width: 180px;
-    font-size: 1rem;
-  }
-  
-  .status-indicator {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border-radius: 8px;
-    padding: 2px 14px;
-    margin-left: 12px;
-    font-size: 1rem;
-  }
-  
-  .dot {
-    width: 14px;
-    height: 14px;
-    background: #ffeb3b;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 8px;
-    border: 1px solid #ddd;
-  }
-  
-  .processing-time {
-    width: 80px;
-    margin-left: 12px;
-    padding: 6px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background: #fff;
-    font-size: 1rem;
-    text-align: center;
-  }
-  
-  .done-btn {
-    position: absolute;
-    left: 50%;
-    bottom: 22px;
-    transform: translateX(-50%);
-    padding: 12px 48px;
-    border-radius: 18px;
-    background: #000;
-    color: #fff;
-    border: none;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-
