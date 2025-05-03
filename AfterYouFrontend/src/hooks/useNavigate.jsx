@@ -45,6 +45,10 @@ const useNavigation = () => {
 
   const goToSubscriptionForm = () => {
     navigate("/subscriptionform");
+
+  const goToExecutorExecutingProcess = () => {  
+    navigate("/executorExecutingProcess");
+
   }
 
   return {
@@ -58,8 +62,12 @@ const useNavigation = () => {
     goToDeathCertificateUpload,
     goToSubscription,
     goToAccountForm,
-    goToSubscriptionForm
+    goToSubscriptionForm,
+    goToExecutorExecutingProcess,
+    goToSubscription
+
   };
 };
+}
 
 export default useNavigation;

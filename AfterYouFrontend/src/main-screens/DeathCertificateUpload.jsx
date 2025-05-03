@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../style/DeathCertificateUpload.css';
 
 const DeathCertificateUpload = () => {
@@ -9,11 +10,13 @@ const DeathCertificateUpload = () => {
   const [processingTime, setProcessingTime] = useState('48 hrs');
   const [loadingWidth, setLoadingWidth] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
+  
+  const navigate = useNavigate(); // Initialize navigation
 
   useEffect(() => {
     if (isProcessing) {
-      const totalTimeInMilliseconds = 5000; // Simulated backend response time
-      const updateInterval = 100; // Update every 100ms
+      const totalTimeInMilliseconds = 5000; 
+      const updateInterval = 100; 
       const increment = 100 / (totalTimeInMilliseconds / updateInterval);
 
       const loadingInterval = setInterval(() => {
@@ -37,7 +40,7 @@ const DeathCertificateUpload = () => {
     setLoadingWidth(0);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulated API call
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       setStatus('Approved');
     } catch (error) {
       console.error('Error:', error);
@@ -49,6 +52,12 @@ const DeathCertificateUpload = () => {
 
   const handleFileChange = (e) => {
     setDeathCertificate(e.target.files[0]);
+  };
+
+  const handleDoneClick = () => {
+    if (status === 'Approved') {
+      navigate('/executorExecutingProcess'); // Navigate on button click
+    }
   };
 
   return (
@@ -107,7 +116,13 @@ const DeathCertificateUpload = () => {
             </div>
           )}
         </div>
-        <button className="done-button" disabled={status !== 'Approved'}>Done</button>
+        <button 
+          className="done-button" 
+          disabled={status !== 'Approved'}
+          onClick={handleDoneClick} 
+        >
+          Done
+        </button>
       </div>
     </div>
   );
