@@ -51,6 +51,13 @@ const useNavigation = () => {
 
   }
 
+  const goToAssignExecutor = () => {
+    navigate("/assignexecutor");
+  }
+
+  const refreshPage = () =>
+     setRefreshCounter(prev => prev + 1);
+
   return {
     goToLogin,
     goToPrivacy,
@@ -62,9 +69,11 @@ const useNavigation = () => {
     goToDeathCertificateUpload,
     goToSubscription,
     goToAccountForm,
-    goToSubscriptionForm,
-    goToExecutorExecutingProcess,
-    goToSubscription
+    goToAssignExecutor,
+    refreshPage,
+    goToSubscriptionForm
+
+
 
   };
 };

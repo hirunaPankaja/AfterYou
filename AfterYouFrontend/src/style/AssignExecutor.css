@@ -2,10 +2,9 @@
 /* Profile page container */
 .assign-executor-container {
   min-height: 100vh;
-  padding: 15px 25px;
-  background-color: #dddddd;
+  padding: 1px 1px;
   border-radius: 12px;
-  margin-top: 40px;
+  margin-top: 0px;
   overflow: hidden; /* Prevent scrolling */
   box-sizing: border-box; /* Ensure padding doesn't cause overflow */
 }
@@ -15,14 +14,14 @@
   font-family: 'IBM Plex Sans Thai Looped', sans-serif;
   font-weight: 700;
   font-size: 24px;
-  margin: 15px 0;
+  margin: 1px 0;
 }
 
 .divider {
   width: 95%;
   height: 2px;
   background-color: #fff;
-  margin: 20px auto;
+  margin: 2px auto;
 }
 
 .warning-text {
@@ -30,7 +29,7 @@
   text-align: center;
   color: #b62810;
   font-size: 14px;
-  margin: 20px auto;
+  margin: 2px auto;
   line-height: 1.5;
 }
 
@@ -38,7 +37,7 @@
   display: flex;
   justify-content: center;
   gap: 160px;
-  margin: 40px 0;
+  margin: 20px 0;
 }
 
 .family-member-container {

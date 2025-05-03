@@ -18,8 +18,6 @@ import ExecutorUploadDeathCertificate from './main-screens/ExecutorDeathVerify';
 import LastWillStepper from './main-screens/LastWillStepper';
 import AccountForm from './popups-screens/AddAccount.jsx';
 import ExecutorForm from './popups-screens/AddSubscription.jsx';
-import Executor from './main-screens/Executor';
-import DeathCertificateUpload from './main-screens/DeathCertificateUpload';
 import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
 import './App.css';
 

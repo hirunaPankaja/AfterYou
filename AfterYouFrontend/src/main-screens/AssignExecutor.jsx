@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../style/AssignExecutor.css";
-import Header from "../components/Header.jsx";
 import AssignLawyer from "../popups-screens/AssignLawyer.jsx";
 import AssignExecutorForm from "../popups-screens/AssignExecutorForm.jsx";
 
@@ -39,9 +38,7 @@ const AssignExecutor = ({
     };
 
     return (
-        <div>
-            <Header />
-
+      
             <div className="assign-executor-container">
                 <h1 className="title">{title}</h1>
                 <div className="divider"></div>
@@ -76,11 +73,8 @@ const AssignExecutor = ({
                         <span className="option-text">Add Executor</span>
                     </div>
                 </div>
+                <ModalContent />
             </div>
-
-            {/* Render modal if needed */}
-            <ModalContent />
-        </div>
     );
 };
 
