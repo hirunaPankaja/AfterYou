@@ -1,9 +1,5 @@
 import React from 'react';
-
-import { useNavigate } from 'react-router-dom';
-
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-
 import '../style/Executor.css';
 
 const Executor = ({ 
