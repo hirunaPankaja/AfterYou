@@ -1,131 +1,79 @@
-/* Page container to ensure full height and central alignment */
-.page-container {
-  width: 100%;
-  min-height: 100vh; /* Full viewport height */
-  background-color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box; /* Include padding in width/height calculations */
-  overflow-x: hidden; /* Prevent horizontal scroll */
-}
 
-/* Main content container */
-.main-content {
-  width: 100%;
-  max-width: 100%; /* Prevent excessive stretching */
-  padding: 0 40px;
-  box-sizing: border-box; /* Include padding in width calculations */
-}
-
-/* Content wrapper for flex layout and responsiveness */
+/* Flex layout */
 .content-wrapper {
   display: flex;
-  flex-wrap: wrap; /* Ensure responsiveness */
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
   background-color: #ffffff;
-  border-radius: 18px;
-  padding: 20px;
-  width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 30px;
+
 }
 
-/* Left section with responsive image */
+/* Left section */
 .left-section {
   flex: 1;
-  max-width: 450px; /* Adjust width to fit content */
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 300px;
 }
 
 .social-media-image {
   width: 100%;
-  height: auto;
-  max-height: 300px; /* Prevent image from being too large */
-  border-radius: 12px;
+  height: 105%;
+  max-width: 400px;
+  max-height: 500px;
   object-fit: cover;
+  border-radius: 15px;
 }
 
-/* Right section with flexibility */
+/* Right section */
 .right-section {
   flex: 2;
-  min-width: 300px;
+  min-width: 700px;
 }
 
-/* Section title style */
+/* Title */
 .section-title {
-  font-weight: 700;
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-bottom: 15px;
 }
 
-/* Divider between sections */
+/* Divider */
 .divider {
   height: 2px;
-  background-color: #ddd;
-  margin: 15px 0;
+  background-color: #e0e0e0;
+  margin-bottom: px;
 }
 
-/* Account card styling */
+.account-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px; /* or even 4px */
+
+}
+
+
+/* Account card */
 .account-card {
+  background-color: #ffffff;
+  border: 1px solid #e4e6ef;
+  border-radius: 12px;
+  padding: 2px;
   display: flex;
   align-items: center;
-  background-color: #d9d9d9;
-  border-radius: 15px;
-  padding: 15px;
-  margin-bottom: 15px;
-  width: 100%;
-  max-width: 600px; /* Prevent excessive stretching */
-  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.2s ease;
 }
 
-/* Platform icon size */
-.platform-icon {
-  width: 50px;
-  height: 50px;
+.account-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Account details section styling */
-.account-details {
-  margin-left: 15px;
-  flex: 1;
-}
 
-/* Detail row text styling */
-.detail-row {
-  font-family: 'Odor Mean Chey', serif;
-  font-size: 12px;
-  color: #696969;
-  margin: 5px 0;
-  text-align: center;
-}
 
-/* Action button styling */
-.action-buttons {
-  display: flex;
-  gap: 10px;
-}
 
-/* Action button styles with hover effect */
-.action-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-  transition: transform 0.2s;
-}
-
-.action-btn:hover {
-  transform: scale(1.1);
-}
-
-/* Image size within action buttons */
-.action-btn img {
-  width: 25px;
-  height: 25px;
-}

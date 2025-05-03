@@ -1,0 +1,89 @@
+.assign-lawyer-container {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.assign-lawyer-content{
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 12px;
+    max-width: 600px;
+}
+
+.assign-lawyer-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 2px;
+    text-align: center;
+}
+.modal-content{
+    position: relative;
+    background-color: #C5C0C0;
+    width: 50%;
+    max-height: 90vh;
+    border-radius: 10px;
+    overflow: auto;
+    padding: 20px;
+}
+
+.executoeform-chechbox{
+    max-width: 2px;
+    height: 8px;
+}
+
+.assign-lowyer-lable {
+    display: block;
+    margin-bottom: 8px;
+    display: block;
+    font-family: 'Mplus 1p Bold', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+
+.assign-lawyer-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.divider{
+    margin-bottom: 30px;
+}
+
+.closs{
+    padding: 5px;
+}
+
+.assign-lawyer-submit-button {
+    width: 30%;
+    padding: 12px;
+    background-color: #000000;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-left: auto; /* Optional: Adjust margin for centering */
+    margin-right: auto; /* Optional: Adjust margin for centering */
+}
+
+
+.assign-lawyer-submit-button:hover {
+    background-color: #FF6262;
+}
+
+.closs:hover{
+    background-color: #fb0303;
+}

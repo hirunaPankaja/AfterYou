@@ -28,6 +28,15 @@
   width: 100%; /* Full width */
   max-width: 100vw; /* Ensure no horizontal overflow */
 }
+.content-container {
+ width: 100%;
+  /* Set a max width for the content */
+  margin: 0 auto; /* Center the content */
+  padding: 20px; /* Add some padding */
+  background-color: #fff; /* White background for the content area */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
 /* Navigation styling inside Header */
 .nav-container {

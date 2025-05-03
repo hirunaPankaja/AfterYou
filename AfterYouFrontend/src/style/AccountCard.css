@@ -1,0 +1,108 @@
+.account-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 10px;
+  max-width: 280px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  color: #333;
+  transition: transform 0.2s;
+}
+
+.account-card:hover {
+  transform: scale(1.02);
+}
+.verticle-divider {
+  width: 3px; /* thin vertical line */
+  background-color: #e0e0e0;
+  height: 30px; /* Set a fixed height */
+  margin: 0 15px; /* optional horizontal spacing */
+  align-self: center; /* centers the divider vertically within the flex container */
+}
+
+
+
+.account-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.platform-icon {
+  font-size: 10px; /* reduced from 20px */
+  margin-bottom: 3px;
+  width: 30px; /* reduced from 48px */
+  height: 30px; /* reduced from 48px */
+}
+
+.platform-name {
+  font-size: 9px; /* slightly reduced */
+  font-weight: 300;
+  text-align: center;
+}
+
+.account-body p {
+  margin: 3px 0;
+  font-size: 11px;
+  font-weight: 400;
+  color: #686565;
+
+}
+
+.account-actions {
+  position: absolute;
+  bottom: 30px;
+  right: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.action-button {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px; /* reduced from 18px */
+  color: #888;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.action-button:hover {
+  color: #000;
+}
+
+.edit-btn:hover {
+  color: #007bff;
+}
+
+.delete-btn:hover {
+  color: #dc3545;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: max-content;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 4px 6px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  font-size: 10px; /* reduced */
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+
+.action-button:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}

@@ -49,3 +49,50 @@
   width: 40px;
   height: 40px;
 }
+.profile-popup {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background: #7d9d9c;
+  border-radius: 16px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  width: 260px;
+  padding: 16px;
+  z-index: 1000;
+  color: black;
+  font-family: Arial, sans-serif;
+}
+
+.popup-header {
+  text-align: center;
+  background: #356c6c;
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+}
+
+.popup-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: white;
+  margin-bottom: 8px;
+}
+
+.popup-option {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.popup-option:hover {
+  background-color: #6b8f8f;
+  border-radius: 8px;
+}
+
+.logout {
+  color: red;
+}

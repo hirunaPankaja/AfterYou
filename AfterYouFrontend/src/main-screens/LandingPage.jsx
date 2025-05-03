@@ -1,8 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import '../style/LandingPage.css';
 import logo from '../assets/logo.png';
+import landingpage_1 from '../assets/landingpage_1.png';
+import landingpage_2 from '../assets/landingpage_2.png';
+import landingpage_3 from '../assets/landingpage_3.png';
+import landingpage_4 from '../assets/landingpage_4.png';
+import landingpage_5 from '../assets/landingpage_5.png';
 import useNavigation from "../hooks/useNavigate";
-import SignUpForm from "../popups-screens/SignUpForm";
+import SignUpStep1 from "../popups-screens/SignUpStep1";
 
 const LandingPage = () => {
   const aboutRef = useRef(null);
@@ -41,7 +46,7 @@ const LandingPage = () => {
       <div className="modal-overlay" onClick={handleCloseSignUp}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <button className="close" onClick={handleCloseSignUp}>X</button>
-          <SignUpForm />
+          <SignUpStep1 />
         </div>
       </div>
     );
@@ -65,7 +70,8 @@ const LandingPage = () => {
           <p>Ensuring your digital legacy is protected, secure, and managed according to your wishes.</p>
           <button className="signup" onClick={handleOpenSignUp}>Get Started →</button>
         </div>
-        <div className="hero-image">📦</div>
+        <div className="hero-image">📦
+        </div>
       </section>
 
       <section className="about" ref={aboutRef}>
@@ -90,39 +96,43 @@ const LandingPage = () => {
         <h2>How It Works</h2>
         <div className="steps">
           <div className="step">
-            <div className="step-number">1</div>
-            <div className="step-content">
-              <h3>Sign Up & Secure Your Data</h3>
-              <p>Create an account and securely store your online assets, including social media accounts, cloud storage, financial accounts, and digital documents, using advanced encryption.</p>
+            <div className="step-content-left">
+              <h3>1 Sign Up & Secure Your Data</h3>
+              <p> Create an account and securely store your online assets, including social media accounts, cloud storage, financial accounts, and digital documents, using advanced encryption.</p>
+            </div>
+            <div className="landing-page-image"><img src={landingpage_1} alt="LandingPageImage" /></div>
+          </div>
+
+          <div className="step">
+            <div className="landing-page-image"><img src={landingpage_2} alt="LandingPageImage" /></div>
+            <div className="step-content-right">
+              <h3>2 Assign a Trusted Executor</h3>
+              <p>Select a reliable family member or friend who will be responsible for managing your digital assets in the event of your passing, ensuring your wishes are carried out smoothly.</p>
             </div>
           </div>
+
           <div className="step">
-            <div className="step-number">2</div>
-            <div className="step-content">
-              <h3>Assign a Trusted Executor</h3>
-              <p>Select a reliable family member or friend who will be responsible for managing your digital assets in the event of your passing.</p>
-            </div>
-          </div>
-          <div className="step">
-            <div className="step-number">3</div>
-            <div className="step-content">
-              <h3>Set Your Account Preferences</h3>
+            <div className="step-content-left">
+              <h3>3 Set Your Account Preferences</h3>
               <p>Specify what should happen to each of your accounts, whether they should be permanently deleted, converted into a memorial, or transferred to a designated beneficiary.</p>
             </div>
+            <div className="landing-page-image"><img src={landingpage_3} alt="LandingPageImage" /></div>
+          </div>
+
+          <div className="step">
+            <div className="landing-page-image"><img src={landingpage_4} alt="LandingPageImage" /></div>
+            <div className="step-content-right">
+              <h3>4 Regular Updates</h3>
+              <p> Keep your digital legacy up to date by reviewing and confirming your stored information every 1-2 years to ensure all account details and executor preferences remain relevant.</p>
+            </div>
+
           </div>
           <div className="step">
-            <div className="step-number">4</div>
-            <div className="step-content">
-              <h3>Regular Updates</h3>
-              <p>Keep your digital legacy up to date by reviewing and confirming your stored information every 1-2 years.</p>
+            <div className="step-content-left">
+              <h3>5 Execution After Death</h3>
+              <p> When the time comes, your executor will go through a secure verification process before receiving the necessary access to execute your final digital will according to your instructions.</p>
             </div>
-          </div>
-          <div className="step">
-            <div className="step-number">5</div>
-            <div className="step-content">
-              <h3>Execution After Death</h3>
-              <p>When the time comes, your executor will go through a secure verification process before receiving the necessary access to execute your final digital will.</p>
-            </div>
+            <div className="landing-page-image"><img src={landingpage_5} alt="LandingPageImage" /></div>
           </div>
         </div>
       </section>

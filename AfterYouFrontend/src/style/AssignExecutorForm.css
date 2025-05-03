@@ -1,0 +1,103 @@
+.assign-executorform-container {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.assign-executorform-content{
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 12px;
+    max-width: 600px;
+}
+
+.assign-executorform-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 2px;
+    text-align: center;
+}
+.modal-content{
+    position: relative;
+    background-color: #C5C0C0;
+    width: 50%;
+    max-height: 90vh;
+    border-radius: 10px;
+    overflow: auto;
+    padding: 20px;
+}
+
+.assign-executorform-lable {
+    display: block;
+    margin-bottom: 8px;
+    display: block;
+    font-family: 'Mplus 1p Bold', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.assign-executorform-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.divider{
+    margin-bottom: 30px;
+}
+
+.closs{
+    padding: 5px;
+}
+
+.assign-executorform-submit-button {
+    width: 30%;
+    padding: 12px;
+    background-color: #000000;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-left: auto; /* Optional: Adjust margin for centering */
+    margin-right: auto; /* Optional: Adjust margin for centering */
+}
+
+
+.assign-executorform-submit-button:hover {
+    background-color: #FF6262;
+}
+
+.closs:hover{
+    background-color: #fb0303;
+}
+
+.executorform-checkbox {
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+    padding: 8px 8%; /* Adds padding around the checkbox */
+    border: none;
+    border-radius: 5px; /* Rounds the corners */
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}
+
+.executorform-checkbox input {
+    width: 20px; /* Adjust width for the checkbox */
+    height: 20px; /* Adjust height for the checkbox */
+    margin-right: 8px; /* Adds space between checkbox and label */
+}
+
+.executorform-lable {
+    margin: 0; /* Removes default margin */
+}
