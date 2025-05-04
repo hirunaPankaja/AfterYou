@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../style/ExecutorExecutingProcess.css';
 
 const ExecutorExecutingProcess = () => {
+  const navigate = useNavigate(); // Initialize navigation function
+
+  const handleDoneClick = () => {
+    navigate('/executor-home'); // Redirect to Executor Home page
+  };
+
   return (
     <div className="process-container">
       <h1 className="process-title">Executing Last Will</h1>
@@ -42,7 +49,7 @@ const ExecutorExecutingProcess = () => {
           <span className="step-check"><div className="check-circle">✔</div></span>
         </div>
       </div>
-      <button className="complete-button">Done</button>
+      <button className="complete-button" onClick={handleDoneClick}>Done</button> {/* Added onClick event */}
     </div>
   );
 };
