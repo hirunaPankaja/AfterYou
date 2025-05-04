@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SignUpStep2() {
+function ExecutorSignUpStep2() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function SignUpStep2() {
   )
 }
 
-export default SignUpStep2
+export default ExecutorSignUpStep2

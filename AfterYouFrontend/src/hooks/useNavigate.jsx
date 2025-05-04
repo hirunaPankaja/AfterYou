@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const useNavigation = () => {
   const navigate = useNavigate();
 
-  const goToLogin = () => navigate("/login");
+  const goToLogin = (role = "user") => navigate(`/login/${role}`);
   const goToPrivacy = () => navigate("/privacy-policy");
   const goToProfile = () => navigate("/profile");
   const goToHome = () => navigate("/home");
