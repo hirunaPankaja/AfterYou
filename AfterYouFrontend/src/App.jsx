@@ -31,7 +31,7 @@ function App() {
         <Route path="/home" element={<Home />} /> {/*User dashbjjoard*/}
         <Route path="/signup" element={<SignUpStep1 />} />{/*User signup*/ }
         <Route path="/privacy-policy" element={<PrivacyPolicy/>} />{/*Privacy policyuhuxhuehd page */}
-        <Route path="/login" element={<Login/>} />{/*User login*/}
+        <Route path="/login/user" element={<Login/>} />{/*User login*/}
         <Route path="/profile" element={<ProfilePage />} />{/*User home */}
         <Route path="/accounts" element={<AccountsPage />} />{/*User account page */}
         <Route path="/executors" element={<AssignExecutor />} />     {/*executor */}
