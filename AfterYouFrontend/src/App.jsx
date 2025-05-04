@@ -19,6 +19,8 @@ import ExecutorForm from './popups-screens/AddSubscription.jsx';
 import Executor from './main-screens/Executor';
 import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
 import ExecutorHome from './main-screens/ExecutorHome.jsx';
+import ForgotPassword from "./main-screens/ForgotPassword.jsx";
+import UserProfile from './popups-screens/UserProfile.jsx';
 import './App.css';
 
 
@@ -49,6 +51,8 @@ function App() {
         <Route path="/deathcertificateupload" element={<DeathCertificateUpload />} /> {/* Corrected spelling */}
         <Route path="/executorExecutingProcess" element={<ExecutorExecutingProcess />} />
         <Route path="/executor-home" element={<ExecutorHome />} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/user-profile" component={UserProfile} />
         <Route path="*" element={<div>Page Not Found</div>} /> {/* Fallback for undefined routes */} 
       </Routes>
     </Router>

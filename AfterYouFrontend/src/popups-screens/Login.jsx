@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Step 1: Import Link from react-router-dom
 import logo from '../assets/logo.png'; // Adjust the path as necessary
 import useNavigation from '../hooks/useNavigate';
 import '../style/Login.css';
@@ -67,7 +68,8 @@ const Login = () => {
               </span>
               </div>
               <div className="forgot-password">
-                <a href="/forgot-password">Forgot password?</a>
+                {/* Step 2: Replace anchor tag with Link */}
+                <Link to="/forgot-password">Forgot password?</Link>
               </div>
             </div>
 
