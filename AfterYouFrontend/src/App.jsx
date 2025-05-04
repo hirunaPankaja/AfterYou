@@ -18,6 +18,7 @@ import AccountForm from './popups-screens/AddAccount.jsx';
 import ExecutorForm from './popups-screens/AddSubscription.jsx';
 import Executor from './main-screens/Executor';
 import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
+import ExecutorHome from './main-screens/ExecutorHome.jsx';
 import './App.css';
 
 
@@ -47,7 +48,8 @@ function App() {
         <Route path="/executors" element={<Executor />} />
         <Route path="/deathcertificateupload" element={<DeathCertificateUpload />} /> {/* Corrected spelling */}
         <Route path="/executorExecutingProcess" element={<ExecutorExecutingProcess />} />
-        <Route path="*" element={<div>Page Not Found</div>} /> {/* Fallback for undefined routes */}
+        <Route path="/executor-home" element={<ExecutorHome />} />
+        <Route path="*" element={<div>Page Not Found</div>} /> {/* Fallback for undefined routes */} 
       </Routes>
     </Router>
   );
