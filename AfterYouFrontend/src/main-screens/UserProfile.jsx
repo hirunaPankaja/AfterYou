@@ -1,16 +1,24 @@
 import React from "react";
 import "../style/UserProfile.css";
-import { FaUserCircle } from "react-icons/fa"; // Using react-icons for the default profile icon
+import { FaUserCircle, FaPen } from "react-icons/fa";
 
 const UserProfile = () => {
     return (
         <div className="profile-container">
             <div className="user-profile-header">
-                <div className="profile-photo">
+                <div className="profile-photo-container">
                     <FaUserCircle className="default-icon" />
+                    <button className="edit-icon photo-edit">
+                        <FaPen size={12} />
+                    </button>
                 </div>
                 <div className="profile-info">
-                    <h1>Shey Silva</h1>
+                    <div className="name-edit-container">
+                        <h1>Shey Silva</h1>
+                        <button className="edit-icon">
+                            <FaPen size={12} />
+                        </button>
+                    </div>
                     <div className="profile-subheader">
                         Female - 26 years <span className="nic">200072348138</span>
                     </div>
@@ -19,35 +27,92 @@ const UserProfile = () => {
 
             <div className="details-container">
                 <div className="user-details">
-                    <h2>Date Of Birth</h2>
-                    <p>17/08/2000</p>
+                    <div className="editable-field">
+                        <h2>Date Of Birth</h2>
+                        <div className="field-value">
+                            <p>17/08/2000</p>
+                            <button className="edit-icon">
+                                <FaPen size={12} />
+                            </button>
+                        </div>
+                    </div>
 
-                    <h2>Address</h2>
-                    <p>761, Park Street, Colombo 08.</p>
+                    <div className="editable-field">
+                        <h2>Address</h2>
+                        <div className="field-value">
+                            <p>761, Park Street, Colombo 08.</p>
+                            <button className="edit-icon">
+                                <FaPen size={12} />
+                            </button>
+                        </div>
+                    </div>
 
-                    <h2>Contacts</h2>
-                    <p>
-                        Email : Siva@gmail.com<br />
-                        Mobile : 077 8564632
-                    </p>
+                    <div className="editable-field">
+                        <h2>Contacts</h2>
+                        <div className="field-value">
+                            <p>
+                                Email : Siva@gmail.com<br />
+                                Mobile : 077 8564632
+                            </p>
+                            <button className="edit-icon">
+                                <FaPen size={12} />
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="vertical-divider"></div>
 
                 <div className="executor-details">
-                    <h2>Executor Details</h2>
-                    <p><strong>Name</strong><br />
-                        Damian Smith</p>
+                    <div className="executor-topic">
+                        <h1>Executor Details</h1>
+                    </div>
+                    <div className="horizontal-divider"></div>
 
-                    <p><strong>Date Of Birth</strong><br />
-                        17/08/2010</p>
+                    <div className="executor-details-container">
+                        <div className="editable-field">
+                            <h2>Name</h2>
+                            <div className="field-value">
+                                <p>Damian Smith</p>
+                                <button className="edit-icon">
+                                    <FaPen size={12} />
+                                </button>
+                            </div>
+                        </div>
 
-                    <p><strong>NIC</strong><br />
-                        200072348138</p>
+                        <div className="editable-field">
+                            <h2>Date Of Birth</h2>
+                            <div className="field-value">
+                                <p>17/08/2010</p>
+                                <button className="edit-icon">
+                                    <FaPen size={12} />
+                                </button>
+                            </div>
+                        </div>
 
-                    <p><strong>Contacts</strong><br />
-                        Email : Siva@gmail.com<br />
-                        Mobile : 077 8564632</p>
+                        <div className="editable-field">
+                            <h2>NIC</h2>
+                            <div className="field-value">
+                                <p>200072348138</p>
+                                <button className="edit-icon">
+                                    <FaPen size={12} />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="editable-field">
+                            <h2>Contact</h2>
+                            <div className="field-value">
+                                <p>
+                                    Email : Siva@gmail.com<br />
+                                    Mobile : 077 8564632
+                                </p>
+                                <button className="edit-icon">
+                                    <FaPen size={12} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
