@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ProfileHeader from '../components/Header';
 import Accounts from '../main-screens/AccountsPage';
 import ProfilePage from './ProfilePage';
+import UserProfile from '../main-screens/UserProfile.jsx';
 import SubscriptionDashboard from './SubscriptionDashboard';
 import '../style/Home.css';
 
@@ -23,9 +24,9 @@ function Home() {
     setActivePage('subscription');
   };
 
-  const goToUser = (e) => {
+  const goToUserProfile = (e) => {
     e.preventDefault();
-    setActivePage('profile');
+    setActivePage('user-profile');
   };
 
   // Function to refresh the current page content
@@ -43,7 +44,7 @@ function Home() {
     case 'subscription':
       content = <SubscriptionDashboard />;
       break;
-    case 'profile':
+    case 'user-profile':
       content = <UserProfile />;
       break;
     default:
@@ -58,7 +59,7 @@ function Home() {
         goToHome={goToHome}
         goToAccounts={goToAccounts}
         goToSubscription={goToSubscription}
-        goToUser={goToUser}
+        goToUserProfile={goToUserProfile}
       />
 
       <div className="content-container">
