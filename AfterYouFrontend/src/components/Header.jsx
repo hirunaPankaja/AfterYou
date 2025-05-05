@@ -5,7 +5,7 @@ function ProfileHeader({
   goToHome,
   goToAccounts,
   goToSubscription,
-  goToUser,
+  goToUserProfile,
   activePage,
   refreshPage
 }) {
@@ -46,10 +46,10 @@ function ProfileHeader({
       />
 
       <nav className="profile-navigation">
-        <a href="#" className={`nav-link ${activePage === 'home' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'home', goToHome)}>Home</a>
-        <a href="#" className={`nav-link ${activePage === 'accounts' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'accounts', goToAccounts)}>Accounts</a>
+        <a href="#home" className={`nav-link ${activePage === 'home' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'home', goToHome)}>Home</a>
+        <a href="#account" className={`nav-link ${activePage === 'accounts' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'accounts', goToAccounts)}>Accounts</a>
         <a href="#" className={`nav-link ${activePage === 'subscription' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'subscription', goToSubscription)}>Subscription</a>
-        <a href="#" className={`nav-link ${activePage === 'profile' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'profile', goToUser)}>Profile</a>
+        <a href="#" className={`nav-link ${activePage === 'user-profile' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'user-profile', goToUserProfile)}>Profile</a>
       </nav>
 
       <div className="user-info" onClick={togglePopup}>

@@ -35,7 +35,6 @@
   padding: 20px; /* Add some padding */
   background-color: #fff; /* White background for the content area */
   border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 /* Navigation styling inside Header */

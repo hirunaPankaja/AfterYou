@@ -20,7 +20,7 @@ import Executor from './main-screens/Executor';
 import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
 import ExecutorHome from './main-screens/ExecutorHome.jsx';
 import ForgotPassword from "./main-screens/ForgotPassword.jsx";
-import UserProfile from './popups-screens/UserProfile.jsx';
+import UserProfile from './main-screens/UserProfile.jsx';
 import './App.css';
 
 
