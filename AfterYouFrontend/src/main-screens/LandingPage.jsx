@@ -44,9 +44,12 @@ const LandingPage = () => {
 
   const handleOpenSignUp = (e) => {
     e.preventDefault();
-    setNextAction("signup");
-    setIsRoleModalOpen(true);
+    setNextAction("signup"); 
+    setIsModalOpen(true);  // Opens sign-up modal directly
+    setStep(1);
+    document.body.style.overflow = "hidden";
   };
+  
 
   const handleRoleSelected = (role) => {
     setSelectedRole(role);
@@ -74,27 +77,16 @@ const LandingPage = () => {
   const prevStep = () => setStep((prev) => prev - 1);
 
   const RenderSignUpForms = () => {
-    if (selectedRole === "user") {
-      switch (step) {
-        case 1:
-          return <SignUpStep1 onNext={nextStep} />;
-        case 2:
-          return <SignUpStep2 onBack={prevStep} onClose={handleCloseModal} />;
-        default:
-          return null;
-      }
-    } else if (selectedRole === "executor") {
-      switch (step) {
-        case 1:
-          return <ExecutorSignUpStep1 onNext={nextStep} />;
-        case 2:
-          return <ExecutorSignUpStep2 onBack={prevStep} onClose={handleCloseModal} />;
-        default:
-          return null;
-      }
+    switch (step) {
+      case 1:
+        return <SignUpStep1 onNext={nextStep} />;
+      case 2:
+        return <SignUpStep2 onBack={prevStep} onClose={handleCloseModal} />;
+      default:
+        return null;
     }
-    return null;
   };
+  
 
   const RenderLoginForm = () => {
     if (selectedRole === "user") {
@@ -104,18 +96,18 @@ const LandingPage = () => {
     }
     return null;
   };
-
+  
   const AuthModal = () => {
-    if (!isModalOpen) return null;
+    if (!isModalOpen) return null; 
     return (
-      <div className="modal-overlay" onClick={handleCloseModal}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <button className="close" onClick={handleCloseModal}>X</button>
+      <div className="landing-model-overlay" onClick={handleCloseModal}>
+        <div className="landing-model-content" onClick={(e) => e.stopPropagation()}>
           {nextAction === "signup" ? RenderSignUpForms() : RenderLoginForm()}
         </div>
       </div>
     );
   };
+  
 
   return (
     <div className="landing-page">
