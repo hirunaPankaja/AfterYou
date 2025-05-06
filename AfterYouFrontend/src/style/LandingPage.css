@@ -330,43 +330,39 @@ nav a:hover {
   background-color: #333;
 }
 /* Modal Overlay Styles */
-.modal-overlay {
+/* Modal Overlay Styles */
+.landing-model-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: transparent;
-  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
   display: flex;
   justify-content: center;
-  align-items: center;
-  z-index: 2000; /* Higher than header */
+  z-index: 2000;
 }
 
-.modal-content {
+/* Centered Transparent Modal */
+.landing-model-content {
   position: relative;
   background-color: transparent;
-  width: 80%;
+  width: 50%;
   max-height: 90vh;
   border-radius: 10px;
   overflow: auto;
-  padding: 1px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.modal-close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #333;
-  z-index: 2001;
-}
 
-.modal-close-btn:hover {
+.landing-model-close-btn:hover {
   color: #ff6b6b;
 }
+
 
 /* Adjust the signup form to fit nicely in the modal */
 .modal-content .signup-container {
@@ -385,4 +381,41 @@ nav a:hover {
 }
 .close:hover{
   background-color: rgba(207, 36, 36, 0.67);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 80px 5%;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .signup {
+    padding: 10px 20px;
+  }
+
+  .hero-image {
+    font-size: 5rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .landing-model-content {
+    width: 80%;
+    padding: 15px;
+  }
+
+  .footer-links a {
+    font-size: 0.9rem;
+  }
 }
