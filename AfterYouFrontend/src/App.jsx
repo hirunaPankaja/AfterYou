@@ -21,6 +21,7 @@ import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
 import ExecutorHome from './main-screens/ExecutorHome.jsx';
 import ForgotPassword from "./main-screens/ForgotPassword.jsx";
 import UserProfile from './main-screens/UserProfile.jsx';
+import ChangePassword from "./popups-screens/ChangePassword.jsx";
 import './App.css';
 
 
@@ -52,6 +53,7 @@ function App() {
         <Route path="/executorExecutingProcess" element={<ExecutorExecutingProcess />} />
         <Route path="/executor-home" element={<ExecutorHome />} />
         <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/change-password" element={ChangePassword} />
         <Route path="/user-profile" component={UserProfile} />
         <Route path="*" element={<div>Page Not Found</div>} /> {/* Fallback for undefined routes */} 
       </Routes>
