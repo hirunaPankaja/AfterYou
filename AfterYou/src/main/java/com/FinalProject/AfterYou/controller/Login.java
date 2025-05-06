@@ -1,0 +1,13 @@
+package com.FinalProject.AfterYou.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class Login {
+@GetMapping("/")
+    public String hellow(){
+        return("efhej");
+
+    }
+}
