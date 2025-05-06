@@ -382,3 +382,40 @@ nav a:hover {
 .close:hover{
   background-color: rgba(207, 36, 36, 0.67);
 }
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 80px 5%;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .signup {
+    padding: 10px 20px;
+  }
+
+  .hero-image {
+    font-size: 5rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .landing-model-content {
+    width: 80%;
+    padding: 15px;
+  }
+
+  .footer-links a {
+    font-size: 0.9rem;
+  }
+}
