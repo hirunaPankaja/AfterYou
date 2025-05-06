@@ -8,3 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepo extends JpaRepository<UserCredentials, Integer> {
     UserCredentials findByEmail(String email);
 }
+
+
+// plain -> hash1 -> hash2
