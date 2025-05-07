@@ -31,15 +31,15 @@ const SignUpForm = ({ onNext }) => {
   };
 
   return (
-    <div className="signup-container">
-      <div className="background-image">
-        <div className="form-card" style={{ backgroundImage: `url(${logo})` }}>
-          <div className="form-topic">
-            <h2 className="form-heading">Personal Information</h2>
+    <div className="usersignup-container">
+      <div className="usersignup-background-image">
+        <div className="usersignup-form-card">
+          <div className="usersignup-form-topic">
+            <h2 className="usersignup-form-heading">Personal Information</h2>
           </div>
-          <div className="heading-divider"></div>
-          <div className="form-grid">
-            <div className="form-field">
+          <div className="usersignup-heading-divider"></div>
+          <div className="usersignup-form-grid">
+            <div className="usersignup-form-field">
               <label>First Name</label>
               <input
                 type="text"
@@ -49,7 +49,7 @@ const SignUpForm = ({ onNext }) => {
               />
             </div>
 
-            <div className="form-field">
+            <div className="usersignup-form-field">
               <label>Last Name</label>
               <input
                 type="text"
@@ -59,7 +59,7 @@ const SignUpForm = ({ onNext }) => {
               />
             </div>
 
-            <div className="form-field">
+            <div className="usersignup-form-field">
               <label>Email</label>
               <input
                 type="email"
@@ -69,7 +69,7 @@ const SignUpForm = ({ onNext }) => {
               />
             </div>
 
-            <div className="form-field">
+            <div className="usersignup-form-field">
               <label>Date of Birth</label>
               <input
                 type="date"
@@ -79,7 +79,7 @@ const SignUpForm = ({ onNext }) => {
               />
             </div>
 
-            <div className="form-field">
+            <div className="usersignup-form-field">
               <label>Phone Number</label>
               <input
                 type="tel"
@@ -89,7 +89,7 @@ const SignUpForm = ({ onNext }) => {
               />
             </div>
 
-            <div className="form-field">
+            <div className="usersignup-form-field">
               <label>Nationality</label>
               <input
                 type="text"
@@ -99,7 +99,7 @@ const SignUpForm = ({ onNext }) => {
               />
             </div>
 
-            <div className="form-field">
+            <div className="usersignup-form-field">
               <label>Address</label>
               <input
                 type="text"
@@ -109,19 +109,19 @@ const SignUpForm = ({ onNext }) => {
               />
             </div>
 
-            <div className="form-field">
+            <div className="usersignup-form-field">
               <label>Gender</label>
-              <div className="gender-buttons">
+              <div className="usersignup-gender-buttons">
                 <button
                   type="button"
-                  className={`gender-button ${formData.gender === 'female' ? 'active' : ''}`}
+                  className={`usersignup-gender-button ${formData.gender === 'female' ? 'active' : ''}`}
                   onClick={() => handleGenderChange('female')}
                 >
                   Female
                 </button>
                 <button
                   type="button"
-                  className={`gender-button ${formData.gender === 'male' ? 'active' : ''}`}
+                  className={`usersignup-gender-button ${formData.gender === 'male' ? 'active' : ''}`}
                   onClick={() => handleGenderChange('male')}
                 >
                   Male
@@ -129,7 +129,7 @@ const SignUpForm = ({ onNext }) => {
               </div>
             </div>
 
-            <div className="form-field full-width">
+            <div className="usersignup-form-field usersignup-full-width">
               <label>Emergency Contact No</label>
               <input
                 type="tel"
@@ -139,8 +139,8 @@ const SignUpForm = ({ onNext }) => {
               />
             </div>
           </div>
-          <div className="next-button">
-            <button className="signup-step1-submit-btn" onClick={onNext}>Next</button>
+          <div className="usersignup-next-button">
+            <button className="usersignup-step1-submit-btn" onClick={onNext}>Next</button>
           </div>
         </div>
       </div>
@@ -149,4 +149,3 @@ const SignUpForm = ({ onNext }) => {
 };
 
 export default SignUpForm;
-
