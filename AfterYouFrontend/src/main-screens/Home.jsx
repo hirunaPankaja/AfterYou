@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProfileHeader from '../components/Header';
 import Accounts from '../main-screens/AccountsPage';
+import ChangePassword from "../popups-screens/ChangePassword.jsx";
 import ProfilePage from './ProfilePage';
 import UserProfile from '../main-screens/UserProfile.jsx';
 import SubscriptionDashboard from './SubscriptionDashboard';
@@ -24,6 +25,10 @@ function Home() {
     setActivePage('subscription');
   };
 
+  const goToChangePassword = (e) => {
+    e.preventDefault();
+    setActivePage('changePassword');
+  };
   const goToUserProfile = (e) => {
     e.preventDefault();
     setActivePage('user-profile');
@@ -47,8 +52,12 @@ function Home() {
     case 'user-profile':
       content = <UserProfile />;
       break;
+    case 'changePassword':
+      content = <ChangePassword />;
+      break;
     default:
       content = <ProfilePage />;
+
   }
 
   return (
@@ -60,6 +69,7 @@ function Home() {
         goToAccounts={goToAccounts}
         goToSubscription={goToSubscription}
         goToUserProfile={goToUserProfile}
+        goToChangePassword={goToChangePassword}
       />
 
       <div className="content-container">
