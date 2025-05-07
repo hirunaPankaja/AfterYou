@@ -155,27 +155,80 @@ const LandingPage = () => {
       <section className="how-it-works" ref={howItWorksRef}>
         <h2>How It Works</h2>
         <div className="steps">
-          {[landingpage_1, landingpage_2, landingpage_3, landingpage_4, landingpage_5].map((img, index) => (
-            <div className="step" key={index}>
-              <div className={`step-content-${index % 2 === 0 ? "left" : "right"}`}>
-                <h3>{index + 1} {[
-                  "Sign Up & Secure Your Data",
-                  "Assign a Trusted Executor",
-                  "Set Your Account Preferences",
-                  "Regular Updates",
-                  "Execution After Death"
-                ][index]}</h3>
-                <p>{[
-                  "Create an account and securely store your online assets using advanced encryption.",
-                  "Select someone responsible for managing your assets when needed.",
-                  "Specify what should happen to your accounts after your passing.",
-                  "Keep your legacy updated by reviewing it every 1–2 years.",
-                  "Your executor gets access after a secure verification to carry out your wishes."
-                ][index]}</p>
-              </div>
-              <div className="landing-page-image"><img src={img} alt={`Step ${index + 1}`} /></div>
+          <div className="step">
+            <div className="step-content-left">
+              <h3>1. <strong>Sign Up & Secure Your Data</strong></h3>
+              <p>
+                Create an account and securely store your online assets, including social media accounts,
+                cloud storage, financial accounts, and digital documents, using advanced encryption.
+              </p>
             </div>
-          ))}
+            <div className="step-content-right">
+              <div className="landing-page-image">
+                <img className="landing-page-image" src={landingpage_1} alt="LandingPage_1" />
+              </div>
+            </div>
+          </div>
+
+          <div className="step">
+            <div className="step-content-left">
+              <div className="landing-page-image">
+                <img className="landing-page-image" src={landingpage_2} alt="LandingPage_2" />
+              </div>
+            </div>
+            <div className="step-content-right">
+              <h3>2. <strong>Assign a Trusted Executor</strong></h3>
+              <p>
+                Select a reliable family member or friend who will be responsible for managing your
+                digital assets in the event of your passing, ensuring your wishes are carried out smoothly.
+              </p>
+            </div>
+          </div>
+
+          <div className="step">
+            <div className="step-content-left">
+              <h3>3. <strong>Set Your Account Preferences</strong></h3>
+              <p>
+                Specify what should happen to each of your accounts, whether they should be permanently
+                deleted, converted into a memorial, or transferred to a designated beneficiary.
+              </p>
+            </div>
+            <div className="step-content-right">
+              <div className="landing-page-image">
+                <img className="landing-page-image" src={landingpage_3} alt="LandingPage_3" />
+              </div>
+            </div>
+          </div>
+
+          <div className="step">
+            <div className="step-content-left">
+              <div className="landing-page-image">
+                <img className="landing-page-image" src={landingpage_4} alt="LandingPage_4" />
+              </div>
+            </div>
+            <div className="step-content-right">
+              <h3>4. <strong>Regular Updates</strong></h3>
+              <p>
+                Keep your digital legacy up to date by reviewing and confirming your stored information
+                every 1-2 years to ensure all account details and executor preferences remain relevant.
+              </p>
+            </div>
+          </div>
+
+          <div className="step">
+            <div className="step-content-left">
+              <h3>5. <strong>Execution After Death</strong></h3>
+              <p>
+                When the time comes, your executor will go through a secure verification process before
+                receiving the necessary access to execute your final digital will according to your instructions.
+              </p>
+            </div>
+            <div className="step-content-right">
+              <div className="landing-page-image">
+                <img className="landing-page-image" src={landingpage_5} alt="LandingPage_5" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
