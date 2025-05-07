@@ -11,6 +11,7 @@ public class UserService {
     @Autowired
     private UserRepo repo;
 
+    //Encrypt Password before save to the database
     private BCryptPasswordEncoder encorder = new BCryptPasswordEncoder(12);
     public UserCredentials register(UserCredentials user){
           user.setPassword(encorder.encode(user.getPassword()));
