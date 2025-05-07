@@ -19,6 +19,7 @@ import ExecutorForm from './popups-screens/AddSubscription.jsx';
 import Executor from './main-screens/Executor';
 import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
 import ExecutorHome from './main-screens/ExecutorHome.jsx';
+import ExecutorLogin from './popups-screens/ExecutorLoginForm.jsx';
 import ForgotPassword from "./main-screens/ForgotPassword.jsx";
 import UserProfile from './main-screens/UserProfile.jsx';
 import ChangePassword from "./popups-screens/ChangePassword.jsx";
@@ -36,6 +37,7 @@ function App() {
         <Route path="/signup" element={<SignUpStep1 />} />{/*User signup*/ }
         <Route path="/privacy-policy" element={<PrivacyPolicy/>} />{/*Privacy policyuhuxhuehd page */}
         <Route path="/login/user" element={<Login/>} />{/*User login*/}
+        <Route path="/login/executor" element={<ExecutorLogin/>} />{/*User login*/}
         <Route path="/profile" element={<ProfilePage />} />{/*User home */}
         <Route path="/accounts" element={<AccountsPage />} />{/*User account page */}
         <Route path="/executors" element={<AssignExecutor />} />     {/*executor */}
