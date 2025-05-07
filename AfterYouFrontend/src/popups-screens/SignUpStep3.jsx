@@ -133,7 +133,7 @@ const AccountSecurityForm = () => {
           </div>
           <div className="usersignup-next-button">
             <button
-              className="usersignup-step1-submit-btn"
+              className="usersignup-step3-submit-btn"
               onClick={handleSubmit}
             >
               Submit

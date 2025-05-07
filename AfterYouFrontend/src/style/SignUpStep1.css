@@ -1,17 +1,21 @@
+/* Main Container */
 .usersignup-container {
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -3%;
+  margin-left: -5%;
 }
 
+/* Form Card */
 .usersignup-form-card {
   background-color: rgba(217, 217, 217, 0.3);
   border-radius: 23px;
   padding: 40px;
   width: 110%;
-  margin: 10px;
+  margin: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
 }
@@ -27,28 +31,6 @@
   height: 2px;
   background-color: #ffffff;
   margin: 0 40px 20px;
-}
-
-/* Button Section */
-.usersignup-next-button {
-  width: 98%;
-  text-align: end;
-}
-
-.usersignup-per-inf-next-button {
-  padding: 12px 25px;
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-weight: 600;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s;
-}
-
-.usersignup-per-inf-next-button:hover {
-  background-color: #333333;
 }
 
 /* Form Grid */
@@ -123,6 +105,53 @@ input:focus {
   background-color: #f0f0f0;
 }
 
+/* Next Button Section */
+.usersignup-next-button {
+  width: 100%;
+  text-align: end;
+  margin-top: 20px;
+  margin-left: 40%;
+}
+
+/* Next Button */
+.usersignup-step1-submit-btn {
+  padding: 12px 25px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 40%;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+/* Next Button */
+.usersignup-step3-submit-btn {
+  padding: 12px 25px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 80%;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.usersignup-step3-submit-btn:hover {
+  background-color: #333333;
+  transform: translateY(-2px);
+}
+
+
+.usersignup-step1-submit-btn:hover {
+  background-color: #333333;
+  transform: translateY(-2px);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .usersignup-form-grid {
@@ -137,5 +166,14 @@ input:focus {
     margin: 20px;
     padding: 20px;
     width: 90%;
+  }
+
+  .usersignup-next-button {
+    text-align: center;
+  }
+
+  .usersignup-step1-submit-btn {
+    width: 100%;
+    padding: 12px;
   }
 }

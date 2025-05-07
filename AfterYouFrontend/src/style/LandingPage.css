@@ -366,8 +366,8 @@ nav a:hover {
 .landing-model-content {
   position: relative;
   background-color: transparent;
-  width: 50%;
-  max-height: 90vh;
+  width: 60%;
+  height: 105%;
   border-radius: 10px;
   overflow: auto;
   padding: 20px;
