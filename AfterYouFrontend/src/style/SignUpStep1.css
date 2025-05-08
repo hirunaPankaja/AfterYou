@@ -11,7 +11,7 @@
 
 /* Form Card */
 .usersignup-form-card {
-  background-color: rgba(217, 217, 217, 0.3);
+  background-color: #D9D9D9;
   border-radius: 23px;
   padding: 40px;
   width: 110%;
@@ -38,7 +38,7 @@
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  gap: 50px;
   box-sizing: border-box;
 }
 
@@ -52,10 +52,11 @@
 }
 
 /* Inputs */
-label {
-  font-family: 'Inter', sans-serif;
+.usersignup-form-field label {
+  font-family: 'Arial', sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: bold;
+  color: #000000;
 }
 
 input {
@@ -148,7 +149,7 @@ input:focus {
 
 
 .usersignup-step1-submit-btn:hover {
-  background-color: #333333;
+  background-color: #FF6262;
   transform: translateY(-2px);
 }
 

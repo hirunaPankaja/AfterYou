@@ -44,10 +44,10 @@
 }
 
 /* Divider */
-.divider {
+.account-page-divider {
   height: 2px;
-  background-color: #e0e0e0;
-  margin-bottom: px;
+  background-color: #4f46e5;
+  margin-bottom: 10px;
 }
 
 .account-cards-grid {

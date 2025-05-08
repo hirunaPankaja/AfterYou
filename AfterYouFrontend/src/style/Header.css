@@ -110,3 +110,8 @@
 .logout {
   color: red;
 }
+
+.change-password-modal{
+  width: 40%;
+  border-radius: 18px;
+}

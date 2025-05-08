@@ -63,7 +63,7 @@ const DeathCertificateUpload = () => {
   return (
     <div className="certificate-container">
       <div className="upload-section">
-        <h2 className="section-title">Upload Death Certificate</h2>
+        <h2 className="certificate-section-title">Upload Death Certificate</h2>
         <form onSubmit={handleSubmit} className="certificate-form">
           <div className="input-group">
             <label className="input-label">Full Name of deceased</label>

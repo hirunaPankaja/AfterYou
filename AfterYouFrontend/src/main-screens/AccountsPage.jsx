@@ -68,7 +68,7 @@ const AccountsPage = () => {
           </div>
           <div className="right-section">
             <h2 className="section-title">Accounts</h2>
-            <div className="divider"></div>
+            <div className="account-page-divider"></div>
 
             {/* Account cards displayed in two-column layout */}
             <div className="account-cards-grid">

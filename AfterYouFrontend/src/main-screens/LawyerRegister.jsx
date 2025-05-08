@@ -18,7 +18,7 @@ const LawyerRegister = () => {
 
   return (
     <div className="lawyer-register-container">
-      <h2 className="form-title">Lawyer Register</h2>
+      <h2 className="lawyer-form-title">Lawyer Register</h2>
       <form className="lawyer-form" onSubmit={handleSubmit}>
         <div className="input-group">
           <label className="input-label">Lawyer Name</label>

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/AccountsPage.css';
+import '../style/SubscriptionDashboard.css';
 import SubscriptionCard from '../components/SubscriptionsCard'; 
 
 // Dummy data
@@ -68,7 +68,8 @@ const SubscriptionDashboard = () => {
           </div>
           <div className="right-section">
             <h2 className="section-title">Subscriptions</h2>
-            <div className="divider"></div>
+
+            <div className="subscription-divider"></div>
 
             {/* Account cards displayed in two-column layout */}
             <div className="account-cards-grid">

@@ -47,10 +47,11 @@
 }
 
 /* Divider */
-.divider {
+.subscription-divider {
   height: 2px;
-  background-color: #e0e0e0;
-  margin-bottom: 20px;
+  background-color: #4f46e5;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 /* Grid for subscription cards */

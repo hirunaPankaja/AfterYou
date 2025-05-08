@@ -114,12 +114,6 @@ function ProfileHeader({
                 <div className="modal-overlay">
                     <div className="change-password-modal" ref={modalRef}>
                         <ChangePassword />
-                        <button
-                            className="close-modal-btn"
-                            onClick={() => setShowChangePassword(false)}
-                        >
-                            ×
-                        </button>
                     </div>
                 </div>
             )}
