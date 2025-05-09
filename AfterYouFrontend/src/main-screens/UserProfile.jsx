@@ -2,14 +2,35 @@ import React, { useState } from "react";
 import "../style/UserProfile.css";
 import { FaUserCircle, FaPen } from "react-icons/fa";
 import ProfilePictureForm from "../popups-screens/ProfilePictureForm.jsx";
+import EditUserDetailsForm from "../popups-screens/EditUserDetailsForm.jsx";
 
 const UserProfile = () => {
     const [showPictureForm, setShowPictureForm] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false);
     const [profilePicture, setProfilePicture] = useState(null);
+    const [userData, setUserData] = useState({
+        name: "Shey Silva",
+        gender: "Female",
+        nic: "200072348138",
+        dob: "17/08/2000",
+        address: "761, Park Street, Colombo 08.",
+        email: "Siva@gmail.com",
+        mobile: "077 8564632",
+        executorName: "Damian Smith",
+        executorDob: "17/08/2010",
+        executorNic: "200072348138",
+        executorEmail: "Siva@gmail.com",
+        executorMobile: "077 8564632"
+    });
 
     const handlePictureUpdate = (file) => {
         setProfilePicture(URL.createObjectURL(file));
         setShowPictureForm(false);
+    };
+
+    const handleUserDataUpdate = (updatedData) => {
+        setUserData(updatedData);
+        setShowEditForm(false);
     };
 
     return (
@@ -20,6 +41,15 @@ const UserProfile = () => {
                     onSave={handlePictureUpdate}
                 />
             )}
+
+            {showEditForm && (
+                <EditUserDetailsForm
+                    userData={userData}
+                    onClose={() => setShowEditForm(false)}
+                    onSave={handleUserDataUpdate}
+                />
+            )}
+
             <div className="user-profile-header">
                 <div className="profile-photo-container">
                     {profilePicture ? (
@@ -36,37 +66,33 @@ const UserProfile = () => {
                 </div>
                 <div className="profile-info">
                     <div className="name-edit-container">
-                        <h1>Shey Silva</h1>
-                        <button className="edit-icon">
+                        <h1>{userData.name}</h1>
+                        <button
+                            className="edit-icon"
+                            onClick={() => setShowEditForm(true)}
+                        >
                             <FaPen size={12} />
                         </button>
                     </div>
                     <div className="profile-subheader">
-                        Female - 26 years <span className="nic">200072348138</span>
+                        {userData.gender} - {userData.age} years <span className="nic">{userData.nic}</span>
                     </div>
                 </div>
             </div>
 
-            {/* Rest of your existing JSX remains exactly the same */}
             <div className="details-container">
                 <div className="user-details">
                     <div className="editable-field">
                         <h2>Date Of Birth</h2>
                         <div className="field-value">
-                            <p>17/08/2000</p>
-                            <button className="edit-icon">
-                                <FaPen size={12} />
-                            </button>
+                            <p>{userData.dob}</p>
                         </div>
                     </div>
 
                     <div className="editable-field">
                         <h2>Address</h2>
                         <div className="field-value">
-                            <p>761, Park Street, Colombo 08.</p>
-                            <button className="edit-icon">
-                                <FaPen size={12} />
-                            </button>
+                            <p>{userData.address}</p>
                         </div>
                     </div>
 
@@ -74,12 +100,9 @@ const UserProfile = () => {
                         <h2>Contacts</h2>
                         <div className="field-value">
                             <p>
-                                Email : Siva@gmail.com<br />
-                                Mobile : 077 8564632
+                                Email : {userData.email}<br />
+                                Mobile : {userData.mobile}
                             </p>
-                            <button className="edit-icon">
-                                <FaPen size={12} />
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -97,9 +120,6 @@ const UserProfile = () => {
                             <h2>Name</h2>
                             <div className="field-value">
                                 <p>Damian Smith</p>
-                                <button className="edit-icon">
-                                    <FaPen size={12} />
-                                </button>
                             </div>
                         </div>
 
@@ -107,9 +127,6 @@ const UserProfile = () => {
                             <h2>Date Of Birth</h2>
                             <div className="field-value">
                                 <p>17/08/2010</p>
-                                <button className="edit-icon">
-                                    <FaPen size={12} />
-                                </button>
                             </div>
                         </div>
 
@@ -117,9 +134,6 @@ const UserProfile = () => {
                             <h2>NIC</h2>
                             <div className="field-value">
                                 <p>200072348138</p>
-                                <button className="edit-icon">
-                                    <FaPen size={12} />
-                                </button>
                             </div>
                         </div>
 
@@ -130,9 +144,6 @@ const UserProfile = () => {
                                     Email : Siva@gmail.com<br />
                                     Mobile : 077 8564632
                                 </p>
-                                <button className="edit-icon">
-                                    <FaPen size={12} />
-                                </button>
                             </div>
                         </div>
                     </div>
