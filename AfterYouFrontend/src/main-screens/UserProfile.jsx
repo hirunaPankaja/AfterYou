@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/UserProfile.css";
 import { FaUserCircle, FaPen } from "react-icons/fa";
+import ProfilePictureForm from "../popups-screens/ProfilePictureForm.jsx";
 
 const UserProfile = () => {
+    const [showPictureForm, setShowPictureForm] = useState(false);
+    const [profilePicture, setProfilePicture] = useState(null);
+
+    const handlePictureUpdate = (file) => {
+        setProfilePicture(URL.createObjectURL(file));
+        setShowPictureForm(false);
+    };
+
     return (
         <div className="profile-container">
+            {showPictureForm && (
+                <ProfilePictureForm
+                    onClose={() => setShowPictureForm(false)}
+                    onSave={handlePictureUpdate}
+                />
+            )}
             <div className="user-profile-header">
                 <div className="profile-photo-container">
-                    <FaUserCircle className="default-icon" />
-                    <button className="edit-icon photo-edit">
+                    {profilePicture ? (
+                        <img src={profilePicture} alt="Profile" className="profile-picture" />
+                    ) : (
+                        <FaUserCircle className="default-icon" />
+                    )}
+                    <button
+                        className="edit-icon photo-edit"
+                        onClick={() => setShowPictureForm(true)}
+                    >
                         <FaPen size={12} />
                     </button>
                 </div>
@@ -25,6 +47,7 @@ const UserProfile = () => {
                 </div>
             </div>
 
+            {/* Rest of your existing JSX remains exactly the same */}
             <div className="details-container">
                 <div className="user-details">
                     <div className="editable-field">
