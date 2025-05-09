@@ -119,6 +119,27 @@ strong {
   margin-left: 8px;
 }
 
+.executor-edit-icon {
+  color: #ffffff;
+  background-color: #C5C0C0;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 8px;
+  margin-bottom: 0px;
+  margin-top: 30px;
+}
+
+.executor-edit-icon:hover {
+  background: #e0e0e0;
+}
+
 .edit-icon:hover {
   background: #e0e0e0;
 }

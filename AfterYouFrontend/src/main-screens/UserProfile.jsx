@@ -3,10 +3,12 @@ import "../style/UserProfile.css";
 import { FaUserCircle, FaPen } from "react-icons/fa";
 import ProfilePictureForm from "../popups-screens/ProfilePictureForm.jsx";
 import EditUserDetailsForm from "../popups-screens/EditUserDetailsForm.jsx";
+import EditExecutorForm from "../popups-screens/EditExecutorForm.jsx";
 
 const UserProfile = () => {
     const [showPictureForm, setShowPictureForm] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
+    const [showExecutorForm, setShowExecutorForm] = useState(false);
     const [profilePicture, setProfilePicture] = useState(null);
     const [userData, setUserData] = useState({
         name: "Shey Silva",
@@ -33,6 +35,26 @@ const UserProfile = () => {
         setShowEditForm(false);
     };
 
+    const handleExecutorUpdate = (updatedExecutor) => {
+        setUserData(prev => ({
+            ...prev,
+            ...updatedExecutor
+        }));
+        setShowExecutorForm(false);
+    };
+
+    const handleRemoveExecutor = () => {
+        setUserData(prev => ({
+            ...prev,
+            executorName: "",
+            executorDob: "",
+            executorNic: "",
+            executorEmail: "",
+            executorMobile: ""
+        }));
+        setShowExecutorForm(false);
+    };
+
     return (
         <div className="profile-container">
             {showPictureForm && (
@@ -47,6 +69,21 @@ const UserProfile = () => {
                     userData={userData}
                     onClose={() => setShowEditForm(false)}
                     onSave={handleUserDataUpdate}
+                />
+            )}
+
+            {showExecutorForm && (
+                <EditExecutorForm
+                    executorData={{
+                        name: userData.executorName,
+                        dob: userData.executorDob,
+                        nic: userData.executorNic,
+                        email: userData.executorEmail,
+                        mobile: userData.executorMobile
+                    }}
+                    onClose={() => setShowExecutorForm(false)}
+                    onSave={handleExecutorUpdate}
+                    onRemove={handleRemoveExecutor}
                 />
             )}
 
@@ -144,6 +181,12 @@ const UserProfile = () => {
                                     Email : Siva@gmail.com<br />
                                     Mobile : 077 8564632
                                 </p>
+                                <button
+                                    className="executor-edit-icon"
+                                    onClick={() => setShowExecutorForm(true)}
+                                >
+                                    <FaPen size={12} />
+                                </button>
                             </div>
                         </div>
                     </div>

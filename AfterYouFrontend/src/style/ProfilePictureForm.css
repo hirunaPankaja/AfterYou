@@ -65,7 +65,7 @@
     width: 200px;
     height: 200px;
     margin: 0 auto 20px;
-    border: 2px dashed #ccc;
+    border: 2px dashed #417B86;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -84,7 +84,7 @@
     text-align: center;
 }
 
-.form-actions {
+.profile-picture-form-actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;

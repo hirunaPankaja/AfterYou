@@ -50,7 +50,7 @@ const ProfilePictureForm = ({ onClose, onSave }) => {
                     style={{ display: 'none' }}
                 />
 
-                <div className="form-actions">
+                <div className="profile-picture-form-actions">
                     <button
                         className="select-btn"
                         onClick={triggerFileInput}
