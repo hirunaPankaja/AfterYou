@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../style/SignUpStep3.css'; // Style similar to other steps
-
+import { validatePassword, validateAgreement } from '../Services/validation';
 const DoneComponent = () => {
   return (
     <div className="usersignup-container">
@@ -44,10 +44,28 @@ const AccountSecurityForm = () => {
     // Normally you'd validate and send data here
     setIsSubmitted(true);
   };
+  const handleFormValidation = () => {
+    const passwordError = validatePassword(formData.password, formData.confirmPassword);
+    if (passwordError) {
+      alert(passwordError);
+      return false;
+    }
 
+    const agreementError = validateAgreement(formData.agreeTerms, formData.agreeDataPolicy);
+    if (agreementError) {
+      alert(agreementError);
+      return false;
+    }
+
+    return true; // Validation passed
+  };
+          
   if (isSubmitted) {
     return <DoneComponent />;
   }
+
+ 
+
 
   return (
     <div className="usersignup-container">
@@ -132,10 +150,15 @@ const AccountSecurityForm = () => {
 
           </div>
           <div className="usersignup-next-button">
-            <button
-              className="usersignup-step3-submit-btn"
-              onClick={handleSubmit}
-            >
+          <button
+            className="usersignup-step3-submit-btn"
+            onClick={() => {
+              if (handleFormValidation()) {
+                  handleSubmit();
+                }
+            }
+          }
+          >
               Submit
             </button>
           </div>

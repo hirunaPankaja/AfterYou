@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import '../style/SignUpStep1.css';
 import logo from '../assets/logo.png';
+import { validateEmail, validatePhoneNumber } from '../Services/validation';
 
 const SignUpForm = ({ onNext }) => {
   const [formData, setFormData] = useState({
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    dateOfBirth: '1990-01-01',
-    phoneNumber: '1234567890',
-    nationality: 'American',
-    address: '123 Main St',
-    gender: 'female',
-    emergencyContact: '0987654321'
+    firstName: '',
+    lastName: '',
+    email: '',
+    dateOfBirth: '',
+    phoneNumber: '',
+    nationality: '',
+    address: '',
+    gender: '',
+    emergencyContact: ''
   });
 
   const handleInputChange = (e) => {
@@ -23,6 +24,7 @@ const SignUpForm = ({ onNext }) => {
     }));
   };
 
+  
   const handleGenderChange = (gender) => {
     setFormData(prevState => ({
       ...prevState,
@@ -140,7 +142,27 @@ const SignUpForm = ({ onNext }) => {
             </div>
           </div>
           <div className="usersignup-next-button">
-            <button className="usersignup-step1-submit-btn" onClick={onNext}>Next</button>
+          <button
+  className="usersignup-step1-submit-btn"
+  onClick={() => {
+    const emailError = validateEmail(formData.email);
+    const phoneError = validatePhoneNumber(formData.emergencyContact, formData.phoneNumber);
+
+    if (emailError) {
+      alert(emailError);
+      return;
+    }
+
+    if (phoneError) {
+      alert(phoneError);
+      return;
+    }
+
+    onNext(); // Call only if all validations pass
+  }}
+>
+  Next
+</button>
           </div>
         </div>
       </div>
