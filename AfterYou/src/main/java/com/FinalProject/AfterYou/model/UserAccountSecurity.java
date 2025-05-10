@@ -6,20 +6,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-@Setter
-@Getter
+
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
-@Table (name = "user_login_credentials")
-public class UserCredentials {
-
+@Setter
+@Getter
+@Table(name = "user_account_security")
+public class UserAccountSecurity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String email;
-    private String password; // ✅ use lowercase 'password' (Java naming convention)
+    private String securityQuestion;
+    private String securityAnswer;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
