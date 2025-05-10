@@ -1,3 +1,4 @@
+import Tesseract from 'tesseract.js';
 
 export const validatePassword = (password, confirmPassword) => {
     if (password !== confirmPassword) {
@@ -58,4 +59,31 @@ export const validatePassword = (password, confirmPassword) => {
     }
   
     return null; // Valid phone numbers
+  };
+
+  export const validateIdentityImages = async (idNumber, idDocument, selfieWithId) => {
+    const extractText = (image) => {
+      return new Promise((resolve, reject) => {
+        Tesseract.recognize(
+          image,
+          'eng', // You can specify other languages as needed
+          {
+            logger: (m) => console.log(m), // Optional: for tracking the progress
+          }
+        ).then(({ data: { text } }) => resolve(text)).catch(reject);
+      });
+    };
+  
+    // Extract text from the ID document and selfie images
+    const idDocumentText = await extractText(idDocument);
+    const selfieWithIdText = await extractText(selfieWithId);
+  
+    // Validate if the ID number appears in both images
+    const isIdNumberInImages = idDocumentText.includes(idNumber) && selfieWithIdText.includes(idNumber);
+    
+    if (!isIdNumberInImages) {
+      return 'The ID number in the images does not match the entered ID number or is not present in the images.';
+    }
+  
+    return null; // No error
   };

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import '../style/SignUpStep1.css';
-import AccountSecurityForm from './SignUpStep3'; // Import next step
+import { validateIdentityImages } from '../Services/validation'; // Add the new validation
 
 const IDVerificationForm = () => {
   const [step, setStep] = useState(1);
-
   const [formData, setFormData] = useState({
     idType: '',
     idNumber: '',
     idDocument: null,
     selfieWithId: null,
   });
+
+  const [validationError, setValidationError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,8 +22,15 @@ const IDVerificationForm = () => {
     setFormData(prev => ({ ...prev, [name]: files[0] }));
   };
 
-  const handleNext = () => {
-    // You can add validation here before proceeding
+  const handleNext = async () => {
+    // Validate the identity images
+    const error = await validateIdentityImages(formData.idNumber, formData.idDocument, formData.selfieWithId);
+    
+    if (error) {
+      setValidationError(error);
+      return; // Stop here if there's an error
+    }
+
     setStep(2);
   };
 
@@ -80,6 +87,8 @@ const IDVerificationForm = () => {
               />
             </div>
           </div>
+
+          {validationError && <p className="error-message">{validationError}</p>}
 
           <div className="usersignup-next-button">
             <button className="usersignup-step1-submit-btn" onClick={handleNext}>Next</button>
