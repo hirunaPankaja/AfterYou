@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../style/SignUpStep1.css';
 import logo from '../assets/logo.png';
 import { validateEmail, validatePhoneNumber } from '../Services/validation';
+import useEnterSubmit from '../hooks/useEnterSubmit';
 
 const SignUpForm = ({ onNext }) => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,25 @@ const SignUpForm = ({ onNext }) => {
     emergencyContact: ''
   });
 
+  const handleSubmit = () => {
+    const emailError = validateEmail(formData.email);
+    const phoneError = validatePhoneNumber(formData.emergencyContact, formData.phoneNumber);
+
+    if (emailError) {
+      alert(emailError);
+      return;
+    }
+
+    if (phoneError) {
+      alert(phoneError);
+      return;
+    }
+
+    onNext(); // success
+  };
+
+  useEnterSubmit(handleSubmit);
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -143,24 +163,9 @@ const SignUpForm = ({ onNext }) => {
           </div>
           <div className="usersignup-next-button">
           <button
-  className="usersignup-step1-submit-btn"
-  onClick={() => {
-    const emailError = validateEmail(formData.email);
-    const phoneError = validatePhoneNumber(formData.emergencyContact, formData.phoneNumber);
-
-    if (emailError) {
-      alert(emailError);
-      return;
-    }
-
-    if (phoneError) {
-      alert(phoneError);
-      return;
-    }
-
-    onNext(); // Call only if all validations pass
-  }}
->
+              className="usersignup-step1-submit-btn"
+              onClick={handleSubmit} // ✅ call same function here
+            >
   Next
 </button>
           </div>

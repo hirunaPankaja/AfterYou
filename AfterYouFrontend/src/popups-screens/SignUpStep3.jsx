@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../style/SignUpStep3.css'; // Style similar to other steps
 import { validatePassword, validateAgreement } from '../Services/validation';
+import useEnterSubmit from '../hooks/useEnterSubmit';
 const DoneComponent = () => {
   return (
     <div className="usersignup-container">
@@ -59,7 +60,9 @@ const AccountSecurityForm = () => {
 
     return true; // Validation passed
   };
-          
+    
+  useEnterSubmit(handleFormValidation);
+  
   if (isSubmitted) {
     return <DoneComponent />;
   }
