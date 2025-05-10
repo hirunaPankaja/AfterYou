@@ -1,53 +1,63 @@
-import React, { useState } from 'react'; // <-- import useState
+import React, { useState } from 'react';
 import '../style/ProfilePage.css';
-import useNavigation from '../hooks/useNavigate';
+import AccountSelectionModal from '../popups-screens/AccountSelectionModal.jsx';
 import AddAccount from '../popups-screens/AddAccount';
 import AssignExecutor from './AssignExecutor';
 
 const ProfilePage = ({ userName = "Shey Silva" }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showExecutors, setShowExecutors] = useState(false); // new state
-  
+  const [isAccountSelectionOpen, setIsAccountSelectionOpen] = useState(false);
+  const [isAddAccountOpen, setIsAddAccountOpen] = useState(false);
+  const [showExecutors, setShowExecutors] = useState(false);
 
   const handleAssignExecutorClick = () => {
-    setShowExecutors(true); // switch to executor view instead of navigate
+    setShowExecutors(true);
   };
 
   const handleBackToProfile = () => {
-    setShowExecutors(false); // optional: to go back to profile
+    setShowExecutors(false);
+  };
+
+  const handleOpenAccountSelection = (e) => {
+    e.preventDefault();
+    setIsAccountSelectionOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleCloseAccountSelection = () => {
+    setIsAccountSelectionOpen(false);
+    document.body.style.overflow = "auto";
   };
 
   const handleOpenForm = (e) => {
     e.preventDefault();
-    setIsModalOpen(true);
+    setIsAddAccountOpen(true);
     document.body.style.overflow = "hidden";
   };
 
   const handleCloseForm = () => {
-    setIsModalOpen(false);
+    setIsAddAccountOpen(false);
     document.body.style.overflow = "auto";
   };
 
   const AccountFormModal = () => {
-    if (!isModalOpen) return null;
+    if (!isAccountSelectionOpen && !isAddAccountOpen) return null;
     return (
-      <div className="modal-overlay-account" onClick={handleCloseForm}>
-        <button className="close-account" onClick={handleCloseForm}>X</button>
+      <div className="modal-overlay-account" onClick={isAccountSelectionOpen ? handleCloseAccountSelection : handleCloseForm}>
+        <button className="close-account" onClick={isAccountSelectionOpen ? handleCloseAccountSelection : handleCloseForm}>X</button>
         <div className="modal-content-account" onClick={(e) => e.stopPropagation()}>
-          <AddAccount />
+          {isAccountSelectionOpen && <AccountSelectionModal isOpen={isAccountSelectionOpen} onClose={handleCloseAccountSelection} />}
+          {isAddAccountOpen && <AddAccount />}
         </div>
       </div>
     );
   };
 
-  // ✅ Conditional rendering of page content
   return (
     <main className="profile-main-content">
       {showExecutors ? (
         <>
-        <button onClick={handleBackToProfile}>⬅ Back to Profile</button>
+          <button onClick={handleBackToProfile}>⬅ Back to Profile</button>
           <AssignExecutor />
-         
         </>
       ) : (
         <>
@@ -59,7 +69,7 @@ const ProfilePage = ({ userName = "Shey Silva" }) => {
           <div className="profile-action-buttons">
             {/* Add Account Button */}
             <div className="profile-action-item">
-              <div className="profile-action-button" onClick={handleOpenForm}>
+              <div className="profile-action-button" onClick={handleOpenAccountSelection}>
                 <img src="https://dashboard.codeparrot.ai/api/image/Z-l04wz4-w8v6RoA/icons-8-a.png" alt="Add" className="action-icon" />
               </div>
               <span className="profile-action-text">Add Account</span>
@@ -96,4 +106,5 @@ const ProfilePage = ({ userName = "Shey Silva" }) => {
     </main>
   );
 };
+
 export default ProfilePage;

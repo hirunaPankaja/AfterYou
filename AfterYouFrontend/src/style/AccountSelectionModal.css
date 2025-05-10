@@ -1,0 +1,207 @@
+/* Modal Overlay */
+.useraccountselection-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Box */
+.useraccountselection-modal-box {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  width: 350px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Title */
+.useraccountselection-modal-box h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Button Row */
+.useraccountselection-btn-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+/* Buttons */
+.useraccountselection-btn {
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #0073e6;
+  color: white;
+}
+
+.useraccountselection-btn:hover {
+  background-color: #005bb5;
+  transform: scale(1.05);
+}
+
+/* OR Text */
+.useraccountselection-or-text {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Form Styling */
+.useraccountselection-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.useraccountselection-account-details-accname
+{
+  font-size: 120%;
+  margin-bottom: 10%;
+}
+
+.useraccountselection-form-input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* Profile URL Field */
+.useraccountselection-profile-url {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #0073e6;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #f9f9f9;
+}
+
+.useraccountselection-profile-url:focus {
+  border-color: #005bb5;
+  outline: none;
+}
+
+/* Input Fields */
+.useraccountselection-form-input {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 2%; /* Added spacing between fields */
+}
+
+/* Profile URL Field */
+.useraccountselection-profile-url {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #0073e6;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #f9f9f9;
+  margin-bottom: 2%; /* Added spacing */
+}
+
+.useraccountselection-profile-url:focus {
+  border-color: #005bb5;
+  outline: none;
+}
+
+
+/* Account Details Section */
+.useraccountselection-account-details {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  text-align: left;
+}
+
+/* Submit Button */
+.useraccountselection-submit-btn {
+  padding: 12px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.useraccountselection-submit-btn:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+/* Close Button */
+.useraccountselection-close-btn {
+  padding: 10px 130px;
+  margin-top: 2%;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.useraccountselection-close-btn:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .useraccountselection-modal-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .useraccountselection-btn-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .useraccountselection-btn {
+    width: 100%;
+  }
+
+  .useraccountselection-close-btn {
+    width: 100%;
+  }
+}
