@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { validateIdentityImages } from '../Services/validation'; // Add the new validation
+import { validateIdentityImages } from '../Services/validation';
+import AccountSecurityForm from './SignUpStep3';
+import '../style/SignUpStep2.css'; // Assuming you have a CSS file for styles
 
 const IDVerificationForm = () => {
   const [step, setStep] = useState(1);
@@ -9,8 +11,8 @@ const IDVerificationForm = () => {
     idDocument: null,
     selfieWithId: null,
   });
-
   const [validationError, setValidationError] = useState('');
+  const [progress, setProgress] = useState(0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,16 +24,32 @@ const IDVerificationForm = () => {
     setFormData(prev => ({ ...prev, [name]: files[0] }));
   };
 
+  const onNext = () => {
+    setStep(2);
+  };
+
   const handleNext = async () => {
-    // Validate the identity images
-    const error = await validateIdentityImages(formData.idNumber, formData.idDocument, formData.selfieWithId);
-    
-    if (error) {
-      setValidationError(error);
-      return; // Stop here if there's an error
+    setValidationError('');
+    setProgress(0);
+
+    if (!formData.idType || !formData.idNumber || !formData.idDocument || !formData.selfieWithId) {
+      setValidationError('All fields and files are required.');
+      return;
     }
 
-    setStep(2);
+    const error = await validateIdentityImages(
+      formData.idNumber,
+      formData.idDocument,
+      formData.selfieWithId,
+      setProgress // 🔁 pass to update progress bar
+    );
+
+    if (error) {
+      setValidationError(error);
+      return;
+    }
+
+    onNext(); // ✅ Go to next step
   };
 
   if (step === 2) {
@@ -39,15 +57,19 @@ const IDVerificationForm = () => {
   }
 
   return (
-    <div className="usersignup-container">
-      <div className="usersignup-background-image">
-        <div className="usersignup-form-card">
-          <div className="usersignup-form-topic">
-            <h2 className="usersignup-form-heading">Identification & Verification</h2>
-          </div>
-          <div className="usersignup-heading-divider"></div>
-          <div className="usersignup-form-grid">
-            <div className="usersignup-form-field">
+    <div className="idv-main-wrapper">
+      <div className="idv-background">
+        <div className="idv-card">
+          <h2 className="idv-title">Identification & Verification</h2>
+
+          {progress > 0 && progress < 100 && (
+            <div className="idv-progress-bar">
+              <div className="idv-progress-fill" style={{ width: `${progress}%` }}></div>
+            </div>
+          )}
+
+          <div className="idv-form">
+            <div className="idv-form-group">
               <label>Government ID Type</label>
               <select name="idType" value={formData.idType} onChange={handleChange}>
                 <option value="">Select ID Type</option>
@@ -57,7 +79,7 @@ const IDVerificationForm = () => {
               </select>
             </div>
 
-            <div className="usersignup-form-field">
+            <div className="idv-form-group">
               <label>ID Number</label>
               <input
                 type="text"
@@ -67,7 +89,7 @@ const IDVerificationForm = () => {
               />
             </div>
 
-            <div className="usersignup-form-field">
+            <div className="idv-form-group">
               <label>Upload ID Document</label>
               <input
                 type="file"
@@ -77,7 +99,7 @@ const IDVerificationForm = () => {
               />
             </div>
 
-            <div className="usersignup-form-field">
+            <div className="idv-form-group">
               <label>Selfie with ID for Verification</label>
               <input
                 type="file"
@@ -88,11 +110,11 @@ const IDVerificationForm = () => {
             </div>
           </div>
 
-          {validationError && <p className="error-message">{validationError}</p>}
+          {validationError && (
+            <p className="idv-error">{validationError}</p>
+          )}
 
-          <div className="usersignup-next-button">
-            <button className="usersignup-step1-submit-btn" onClick={handleNext}>Next</button>
-          </div>
+          <button className="idv-next-button" onClick={handleNext}>Next</button>
         </div>
       </div>
     </div>

@@ -61,29 +61,34 @@ export const validatePassword = (password, confirmPassword) => {
     return null; // Valid phone numbers
   };
 
-  export const validateIdentityImages = async (idNumber, idDocument, selfieWithId) => {
-    const extractText = (image) => {
-      return new Promise((resolve, reject) => {
-        Tesseract.recognize(
-          image,
-          'eng', // You can specify other languages as needed
-          {
-            logger: (m) => console.log(m), // Optional: for tracking the progress
-          }
-        ).then(({ data: { text } }) => resolve(text)).catch(reject);
-      });
-    };
   
-    // Extract text from the ID document and selfie images
-    const idDocumentText = await extractText(idDocument);
-    const selfieWithIdText = await extractText(selfieWithId);
-  
-    // Validate if the ID number appears in both images
-    const isIdNumberInImages = idDocumentText.includes(idNumber) && selfieWithIdText.includes(idNumber);
-    
-    if (!isIdNumberInImages) {
-      return 'The ID number in the images does not match the entered ID number or is not present in the images.';
-    }
-  
-    return null; // No error
-  };
+export async function validateIdentityImages(idNumber, idDoc, selfie, setProgress) {
+  // Use setProgress safely
+  if (setProgress) setProgress(10);
+
+  const result1 = await Tesseract.recognize(idDoc, 'eng', {
+    logger: m => {
+      if (setProgress) setProgress(m.progress * 50); // Just an example
+      console.log(m);
+    },
+  });
+
+  const result2 = await Tesseract.recognize(selfie, 'eng', {
+    logger: m => {
+      if (setProgress) setProgress(50 + m.progress * 50); // Continue from 50 to 100
+      console.log(m);
+    },
+  });
+
+  const idText = result1.data.text;
+  const selfieText = result2.data.text;
+
+  console.log("ID Document Text:", idText);
+  console.log("Selfie Text:", selfieText);
+
+  if (!idText.includes(idNumber) || !selfieText.includes(idNumber)) {
+    return 'ID number not clearly visible in both images.';
+  }
+
+  return null;
+}
