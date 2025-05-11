@@ -4,6 +4,7 @@ import "../style/AccountSelectionModal.css";
 const AccountSelectionModal = ({ isOpen, onClose }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [primaryGmail, setPrimaryGmail] = useState(""); // Store primary Gmail
+  const [primaryPassword, setPrimaryPassword] = useState(""); // Store primary password
   const [selectedGmail, setSelectedGmail] = useState(""); // Store selected Gmail for linked accounts
   const [linkedAccount, setLinkedAccount] = useState(""); // Store selected linked account
   const [userData, setUserData] = useState({
@@ -22,6 +23,10 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
     setPrimaryGmail(e.target.value);
   };
 
+  const handlePrimaryPasswordChange = (e) => {
+    setPrimaryPassword(e.target.value);
+  };
+
   const handleLinkedAccountChange = (e) => {
     setLinkedAccount(e.target.value);
   };
@@ -33,6 +38,7 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
 
   const handleSubmitPrimary = (e) => {
     e.preventDefault();
+    console.log("Primary Account Submitted:", { primaryGmail, primaryPassword });
     setSelectedOption("linked"); // Move to Linked Accounts after entering Gmail
   };
 
@@ -67,6 +73,17 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
               onChange={handlePrimaryGmailChange} 
               required 
             />
+
+            <input 
+              type="password" 
+              name="primaryPassword" 
+              placeholder="Enter Password" 
+              className="useraccountselection-form-input" 
+              value={primaryPassword} 
+              onChange={handlePrimaryPasswordChange} 
+              required 
+            />
+
             <button type="submit" className="useraccountselection-submit-btn">Next</button>
           </form>
         ) : selectedOption === "linked" ? (
@@ -101,8 +118,9 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
 
             {linkedAccount && (
               <div className="useraccountselection-account-details">
-               <div className="useraccountselection-account-details-accname"> <h5>Enter Account Details for {linkedAccount}</h5></div>
-              
+                <div className="useraccountselection-account-details-accname"> 
+                  <h5>Enter Account Details for {linkedAccount}</h5>
+                </div>
 
                 <input 
                   type="text" 
