@@ -11,10 +11,7 @@ public class UserProfileDto {
     private String firstName;
     private String lastName;
     private String email;
-    private Date DOB;
-    private String gender;
-    private String address;
-    private
+
 
 
     public UserProfileDto(String firstName, String lastName, String email) {

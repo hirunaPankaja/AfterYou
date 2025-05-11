@@ -28,26 +28,37 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
     }
 
     setIsSubmitting(true);
+try {
+  const jwtToken = localStorage.getItem("jwtToken"); // or whatever key you're using
+  const userId = localStorage.getItem("userId");
 
-    try {
-      const response = await addPrimaryAccount({
-        email: primaryGmail,
-        password: primaryPassword,
-        recoveryCode: recoveryCode,
-      });
+  if (!jwtToken || !userId) {
+    setErrorMessage("Authentication error. Please log in again.");
+    return;
+  }
 
-      if (response.status === 200) {
-        console.log("Primary Account Submitted:", response.data);
-        setSelectedOption("linked");
-      } else {
-        setErrorMessage("Error submitting primary account. Please try again.");
-      }
-    } catch (error) {
-      setErrorMessage("Network error. Please check your connection.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const response = await addPrimaryAccount(
+    {
+      email: primaryGmail,
+      password: primaryPassword,
+      recoveryCode: recoveryCode,
+      userId: userId, 
+    },
+    jwtToken
+  );
+
+  if (response.status === 200) {
+    console.log("Primary Account Submitted:", response.data);
+    setSelectedOption("linked");
+  } else {
+    setErrorMessage("Error submitting primary account. Please try again.");
+  }
+} catch (error) {
+  setErrorMessage("Network error. Please check your connection.");
+} finally {
+  setIsSubmitting(false);
+}
+};  
 
   return (
     <div className="useraccountselection-modal-overlay" onClick={onClose}>
