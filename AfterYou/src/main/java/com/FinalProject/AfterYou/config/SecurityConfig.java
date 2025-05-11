@@ -33,7 +33,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback")
+                        .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback","add-primary")
                         .permitAll()
                         .anyRequest().authenticated())
 //                .formLogin(Customizer.withDefaults())

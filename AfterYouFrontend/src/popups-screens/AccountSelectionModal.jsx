@@ -6,17 +6,8 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
   const [primaryGmail, setPrimaryGmail] = useState(""); // Store primary Gmail
   const [primaryPassword, setPrimaryPassword] = useState(""); // Store primary password
   const [recoveryCode, setRecoveryCode] = useState(""); // Store recovery code
-  const [selectedGmail, setSelectedGmail] = useState(""); // Store selected Gmail for linked accounts
-  const [linkedAccount, setLinkedAccount] = useState(""); // Store selected linked account
-  const [userData, setUserData] = useState({
-    username: "",
-    profileURL: "",
-    password: "",
-    actionType: "",
-  });
-
-  const linkedAccounts = ["Facebook", "Twitter", "LinkedIn", "GitHub"];
-  const savedGmails = primaryGmail ? [primaryGmail] : []; // Store previously entered Gmail
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
+  const [errorMessage, setErrorMessage] = useState(""); // Store error messages
 
   if (!isOpen) return null;
 
@@ -35,17 +26,31 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
     setRecoveryCode(e.target.value);
   };
 
+  // ✅ Validate Email Format
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
   // ✅ Submit Primary Account to Backend
   const handleSubmitPrimary = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Reset error message
+
+    // Validate email format
+    if (!isValidEmail(primaryGmail)) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+
+    setIsSubmitting(true); // Disable button while submitting
 
     try {
       const response = await fetch("http://localhost:8080/api/user-account/add-primary", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
         },
-        body: new URLSearchParams({
+        body: JSON.stringify({
           email: primaryGmail,
           password: primaryPassword,
           recoveryCode: recoveryCode,
@@ -56,10 +61,12 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
         console.log("Primary Account Submitted:", { primaryGmail, primaryPassword, recoveryCode });
         setSelectedOption("linked"); // Move to Linked Accounts after entering Gmail
       } else {
-        console.error("Error submitting primary account");
+        setErrorMessage("Error submitting primary account. Please try again.");
       }
     } catch (error) {
-      console.error("Network error:", error);
+      setErrorMessage("Network error. Please check your connection.");
+    } finally {
+      setIsSubmitting(false); // Re-enable button
     }
   };
 
@@ -100,7 +107,7 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
               required 
             />
 
-            {/* ✅ Recovery Code Field & Info Button */}
+            {/* ✅ Recovery Code Field */}
             <div className="useraccountselection-recovery-container">
               <input 
                 type="text" 
@@ -111,18 +118,14 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
                 onChange={handleRecoveryCodeChange} 
                 required 
               />
-
-              {/* ✅ Circular Information Button */}
-              <button 
-                type="button" 
-                className="useraccountselection-info-btn" 
-                onClick={() => window.open("https://support.google.com/accounts/answer/1187538?hl=en&co=GENIE.Platform%3DDesktop", "_blank")}
-              >
-                ℹ️
-              </button>
             </div>
 
-            <button type="submit" className="useraccountselection-submit-btn">Next</button>
+            {/* ✅ Display Error Message */}
+            {errorMessage && <p className="useraccountselection-error">{errorMessage}</p>}
+
+            <button type="submit" className="useraccountselection-submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Next"}
+            </button>
           </form>
         ) : null}
       </div>
