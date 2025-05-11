@@ -1,12 +1,16 @@
 package com.FinalProject.AfterYou.service;
 
+<<<<<<< Updated upstream
 import com.FinalProject.AfterYou.model.AssignLawyer;
 import com.FinalProject.AfterYou.repo.AssignLawyerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+>>>>>>> Stashed changes
 import org.springframework.stereotype.Service;
 
 @Service
 public class AssignLawyerService {
+<<<<<<< Updated upstream
 
     @Autowired
     private AssignLawyerRepository assignLawyerRepository;
@@ -32,4 +36,6 @@ public class AssignLawyerService {
         }
         return null;
     }
+=======
+>>>>>>> Stashed changes
 }

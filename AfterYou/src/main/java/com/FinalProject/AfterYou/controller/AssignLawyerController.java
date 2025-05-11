@@ -1,4 +1,5 @@
 package com.FinalProject.AfterYou.controller;
+<<<<<<< Updated upstream
 
 import com.FinalProject.AfterYou.DTO.AssignLawyerRequest;
 import com.FinalProject.AfterYou.DTO.CompleteRegistrationRequest;
@@ -61,5 +62,20 @@ public class AssignLawyerController {
         }
         return ResponseEntity.notFound().build();
     }
+=======
+import com.FinalProject.AfterYou.service.AssignLawyerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@Controller
+public class AssignLawyerController {
+    @Autowired
+
+    private AssignLawyerService service;
+    @PostMapping("/assign-lawyer")
+>>>>>>> Stashed changes
 
 }

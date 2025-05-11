@@ -6,5 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AssignLawyerRepository extends JpaRepository<AssignLawyer, Integer> {
+<<<<<<< Updated upstream
     AssignLawyer findByLawyerEmail(String email);
+=======
+>>>>>>> Stashed changes
 }
