@@ -5,6 +5,7 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [primaryGmail, setPrimaryGmail] = useState(""); // Store primary Gmail
   const [primaryPassword, setPrimaryPassword] = useState(""); // Store primary password
+  const [recoveryCode, setRecoveryCode] = useState(""); // Store recovery code
   const [selectedGmail, setSelectedGmail] = useState(""); // Store selected Gmail for linked accounts
   const [linkedAccount, setLinkedAccount] = useState(""); // Store selected linked account
   const [userData, setUserData] = useState({
@@ -19,32 +20,47 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
+  // ✅ Handle Primary Gmail Input
   const handlePrimaryGmailChange = (e) => {
     setPrimaryGmail(e.target.value);
   };
 
+  // ✅ Handle Primary Password Input
   const handlePrimaryPasswordChange = (e) => {
     setPrimaryPassword(e.target.value);
   };
 
-  const handleLinkedAccountChange = (e) => {
-    setLinkedAccount(e.target.value);
+  // ✅ Handle Recovery Code Input
+  const handleRecoveryCodeChange = (e) => {
+    setRecoveryCode(e.target.value);
   };
 
-  const handleUserDataChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
-  };
-
-  const handleSubmitPrimary = (e) => {
+  // ✅ Submit Primary Account to Backend
+  const handleSubmitPrimary = async (e) => {
     e.preventDefault();
-    console.log("Primary Account Submitted:", { primaryGmail, primaryPassword });
-    setSelectedOption("linked"); // Move to Linked Accounts after entering Gmail
-  };
 
-  const handleSubmitLinked = (e) => {
-    e.preventDefault();
-    console.log("Linked Account Selected:", { selectedGmail, linkedAccount, userData });
+    try {
+      const response = await fetch("http://localhost:8080/api/user-account/add-primary", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          email: primaryGmail,
+          password: primaryPassword,
+          recoveryCode: recoveryCode,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Primary Account Submitted:", { primaryGmail, primaryPassword, recoveryCode });
+        setSelectedOption("linked"); // Move to Linked Accounts after entering Gmail
+      } else {
+        console.error("Error submitting primary account");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    }
   };
 
   return (
@@ -84,95 +100,31 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
               required 
             />
 
+            {/* ✅ Recovery Code Field & Info Button */}
+            <div className="useraccountselection-recovery-container">
+              <input 
+                type="text" 
+                name="recoveryCode" 
+                placeholder="Enter Recovery Code" 
+                className="useraccountselection-recovery-input" 
+                value={recoveryCode} 
+                onChange={handleRecoveryCodeChange} 
+                required 
+              />
+
+              {/* ✅ Circular Information Button */}
+              <button 
+                type="button" 
+                className="useraccountselection-info-btn" 
+                onClick={() => window.open("https://support.google.com/accounts/answer/1187538?hl=en&co=GENIE.Platform%3DDesktop", "_blank")}
+              >
+                ℹ️
+              </button>
+            </div>
+
             <button type="submit" className="useraccountselection-submit-btn">Next</button>
           </form>
-        ) : selectedOption === "linked" ? (
-          <form className="useraccountselection-form" onSubmit={handleSubmitLinked}>
-            <label>Choose your Gmail:</label>
-            <select 
-              name="selectedGmail" 
-              className="useraccountselection-form-input" 
-              value={selectedGmail} 
-              onChange={(e) => setSelectedGmail(e.target.value)}
-              required
-            >
-              <option value="">-- Select --</option>
-              {savedGmails.map((gmail) => (
-                <option key={gmail} value={gmail}>{gmail}</option>
-              ))}
-            </select>
-
-            <label>Select Linked Account:</label>
-            <select 
-              name="linkedAccount" 
-              className="useraccountselection-form-input" 
-              value={linkedAccount} 
-              onChange={handleLinkedAccountChange} 
-              required
-            >
-              <option value="">-- Select --</option>
-              {linkedAccounts.map((account) => (
-                <option key={account} value={account}>{account}</option>
-              ))}
-            </select>
-
-            {linkedAccount && (
-              <div className="useraccountselection-account-details">
-                <div className="useraccountselection-account-details-accname"> 
-                  <h5>Enter Account Details for {linkedAccount}</h5>
-                </div>
-
-                <input 
-                  type="text" 
-                  name="username" 
-                  placeholder="Username" 
-                  className="useraccountselection-form-input" 
-                  value={userData.username} 
-                  onChange={handleUserDataChange} 
-                  required 
-                />
-
-                <input 
-                  type="url" 
-                  name="profileURL" 
-                  placeholder="Profile URL" 
-                  className="useraccountselection-form-input useraccountselection-profile-url" 
-                  value={userData.profileURL} 
-                  onChange={handleUserDataChange} 
-                  required 
-                  autoComplete="off"
-                />
-
-                <input 
-                  type="password" 
-                  name="password" 
-                  placeholder="Password" 
-                  className="useraccountselection-form-input" 
-                  value={userData.password} 
-                  onChange={handleUserDataChange} 
-                  required 
-                />
-
-                <label>Action Type:</label>
-                <select 
-                  name="actionType" 
-                  className="useraccountselection-form-input" 
-                  value={userData.actionType} 
-                  onChange={handleUserDataChange} 
-                  required
-                >
-                  <option value="">-- Select --</option>
-                  <option value="delete">Delete Account</option>
-                  <option value="transfer">Transfer Account</option>
-                </select>
-              </div>
-            )}
-
-            <button type="submit" className="useraccountselection-submit-btn">Submit</button>
-          </form>
         ) : null}
-
-        <button onClick={onClose} className="useraccountselection-close-btn">Cancel</button>
       </div>
     </div>
   );

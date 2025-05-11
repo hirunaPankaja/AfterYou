@@ -1,10 +1,13 @@
 package com.FinalProject.AfterYou.repo;
 
+
 import com.FinalProject.AfterYou.model.UserAccount;
+import com.FinalProject.AfterYou.model.AccountType;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import java.util.Optional;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
-    List<UserAccount> findByAccountType(String accountType);
-    List<UserAccount> findByEmailAndAccountType(String email, String accountType);
+
+    // Fetch primary account by email
+    Optional<UserAccount> findByEmailAndAccountType(String email, AccountType accountType);
 }
