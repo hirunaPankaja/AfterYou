@@ -1,6 +1,5 @@
 package com.FinalProject.AfterYou.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,10 +15,8 @@ public class PrimaryAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long primaryId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
-    private UserRegistrationDetails user;
+    @Column(nullable = false)
+    private Long userId; // ✅ Store userId directly
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -30,6 +27,11 @@ public class PrimaryAccount {
     @Column(nullable = true)
     private String recoveryCode;
 
-    public PrimaryAccount(UserRegistrationDetails user, String email, String encode, String recoveryCode) {
+    // ✅ Add Constructor Matching Service Call
+    public PrimaryAccount(Long userId, String email, String password, String recoveryCode) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+        this.recoveryCode = recoveryCode;
     }
 }

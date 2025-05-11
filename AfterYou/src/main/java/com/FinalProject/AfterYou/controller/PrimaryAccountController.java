@@ -1,14 +1,13 @@
 package com.FinalProject.AfterYou.controller;
 
 import com.FinalProject.AfterYou.model.PrimaryAccount;
-import com.FinalProject.AfterYou.model.UserRegistrationDetails;
 import com.FinalProject.AfterYou.service.PrimaryAccountService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
-
+@RequestMapping("/api/primary-account") // ✅ Add request mapping
 public class PrimaryAccountController {
 
     private final PrimaryAccountService primaryAccountService;
@@ -17,17 +16,26 @@ public class PrimaryAccountController {
         this.primaryAccountService = primaryAccountService;
     }
 
-    // ✅ Add Primary Account with Password and Recovery Code
-    @PostMapping("/add-primary")
-    public PrimaryAccount addPrimaryAccount(@RequestBody int userId, @RequestBody String email, @RequestBody String password, @RequestBody String recoveryCode) {
-        UserRegistrationDetails user = new UserRegistrationDetails();
-        user.setUserId(userId);
-        return primaryAccountService.addPrimaryAccount(user, email, password, recoveryCode);
+    // ✅ Fix: Use @RequestBody for JSON requests
+    @PostMapping("/add")
+    public PrimaryAccount addPrimaryAccount(@RequestBody PrimaryAccount primaryAccount) {
+        return primaryAccountService.addPrimaryAccount(
+                primaryAccount.getUserId(),
+                primaryAccount.getEmail(),
+                primaryAccount.getPassword(),
+                primaryAccount.getRecoveryCode()
+        );
     }
 
     // ✅ Get Primary Account by Email
-    @GetMapping("/primary/{email}")
+    @GetMapping("/{email}")
     public Optional<PrimaryAccount> getPrimaryAccount(@PathVariable String email) {
         return primaryAccountService.getPrimaryAccount(email);
     }
+
+    @GetMapping("/primary/{id}")
+    public PrimaryAccount getPrimaryAccountById(@PathVariable Long id) {
+        return primaryAccountService.getPrimaryAccountById(id);
+    }
+
 }

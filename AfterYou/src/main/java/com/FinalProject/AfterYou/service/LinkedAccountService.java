@@ -1,5 +1,6 @@
 package com.FinalProject.AfterYou.service;
 
+
 import com.FinalProject.AfterYou.model.LinkedAccount;
 import com.FinalProject.AfterYou.model.PrimaryAccount;
 import com.FinalProject.AfterYou.repo.LinkedAccountRepository;
@@ -20,7 +21,7 @@ public class LinkedAccountService {
         this.primaryAccountRepository = primaryAccountRepository;
     }
 
-    // ✅ Add Linked Account
+    // ✅ Add Linked Account (Fix for constructor issue)
     public LinkedAccount addLinkedAccount(Long primaryId, String platform, String username, String profileUrl, String actionType) {
         Optional<PrimaryAccount> primaryAccount = primaryAccountRepository.findById(primaryId);
         if (primaryAccount.isPresent()) {
@@ -34,6 +35,8 @@ public class LinkedAccountService {
     // ✅ Get Linked Accounts by Primary ID
     public List<LinkedAccount> getLinkedAccounts(Long primaryId) {
         Optional<PrimaryAccount> primaryAccount = primaryAccountRepository.findById(primaryId);
-        return primaryAccount.map(linkedAccountRepository::findByPrimaryAccount).orElseThrow(() -> new RuntimeException("Primary account not found"));
+        return primaryAccount.map(linkedAccountRepository::findByPrimaryAccount)
+                .orElseThrow(() -> new RuntimeException("Primary account not found"));
     }
 }
+

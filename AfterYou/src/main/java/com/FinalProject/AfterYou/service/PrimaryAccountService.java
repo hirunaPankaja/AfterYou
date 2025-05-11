@@ -1,7 +1,6 @@
 package com.FinalProject.AfterYou.service;
 
 import com.FinalProject.AfterYou.model.PrimaryAccount;
-import com.FinalProject.AfterYou.model.UserRegistrationDetails;
 import com.FinalProject.AfterYou.repo.PrimaryAccountRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,9 @@ public class PrimaryAccountService {
         this.primaryAccountRepository = primaryAccountRepository;
     }
 
-    // ✅ Add Primary Account with Hashed Password and Recovery Code
-    public PrimaryAccount addPrimaryAccount(UserRegistrationDetails user, String email, String password, String recoveryCode) {
-        PrimaryAccount account = new PrimaryAccount(user, email, passwordEncoder.encode(password), recoveryCode);
+    // ✅ Add Primary Account
+    public PrimaryAccount addPrimaryAccount(Long userId, String email, String password, String recoveryCode) {
+        PrimaryAccount account = new PrimaryAccount(userId, email, passwordEncoder.encode(password), recoveryCode);
         return primaryAccountRepository.save(account);
     }
 
@@ -28,4 +27,10 @@ public class PrimaryAccountService {
     public Optional<PrimaryAccount> getPrimaryAccount(String email) {
         return primaryAccountRepository.findByEmail(email);
     }
+
+    public PrimaryAccount getPrimaryAccountById(Long id) {
+        return primaryAccountRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Primary account not found with ID: " + id));
+    }
+
 }

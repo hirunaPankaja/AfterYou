@@ -1,6 +1,6 @@
 package com.FinalProject.AfterYou.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,8 +18,7 @@ public class LinkedAccount {
 
     @ManyToOne
     @JoinColumn(name = "primary_id", nullable = false)
-    @JsonBackReference
-    private PrimaryAccount primaryAccount;
+    private PrimaryAccount primaryAccount; // ✅ Store PrimaryAccount as an entity reference
 
     @Column(nullable = false)
     private String platform;
@@ -33,7 +32,12 @@ public class LinkedAccount {
     @Column(nullable = true)
     private String actionType;
 
-    // ✅ Add Constructor Matching Service Call
+    // ✅ Add Getter for Primary ID
+    public Long getPrimaryId() {
+        return primaryAccount != null ? primaryAccount.getPrimaryId() : null;
+    }
+
+    // ✅ Constructor Matching Service Call
     public LinkedAccount(PrimaryAccount primaryAccount, String platform, String username, String profileUrl, String actionType) {
         this.primaryAccount = primaryAccount;
         this.platform = platform;

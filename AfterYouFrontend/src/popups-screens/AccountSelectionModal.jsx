@@ -1,79 +1,64 @@
 import React, { useState } from "react";
 import "../style/AccountSelectionModal.css";
+import { addPrimaryAccount } from "../Services/userAccountService";
 
 const AccountSelectionModal = ({ isOpen, onClose }) => {
   const [selectedOption, setSelectedOption] = useState(null);
-  const [primaryGmail, setPrimaryGmail] = useState(""); // Store primary Gmail
-  const [primaryPassword, setPrimaryPassword] = useState(""); // Store primary password
-  const [recoveryCode, setRecoveryCode] = useState(""); // Store recovery code
-  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
-  const [errorMessage, setErrorMessage] = useState(""); // Store error messages
+  const [primaryGmail, setPrimaryGmail] = useState("");
+  const [primaryPassword, setPrimaryPassword] = useState("");
+  const [recoveryCode, setRecoveryCode] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   if (!isOpen) return null;
 
-  // ✅ Handle Primary Gmail Input
-  const handlePrimaryGmailChange = (e) => {
-    setPrimaryGmail(e.target.value);
-  };
+  const handlePrimaryGmailChange = (e) => setPrimaryGmail(e.target.value);
+  const handlePrimaryPasswordChange = (e) => setPrimaryPassword(e.target.value);
+  const handleRecoveryCodeChange = (e) => setRecoveryCode(e.target.value);
 
-  // ✅ Handle Primary Password Input
-  const handlePrimaryPasswordChange = (e) => {
-    setPrimaryPassword(e.target.value);
-  };
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  // ✅ Handle Recovery Code Input
-  const handleRecoveryCodeChange = (e) => {
-    setRecoveryCode(e.target.value);
-  };
-
-  // ✅ Validate Email Format
-  const isValidEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  // ✅ Submit Primary Account to Backend
   const handleSubmitPrimary = async (e) => {
     e.preventDefault();
-    setErrorMessage(""); // Reset error message
+    setErrorMessage("");
 
-    // Validate email format
     if (!isValidEmail(primaryGmail)) {
       setErrorMessage("Please enter a valid email address.");
       return;
     }
 
-    setIsSubmitting(true); // Disable button while submitting
+    setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/user-account/add-primary", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: primaryGmail,
-          password: primaryPassword,
-          recoveryCode: recoveryCode,
-        }),
+      const response = await addPrimaryAccount({
+        email: primaryGmail,
+        password: primaryPassword,
+        recoveryCode: recoveryCode,
       });
 
-      if (response.ok) {
-        console.log("Primary Account Submitted:", { primaryGmail, primaryPassword, recoveryCode });
-        setSelectedOption("linked"); // Move to Linked Accounts after entering Gmail
+      if (response.status === 200) {
+        console.log("Primary Account Submitted:", response.data);
+        setSelectedOption("linked");
       } else {
         setErrorMessage("Error submitting primary account. Please try again.");
       }
     } catch (error) {
       setErrorMessage("Network error. Please check your connection.");
     } finally {
-      setIsSubmitting(false); // Re-enable button
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="useraccountselection-modal-overlay" onClick={onClose}>
       <div className="useraccountselection-modal-box" onClick={(e) => e.stopPropagation()}>
-        <h2>{selectedOption ? (selectedOption === "primary" ? "Enter Primary Gmail" : "Select Linked Account") : "Select Account Type"}</h2>
+        <h2>
+          {selectedOption
+            ? selectedOption === "primary"
+              ? "Enter Primary Gmail"
+              : "Select Linked Account"
+            : "Select Account Type"}
+        </h2>
 
         {!selectedOption ? (
           <div className="useraccountselection-btn-row">
@@ -87,40 +72,38 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
           </div>
         ) : selectedOption === "primary" ? (
           <form className="useraccountselection-form" onSubmit={handleSubmitPrimary}>
-            <input 
-              type="email" 
-              name="primaryGmail" 
-              placeholder="Enter Gmail Address" 
-              className="useraccountselection-form-input" 
-              value={primaryGmail} 
-              onChange={handlePrimaryGmailChange} 
-              required 
+            <input
+              type="email"
+              name="primaryGmail"
+              placeholder="Enter Gmail Address"
+              className="useraccountselection-form-input"
+              value={primaryGmail}
+              onChange={handlePrimaryGmailChange}
+              required
             />
 
-            <input 
-              type="password" 
-              name="primaryPassword" 
-              placeholder="Enter Password" 
-              className="useraccountselection-form-input" 
-              value={primaryPassword} 
-              onChange={handlePrimaryPasswordChange} 
-              required 
+            <input
+              type="password"
+              name="primaryPassword"
+              placeholder="Enter Password"
+              className="useraccountselection-form-input"
+              value={primaryPassword}
+              onChange={handlePrimaryPasswordChange}
+              required
             />
 
-            {/* ✅ Recovery Code Field */}
             <div className="useraccountselection-recovery-container">
-              <input 
-                type="text" 
-                name="recoveryCode" 
-                placeholder="Enter Recovery Code" 
-                className="useraccountselection-recovery-input" 
-                value={recoveryCode} 
-                onChange={handleRecoveryCodeChange} 
-                required 
+              <input
+                type="text"
+                name="recoveryCode"
+                placeholder="Enter Recovery Code"
+                className="useraccountselection-recovery-input"
+                value={recoveryCode}
+                onChange={handleRecoveryCodeChange}
+                required
               />
             </div>
 
-            {/* ✅ Display Error Message */}
             {errorMessage && <p className="useraccountselection-error">{errorMessage}</p>}
 
             <button type="submit" className="useraccountselection-submit-btn" disabled={isSubmitting}>
