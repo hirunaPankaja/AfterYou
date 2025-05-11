@@ -13,10 +13,6 @@ const ProfilePage = ({ userName = "Shey Silva" }) => {
     setShowExecutors(true);
   };
 
-  const handleBackToProfile = () => {
-    setShowExecutors(false);
-  };
-
   const handleOpenAccountSelection = (e) => {
     e.preventDefault();
     setIsAccountSelectionOpen(true);
@@ -56,7 +52,6 @@ const ProfilePage = ({ userName = "Shey Silva" }) => {
     <main className="profile-main-content">
       {showExecutors ? (
         <>
-          <button onClick={handleBackToProfile}>⬅ Back to Profile</button>
           <AssignExecutor />
         </>
       ) : (

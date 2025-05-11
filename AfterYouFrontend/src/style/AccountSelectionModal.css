@@ -18,9 +18,10 @@
   padding: 25px;
   border-radius: 12px;
   text-align: center;
-  width: 350px;
+  width: 400px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease-in-out;
+  position: relative;
 }
 
 /* Title */
@@ -29,6 +30,31 @@
   margin-bottom: 20px;
   font-weight: bold;
   color: #333;
+}
+
+/* Circular Close Button */
+.useraccountselection-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.useraccountselection-close-btn:hover {
+  background-color: #cc0000;
+  transform: scale(1.1);
 }
 
 /* Button Row */
@@ -73,33 +99,13 @@
   margin-top: 20px;
 }
 
-.useraccountselection-account-details-accname
-{
-  font-size: 120%;
-  margin-bottom: 10%;
-}
-
-.useraccountselection-form-input {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
-}
-
-/* Profile URL Field */
-.useraccountselection-profile-url {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #0073e6;
-  border-radius: 5px;
-  width: 100%;
+/* Account Details Section */
+.useraccountselection-account-details {
+  margin-top: 15px;
+  padding: 15px;
   background-color: #f9f9f9;
-}
-
-.useraccountselection-profile-url:focus {
-  border-color: #005bb5;
-  outline: none;
+  border-radius: 8px;
+  text-align: left;
 }
 
 /* Input Fields */
@@ -109,33 +115,39 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
-  margin-bottom: 2%; /* Added spacing between fields */
+  margin-bottom: 2%;
 }
 
-/* Profile URL Field */
-.useraccountselection-profile-url {
+/* Recovery Code Field Positioned to the Right */
+.useraccountselection-recovery-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.useraccountselection-recovery-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.useraccountselection-info-btn
+{
+  margin-right: 30%;
+}
+
+.useraccountselection-recovery-input {
   padding: 12px;
   font-size: 1rem;
   border: 1px solid #0073e6;
   border-radius: 5px;
-  width: 100%;
+  width: 60%;
   background-color: #f9f9f9;
-  margin-bottom: 2%; /* Added spacing */
 }
 
-.useraccountselection-profile-url:focus {
+.useraccountselection-recovery-input:focus {
   border-color: #005bb5;
   outline: none;
-}
-
-
-/* Account Details Section */
-.useraccountselection-account-details {
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  text-align: left;
 }
 
 /* Submit Button */
@@ -152,24 +164,6 @@
 
 .useraccountselection-submit-btn:hover {
   background-color: #333;
-  transform: scale(1.05);
-}
-
-/* Close Button */
-.useraccountselection-close-btn {
-  padding: 10px 130px;
-  margin-top: 2%;
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-}
-
-.useraccountselection-close-btn:hover {
-  background-color: #cc0000;
   transform: scale(1.05);
 }
 
@@ -201,7 +195,13 @@
     width: 100%;
   }
 
-  .useraccountselection-close-btn {
+
+  .useraccountselection-recovery-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .useraccountselection-recovery-input {
     width: 100%;
   }
 }
