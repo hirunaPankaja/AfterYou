@@ -1,4 +1,4 @@
-.form-container {
+.lawyer-form-container {
   max-width: 400px;
   margin: 40px auto;
   padding: 25px 30px;
@@ -7,7 +7,7 @@
   font-family: Arial, sans-serif;
 }
 
-h2 {
+.lawyer-form-container h2{
   text-align: center;
   margin-bottom: 20px;
   font-weight: bold;
@@ -15,23 +15,23 @@ h2 {
   padding-bottom: 10px;
 }
 
-.register-form .form-group {
+.lawyer-register-form .form-group {
   margin-bottom: 15px;
 }
 
-.register-form label {
+.lawyer-register-form label {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
 }
 
-.register-form span {
+.lawyer-register-form span {
   display: block;
   margin-bottom: 5px;
 }
 
-.register-form input[type="text"],
-.register-form input[type="file"] {
+.lawyer-register-form input[type="text"],
+.lawyer-register-form input[type="file"] {
   width: 100%;
   padding: 8px;
   border: 1px solid #aaa;

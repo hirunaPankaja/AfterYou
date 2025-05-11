@@ -26,10 +26,10 @@ const LawyerRegister = () => {
   };
 
   return (
-    <div className="form-container">
+    <div className="lawyer-form-container">
       <h2>Lawyer Register</h2>
-      <form className="register-form" onSubmit={handleSubmit}>
-        <div className="form-group">
+      <form className="lawyer-register-form" onSubmit={handleSubmit}>
+        <div className="lawyer-form-group">
           <label>Lawyer Name</label>
           <input
             type="text"
@@ -39,7 +39,7 @@ const LawyerRegister = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="lawyer-form-group">
           <label>Lawyer Email</label>
           <input
             type="email"
@@ -49,7 +49,7 @@ const LawyerRegister = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="lawyer-form-group">
           <label>Lawyer Contact</label>
           <input
             type="tel"
@@ -59,7 +59,7 @@ const LawyerRegister = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="lawyer-form-group">
           <label>National ID</label>
           <input
             type="text"
@@ -69,7 +69,7 @@ const LawyerRegister = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="lawyer-form-group">
           <label>Lawyer ID</label>
           <input
             type="text"
@@ -79,7 +79,7 @@ const LawyerRegister = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="lawyer-form-group">
           <label>Lawyer Identity Proof Upload</label>
           <input
             type="file"
