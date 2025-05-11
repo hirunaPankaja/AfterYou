@@ -1,5 +1,7 @@
 package com.FinalProject.AfterYou.service;
 
+import com.FinalProject.AfterYou.DTO.LoginResponse;
+import com.FinalProject.AfterYou.DTO.UserProfileDto;
 import com.FinalProject.AfterYou.DTO.UserRegistrationRequest;
 import com.FinalProject.AfterYou.DTO.UserRegistrationResponse;
 import com.FinalProject.AfterYou.model.*;
@@ -11,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -26,6 +30,8 @@ public class UserService {
 
     @Autowired
     private JWTService jwtService;
+
+
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
@@ -68,13 +74,42 @@ public class UserService {
         return response;
     }
 
-    public String verify(UserCredentials user) {
+    public LoginResponse verify(UserCredentials user) {
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
         );
+
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(user.getEmail());
+            UserCredentials dbUser = userRepo.findByEmail(user.getEmail());
+
+            if (dbUser != null && dbUser.getUser() != null) {
+                String token = jwtService.generateToken(user.getEmail());
+                int userId = dbUser.getUser().getUserId();
+                return new LoginResponse(token, userId);
+            }
         }
-        return "fail";
+
+        return null; // or throw an exception or return a response indicating failure
     }
+
+    public UserProfileDto getUserProfile(int userId) {
+        // Retrieve user registration details using the userId
+        Optional<UserRegistrationDetails> registrationDetailsOpt = userDetails.findById(userId);
+        Optional<UserCredentials> credentialsOpt = userRepo.findById(userId);
+
+        if (registrationDetailsOpt.isPresent() && credentialsOpt.isPresent()) {
+            UserRegistrationDetails registrationDetails = registrationDetailsOpt.get();
+            UserCredentials userCredentials = credentialsOpt.get();
+
+            // Map the data to a DTO for returning to the client
+            return new UserProfileDto(
+                    registrationDetails.getFirstName(),
+                    registrationDetails.getLastName(),
+                    userCredentials.getEmail()
+            );
+        } else {
+            throw new RuntimeException("User not found with ID: " + userId);
+        }
+    }
+
 }
