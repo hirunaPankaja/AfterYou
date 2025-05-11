@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const API = import.meta.env.VITE_API_BASE_URL;
+const API = "http://localhost:8081";
 
-export const registerUser = (userData) => axios.post(`${API}/users/register`, userData);
-export const loginUser = (credentials) => axios.post(`${API}/auth/login`, credentials);
-export const getUserProfile = (token) => axios.get(`${API}/users/profile`, {
-  headers: { Authorization: `Bearer ${token}` },
-});
+export const getUserProfile = (userId, token) =>
+  axios.post(`${API}/profile`, { userId }, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  });

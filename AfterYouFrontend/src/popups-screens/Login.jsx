@@ -34,7 +34,8 @@ const Login = () => {
       // ✅ Save token and userId to localStorage
       localStorage.setItem("jwtToken", token);
       localStorage.setItem("userId", userId);
-
+      console.log("token", token);
+      console.log("userId", userId);
       goToHome(); // Navigate to homepage/dashboard
     }
   } catch (err) {
