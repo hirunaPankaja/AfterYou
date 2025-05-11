@@ -1,11 +1,10 @@
 package com.FinalProject.AfterYou.controller;
 
-
 import com.FinalProject.AfterYou.model.UserAccount;
 import com.FinalProject.AfterYou.service.UserAccountService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user-account")
@@ -17,28 +16,15 @@ public class UserAccountController {
         this.userAccountService = userAccountService;
     }
 
+    // ✅ Add Primary Account with Password and Recovery Code
     @PostMapping("/add-primary")
-    public UserAccount addPrimaryAccount(@RequestParam String email) {
-        return userAccountService.addPrimaryAccount(email);
+    public UserAccount addPrimaryAccount(@RequestParam String email, @RequestParam String password, @RequestParam String recoveryCode) {
+        return userAccountService.addPrimaryAccount(email, password, recoveryCode);
     }
 
-    @PostMapping("/add-linked")
-    public UserAccount addLinkedAccount(
-            @RequestParam String email,
-            @RequestParam String platform,
-            @RequestParam String username,
-            @RequestParam String profileUrl,
-            @RequestParam String actionType) {
-        return userAccountService.addLinkedAccount(email, platform, username, profileUrl, actionType);
-    }
-
-    @GetMapping("/primary")
-    public List<UserAccount> getPrimaryAccounts() {
-        return userAccountService.getPrimaryAccounts();
-    }
-
-    @GetMapping("/linked/{email}")
-    public List<UserAccount> getLinkedAccounts(@PathVariable String email) {
-        return userAccountService.getLinkedAccountsByEmail(email);
+    // ✅ Get Primary Account by Email
+    @GetMapping("/primary/{email}")
+    public Optional<UserAccount> getPrimaryAccount(@PathVariable String email) {
+        return userAccountService.getPrimaryAccount(email);
     }
 }
