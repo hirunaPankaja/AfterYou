@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
+
     @Autowired
     private JavaMailSender mailSender;
 
@@ -16,6 +17,7 @@ public class EmailService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
+        helper.setFrom("keelsprojectmanagement@gmail.com");
         helper.setTo(toEmail);
         helper.setSubject("AfterYou Email Verification");
 
@@ -27,8 +29,9 @@ public class EmailService {
                 "<p>If you didn’t sign up, you can ignore this email.</p></div>";
 
         helper.setText(html, true);
+
+        System.out.println("Sending email to: " + toEmail); // Debug log
         mailSender.send(message);
+        System.out.println("Email sent successfully");
     }
-
-
 }
