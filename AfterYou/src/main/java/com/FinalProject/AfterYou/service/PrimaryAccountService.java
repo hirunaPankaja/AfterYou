@@ -5,6 +5,7 @@ import com.FinalProject.AfterYou.repo.PrimaryAccountRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,10 @@ public class PrimaryAccountService {
     public PrimaryAccount getPrimaryAccountById(Long id) {
         return primaryAccountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Primary account not found with ID: " + id));
+    }
+
+    public List<PrimaryAccount> getAllPrimaryAccounts() {
+        return primaryAccountRepository.findAll();
     }
 
 }
