@@ -2,6 +2,7 @@ package com.FinalProject.AfterYou.controller;
 
 import com.FinalProject.AfterYou.DTO.*;
 import com.FinalProject.AfterYou.model.UserCredentials;
+import com.FinalProject.AfterYou.service.EmailService;
 import com.FinalProject.AfterYou.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService service;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/register")
     public ResponseEntity<UserRegistrationResponse> register(@RequestBody UserRegistrationRequest request) {
@@ -42,5 +46,18 @@ public class UserController {
         }
     }
 
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyEmail(@RequestParam String email) {
+        boolean verified = service.verifyEmail(email);
+
+        if (verified) {
+            // Frontend login page redirect
+            return ResponseEntity.status(302)
+                    .header("Location", "http://localhost:5173/login/user")
+                    .build();
+        } else {
+            return ResponseEntity.status(400).body("Invalid verification request");
+        }
+    }
 
 }

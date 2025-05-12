@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import "../style/EditUserDetailsForm.css";
+import { getUserProfile } from "../Services/userService";
+import { useEffect } from "react";
 
 const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
-    const [formData, setFormData] = useState({
-        name: userData.name || "Shey Silva",
-        gender: userData.gender || "Female",
-        age: userData.age || "26",
-        nic: userData.nic || "200072348138",
-        dob: userData.dob || "17/08/2000",
-        address: userData.address || "761, Park Street, Colombo 08.",
-        email: userData.email || "Siva@gmail.com",
-        mobile: userData.mobile || "077 8564632"
-    });
+   const [profile, setProfile] = useState(null);
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,6 +20,19 @@ const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
         onSave(formData);
     };
 
+    useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        const token = localStorage.getItem('jwtToken');
+
+        getUserProfile(userId, token)
+            .then(response => {
+                setProfile(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching user profile:", error);
+            });
+    }, []);
+
     return (
         <div className="edit-form-overlay">
             <div className="edit-form-container">
@@ -38,7 +45,7 @@ const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
                         <input
                             type="text"
                             name="name"
-                            value={formData.name}
+                            value={profile?.firstName + " " + profile?.lastName}
                             onChange={handleChange}
                         />
                     </div>
@@ -48,7 +55,7 @@ const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
                             <label>Gender</label>
                             <select
                                 name="gender"
-                                value={formData.gender}
+                                value={profile?.gender}
                                 onChange={handleChange}
                             >
                                 <option value="Female">Female</option>
@@ -64,7 +71,7 @@ const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
                             <input
                                 type="text"
                                 name="nic"
-                                value={formData.nic}
+                                value={profile?.nic}
                                 onChange={handleChange}
                             />
                         </div>
@@ -74,7 +81,7 @@ const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
                             <input
                                 type="text"
                                 name="dob"
-                                value={formData.dob}
+                                value={profile?.dob}
                                 onChange={handleChange}
                             />
                         </div>
@@ -84,7 +91,7 @@ const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
                         <label>Address</label>
                         <textarea
                             name="address"
-                            value={formData.address}
+                            value={profile?.address}
                             onChange={handleChange}
                             rows="3"
                         />
@@ -96,7 +103,7 @@ const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
                             <input
                                 type="email"
                                 name="email"
-                                value={formData.email}
+                                value={profile?.email}
                                 onChange={handleChange}
                             />
                         </div>
@@ -106,7 +113,7 @@ const EditUserDetailsForm = ({ userData, onClose, onSave }) => {
                             <input
                                 type="tel"
                                 name="mobile"
-                                value={formData.mobile}
+                                value={profile?.mobile}
                                 onChange={handleChange}
                             />
                         </div>
