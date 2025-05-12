@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import  "../style/AssignLawyer.css";
-import lawyerService from "../Services/lawyerService.js";
+import { assignLawyer } from '../Services/lawyerService';
 
 const AssignLawyer = () => {
     const [lawyerName, setLawyerName] = useState("");
@@ -19,15 +19,20 @@ const AssignLawyer = () => {
         try{
             //Get userId from auth context or localStorage
             const userId = localStorage.getItem("userId");
+            const token = localStorage.getItem("jwtToken");
 
-            const response = await lawyerService.assignLawyer(
+            if (!token) {
+                throw new Error("Authentication token not found");
+            }
+
+            const response = await assignLawyer(
                 {
                     lawyerName,
                     lawyerEmail,
                     lawyerContact,
                 },
                 userId,
-            );
+            ).then(res => res.data);
 
             setSuccess(true);
             console.log("Lawyer assigned successfully:", response);
