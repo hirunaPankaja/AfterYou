@@ -171,15 +171,28 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
               required
             />
 
-            <input
-              type="text"
-              name="recoveryCode"
-              placeholder="Enter Recovery Code"
-              className="useraccountselection-form-input"
-              value={recoveryCode}
-              onChange={handleRecoveryCodeChange}
-              required
-            />
+      <div className="useraccountselection-recovery-container">
+       <input
+        type="text"
+        name="recoveryCode"
+        placeholder="Enter Recovery Code"
+        className="useraccountselection-recovery-input"
+        value={recoveryCode}
+        onChange={handleRecoveryCodeChange}
+        required
+       />
+
+    
+       <button
+        type="button"
+        className="useraccountselection-info-btn"
+        onClick={() => window.open("https://support.google.com/accounts/answer/185839?hl=en&co=GENIE.Platform%3DAndroid", "_blank")}
+           >
+           ℹ️ Info
+           </button>
+          </div>
+
+
 
             {errorMessage && <p className="useraccountselection-error">{errorMessage}</p>}
 

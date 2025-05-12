@@ -123,31 +123,47 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
+/* Recovery Code Label */
 .useraccountselection-recovery-label {
   font-size: 1rem;
   font-weight: bold;
   color: #333;
 }
 
-.useraccountselection-info-btn
-{
-  margin-right: 30%;
-}
-
+/* ✅ Adjusted Recovery Code Input Width */
 .useraccountselection-recovery-input {
-  padding: 12px;
+  padding: 10px;
   font-size: 1rem;
-  border: 1px solid #0073e6;
   border-radius: 5px;
-  width: 60%;
+  margin-right: 9%;
+  width: 120%; /* ✅ Made it smaller */
   background-color: #f9f9f9;
 }
 
 .useraccountselection-recovery-input:focus {
   border-color: #005bb5;
   outline: none;
+}
+
+/* ✅ Move Info Button Further Right & Remove Border */
+.useraccountselection-info-btn {
+  padding: 2px 12px;
+  margin-left: -8%;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: transparent; 
+  color: #0073e6;
+  border: none; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.useraccountselection-info-btn:hover {
+  color: #005bb5;
+  transform: scale(1.05);
 }
 
 /* Submit Button */
@@ -194,7 +210,6 @@
   .useraccountselection-btn {
     width: 100%;
   }
-
 
   .useraccountselection-recovery-container {
     flex-direction: column;
