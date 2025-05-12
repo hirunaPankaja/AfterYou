@@ -1,4 +1,3 @@
-/* ✅ Landing Page Background */
 .lawyer-register-landing-page {
   width: 100%;
   min-height: 100vh;
@@ -7,32 +6,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; 
 }
 
-/* ✅ Background Header */
+
 .lawyer-register-background-header {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 30px;
+  justify-content: space-between; 
+  padding: 20px;
+  position: relative;
 }
 
-/* ✅ Logo Styling */
 .lawyer-register-logo {
-  width: 80px; /* Adjust size as needed */
+  width: 4%; 
   height: auto;
-  margin-left: -300%;
+  position: absolute;
+  left: 15px; 
+  top: -1px;
 }
 
-/* ✅ Title Styling */
+
 .lawyer-register-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
   color: #333;
-  display: flex;
-  margin-left: 280%;
-  align-items: center;
+  text-align: center;
+  flex-grow: 1; 
 }
 
 .lawyer-register-title .after {
@@ -49,7 +50,7 @@
 .lawyer-register-form {
   max-width: 600px;
   padding: 30px;
-  background-color: #ffffff;
+  background-color: #d4d3d3;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   font-family: "Arial", sans-serif;
@@ -70,44 +71,50 @@
   gap: 20px;
 }
 
-/* ✅ Form Row */
 .lawyer-register-row {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-/* ✅ Labels */
+/* ✅ Labels (Left Side) */
 .lawyer-register-label {
+  width: 40%;
   font-weight: bold;
   color: #222;
   font-size: 16px;
+  text-align: left;
 }
 
-/* ✅ Values */
+/* ✅ Text Values (Left-Aligned) */
 .lawyer-register-value {
-  padding: 12px;
-  background-color: #f9f9f9;
+  width: 60%;
+  padding: 10px;
+  background-color: #dadada;
   border-radius: 4px;
   font-size: 16px;
   color: #333;
   border: 1px solid #ddd;
+  text-align: left; /* ✅ Ensures left alignment */
 }
 
-/* ✅ Input Fields */
+/* ✅ Input Fields (Right Side) */
 .lawyer-register-input {
-  width: 100%;
-  padding: 12px;
+  width: 60%;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
   background-color: #fff;
+  text-align: left; /* ✅ Ensures left alignment */
 }
 
 /* ✅ File Upload */
 .lawyer-register-file-input {
-  width: 100%;
-  padding: 12px;
+  width: 60%;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
@@ -116,7 +123,8 @@
 
 /* ✅ Submit Button */
 .lawyer-register-submit {
-  width: 100%;
+  width: 80%;
+  margin-left: 10%;
   padding: 14px;
   background-color: #333;
   color: white;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../style/LawyerRegister.css";
+import lawyerLandingpage from "../assets/logo.png";
 import { getLawyerByEmailAndUserId, completeRegistration } from '../Services/lawyerService';
 
 const LawyerRegister = () => {
@@ -79,7 +80,7 @@ const LawyerRegister = () => {
     <div className="lawyer-register-landing-page">
       {/* ✅ Logo and Title Added to Background Page */}
       <div className="lawyer-register-background-header">
-        <img src="/path-to-logo.png" alt="Logo" className="lawyer-register-logo" />
+        <img src={lawyerLandingpage} alt="Logo" className="lawyer-register-logo" />
         <h2 className="lawyer-register-title">
           <span className="after">After</span> <span className="you">You</span>
         </h2>
