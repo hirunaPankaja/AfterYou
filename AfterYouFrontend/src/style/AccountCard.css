@@ -11,6 +11,44 @@
   transition: transform 0.2s;
 }
 
+.platform-icon {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.platform-icon:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+/* Action Buttons */
+.action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.2s ease;
+}
+
+.action-button:hover {
+  transform: scale(1.1);
+}
+
+.edit-btn {
+  color: #0073e6;
+}
+
+.delete-btn {
+  color: #ff4d4d;
+}
+
+
+
 .account-card:hover {
   transform: scale(1.02);
 }

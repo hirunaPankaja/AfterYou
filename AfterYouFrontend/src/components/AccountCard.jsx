@@ -18,7 +18,7 @@ import {
 
 import '../style/AccountCard.css';
 
-function AccountCard({ accountCard, platform, onClick }) {
+function AccountCard({ accountCard, onEdit, onDelete }) {
   const platformIcons = {
     Facebook: { icon: faFacebook, color: '#1877F2', type: 'fa' },
     Twitter: { icon: faTwitter, color: '#1DA1F2', type: 'fa' },
@@ -30,37 +30,42 @@ function AccountCard({ accountCard, platform, onClick }) {
     Netflix: { icon: SiNetflix, color: '#E50914', type: 'si' },
   };
 
-  const { icon, color, type } = platformIcons[platform] || {};
+  const { icon, color, type } = platformIcons[accountCard.platform] || {};
 
   return (
-    <div className="account-card" onClick={onClick}>
+    <div className="account-card">
       <div className="account-header">
-        {type === 'fa' && icon && (
-          <FontAwesomeIcon icon={icon} className="platform-icon" style={{ color }} />
+        {/* ✅ Clickable Social Media Icon */}
+        {accountCard.profileUrl && (
+          <a href={accountCard.profileUrl} target="_blank" rel="noopener noreferrer">
+            {type === 'fa' && icon && (
+              <FontAwesomeIcon icon={icon} className="platform-icon" style={{ color }} />
+            )}
+            {type === 'si' && icon && (
+              React.createElement(icon, { className: 'platform-icon', style: { color } })
+            )}
+          </a>
         )}
-        {type === 'si' && icon && (
-          React.createElement(icon, { className: 'platform-icon', style: { color } })
-        )}
-        <span className="platform-name">{platform}</span>
+        <span className="platform-name">{accountCard.platform}</span>
       </div>
 
       {/* Vertical divider */}
-      <div className="verticle-divider"></div>
+      <div className="vertical-divider"></div>
 
       <div className="account-body">
-        <p><strong>User:</strong> {accountCard.name}</p>
-        <p><strong>Action:</strong> {accountCard.action}</p>
+        <p><strong>User:</strong> {accountCard.username}</p>
+        <p><strong>Action:</strong> {accountCard.actionType}</p>
       </div>
 
       <div className="account-actions">
-        <div className="action-button edit-btn">
+        <button className="action-button edit-btn" onClick={() => onEdit(accountCard)}>
           <FontAwesomeIcon icon={faEdit} />
           <span className="tooltip">Edit</span>
-        </div>
-        <div className="action-button delete-btn">
+        </button>
+        <button className="action-button delete-btn" onClick={() => onDelete(accountCard.id)}>
           <FontAwesomeIcon icon={faTrash} />
           <span className="tooltip">Delete</span>
-        </div>
+        </button>
       </div>
     </div>
   );
