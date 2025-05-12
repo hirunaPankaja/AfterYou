@@ -4,8 +4,8 @@ import "../style/LawyerRegister.css";
 import { getLawyerByEmailAndUserId, completeRegistration } from '../Services/lawyerService';
 
 const LawyerRegister = () => {
-  const { email, userId } = useParams(); // Get email and userId from URL
-  const decodedEmail = decodeURIComponent(email); // Decode the email in case it has special characters
+  const { email, userId } = useParams();
+  const decodedEmail = decodeURIComponent(email);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -21,7 +21,6 @@ const LawyerRegister = () => {
   const [lawyerExists, setLawyerExists] = useState(false);
 
   useEffect(() => {
-    // Check if lawyer exists when component mounts
     const checkLawyerExists = async () => {
       try {
         if (decodedEmail && userId) {
@@ -31,7 +30,7 @@ const LawyerRegister = () => {
               ...prev,
               name: response.data.lawyerName || '',
               contact: response.data.lawyerContact || '',
-              email: response.data.lawyerEmail || decodedEmail // Use the email from response if available
+              email: response.data.lawyerEmail || decodedEmail
             }));
             setLawyerExists(true);
           }
@@ -57,19 +56,16 @@ const LawyerRegister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    setSuccess(false);
 
     try {
-      const response = await completeRegistration(
+      await completeRegistration(
           formData.email,
           formData.nationalId,
           formData.lawyerId,
           formData.identityProof,
           userId
       );
-
       setSuccess(true);
-      console.log('Registration completed:', response.data);
     } catch (err) {
       setError("Registration failed: " + (err.response?.data?.message || err.message));
       console.error('Registration error:', err);
@@ -80,80 +76,77 @@ const LawyerRegister = () => {
   if (!lawyerExists) return <div className="lawyer-form-container">Lawyer not found or not assigned</div>;
 
   return (
-      <div className="lawyer-form-container">
-        <h2>Complete Lawyer Registration</h2>
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">Registration completed successfully!</div>}
+      <div className="lawyer-register-landing-page">
+      <div className="lawyer-register-form-container">
+        <div className="header">
+          <div className="logo">After You</div>
+          <h2>Lawyer Register</h2>
+        </div>
 
-        <form className="lawyer-register-form" onSubmit={handleSubmit}>
-          <div className="lawyer-form-group">
-            <label>Lawyer Name</label>
-            <input
-                type="text"
-                name="name"
-                placeholder="Enter Lawyer Name"
-                value={formData.name}
-                onChange={handleChange}
-                readOnly
-            />
-          </div>
-          <div className="lawyer-form-group">
-            <label>Lawyer Email</label>
-            <input
-                type="email"
-                name="email"
-                placeholder="Enter Lawyer Email"
-                value={formData.email}
-                onChange={handleChange}
-                readOnly
-            />
-          </div>
-          <div className="lawyer-form-group">
-            <label>Lawyer Contact</label>
-            <input
-                type="tel"
-                name="contact"
-                placeholder="Enter Contact Number"
-                value={formData.contact}
-                onChange={handleChange}
-                readOnly
-            />
-          </div>
-          <div className="lawyer-form-group">
-            <label>National ID</label>
-            <input
-                type="text"
-                name="nationalId"
-                placeholder="Enter National ID"
-                value={formData.nationalId}
-                onChange={handleChange}
-                required
-            />
-          </div>
-          <div className="lawyer-form-group">
-            <label>Lawyer ID</label>
-            <input
-                type="text"
-                name="lawyerId"
-                placeholder="Enter Lawyer ID"
-                value={formData.lawyerId}
-                onChange={handleChange}
-                required
-            />
-          </div>
-          <div className="lawyer-form-group">
-            <label>Lawyer Identity Proof Upload</label>
-            <input
-                type="file"
-                name="identityProof"
-                onChange={handleChange}
-                required
-            />
-          </div>
-          <button type="submit" className="submit-button">
-            Complete Registration
-          </button>
-        </form>
+        {error && <div className="error-message">{error}</div>}
+
+        {success ? (
+            <div className="success-message">
+              Registration completed successfully!
+            </div>
+        ) : (
+            <form className="lawyer-register-form" onSubmit={handleSubmit}>
+              <div className="form-row">
+                <span className="label">Lawyer Name</span>
+                <span className="value">{formData.name}</span>
+              </div>
+
+              <div className="form-row">
+                <span className="label">Lawyer Email</span>
+                <span className="value">{formData.email}</span>
+              </div>
+
+              <div className="form-row">
+                <span className="label">Lawyer Contact</span>
+                <span className="value">{formData.contact}</span>
+              </div>
+
+              <div className="form-row">
+                <span className="label">National ID</span>
+                <input
+                    type="text"
+                    name="nationalId"
+                    className="input-field"
+                    value={formData.nationalId}
+                    onChange={handleChange}
+                    required
+                />
+              </div>
+
+              <div className="form-row">
+                <span className="label">Lawyer ID</span>
+                <input
+                    type="text"
+                    name="lawyerId"
+                    className="input-field"
+                    value={formData.lawyerId}
+                    onChange={handleChange}
+                    required
+                />
+              </div>
+
+              <div className="form-row">
+                <span className="label">Lawyer Identity Proof Upload</span>
+                <input
+                    type="file"
+                    name="identityProof"
+                    className="file-input"
+                    onChange={handleChange}
+                    required
+                />
+              </div>
+
+              <button type="submit" className="submit-button">
+                Submit
+              </button>
+            </form>
+        )}
+      </div>
       </div>
   );
 };
