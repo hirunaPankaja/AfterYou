@@ -12,8 +12,8 @@ const getAuthToken = () => {
 export const assignExecutor = (executorData, userId) => {
     return axios.post(`${API_BASE_URL}/assign`, {
         ...executorData,
-        userId: userId
-    },{
+        params: { userId },
+    }, {
         headers: {
             "Content-Type": "application/json",
             Authorization: getAuthToken()
@@ -24,21 +24,25 @@ export const assignExecutor = (executorData, userId) => {
 // ✅ Get executor by email and user ID
 export const getExecutorByEmailAndUserId = (email, userId) => {
     return axios.get(`${API_BASE_URL}/by-email-and-user`, {
-        params: { email, userId },
+        params: {
+            email: encodeURIComponent(email),
+            userId: userId
+        },
         headers: {
+            'Content-Type': 'application/json',
             Authorization: getAuthToken()
         }
     });
 };
 
-// ✅ Complete executor registration with file upload
-export const completeExecutorRegistration = (executorId, nicImageFile, password) => {
+// ✅ Complete executor registration with file upload (updated version)
+export const completeExecutorRegistration = (executorEmail, userId, identityProof, password) => {
     const formData = new FormData();
-    formData.append("nicImage", nicImageFile);
+    formData.append("nicImage", identityProof);
     formData.append("password", password);
 
-    return axios.post(
-        `${API_BASE_URL}/complete-registration/${executorId}`,
+    return axios.put(
+        `${API_BASE_URL}/complete-registration/${encodeURIComponent(executorEmail)}/${userId}`,
         formData,
         {
             headers: {

@@ -34,7 +34,9 @@ export const validatePassword = (password, confirmPassword) => {
   
     return null; // Valid email
   };
-  
+
+
+
   export const validatePhoneNumber = (emergencyContact, phoneNumber) => {
     const phonePattern = /^\d{10}$/;
   

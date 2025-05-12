@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "../style/AssignExecutorForm.css";
 import { assignExecutor, sendExecutorVerification } from "../services/executorService";
 
-const AssignExecutorForm = ({ onClose }) => {  // Add onClose prop
-    const [executorName, setExecutorName] = useState("");
-    const [executorEmail, setExecutorEmail] = useState("");
-    const [executorNIC, setExecutorNIC] = useState("");
-    const [executorRelationship, setExecutorRelationship] = useState("");
+const AssignExecutorForm = ({ onClose }) => {
+    const [formData, setFormData] = useState({
+        executorName: "",
+        executorEmail: "",
+        executorNicNumber: "",
+        executorRelationship: ""
+    });
     const [sendVerification, setSendVerification] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
@@ -14,16 +16,24 @@ const AssignExecutorForm = ({ onClose }) => {  // Add onClose prop
     const [fieldErrors, setFieldErrors] = useState({
         executorName: false,
         executorEmail: false,
-        executorNIC: false,
+        executorNicNumber: false,
         executorRelationship: false
     });
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
     const validateFields = () => {
         const errors = {
-            executorName: !executorName.trim(),
-            executorEmail: !executorEmail.trim(),
-            executorNIC: !executorNIC.trim(),
-            executorRelationship: !executorRelationship.trim()
+            executorName: !formData.executorName.trim(),
+            executorEmail: !formData.executorEmail.trim(),
+            executorNicNumber: !formData.executorNicNumber.trim(),
+            executorRelationship: !formData.executorRelationship.trim()
         };
 
         setFieldErrors(errors);
@@ -40,26 +50,26 @@ const AssignExecutorForm = ({ onClose }) => {  // Add onClose prop
         setIsSubmitting(true);
 
         try {
-            const userId = localStorage.getItem("userId");
+            const userId = parseInt(localStorage.getItem("userId"));
+            console.log(userId);
+
             const executorData = {
-                executorName,
-                executorEmail,
+                executorName: "",
+                executorEmail: "",
                 executorNicNumber: executorNIC,
-                executorRelationship,
-                userId: parseInt(userId)
+                executorRelationship
             };
 
+            // Pass both executorData and userId separately
             const response = await assignExecutor(executorData, userId);
 
+            // Send verification if checkbox is checked
             if (sendVerification) {
                 await sendExecutorVerification(response.data.executorId);
             }
 
             setSuccess(true);
-            // Close the form after 2 seconds
-            setTimeout(() => {
-                onClose();
-            }, 2000);
+            setTimeout(() => onClose(), 2000);
 
         } catch (err) {
             setError(err.response?.data?.message || "Failed to assign executor");
@@ -68,12 +78,14 @@ const AssignExecutorForm = ({ onClose }) => {  // Add onClose prop
         }
     };
 
-    // If success, show only success message
     if (success) {
         return (
             <div className="assign-modal-content">
                 <div className="assign-executorform-container">
-                    <div className="assign-executorform-success-message">Executor assigned successfully!</div>
+                    <div className="success-message">
+                        Executor assigned successfully!
+                        {sendVerification && <p>Verification email has been sent.</p>}
+                    </div>
                 </div>
             </div>
         );
@@ -87,12 +99,14 @@ const AssignExecutorForm = ({ onClose }) => {  // Add onClose prop
                 {error && <div className="error-message">{error}</div>}
 
                 <div className="divider" />
+
                 <div className="assign-executorform-content">
                     <label className="assign-executorform-lable">Executor Name</label>
                     <input
                         type="text"
-                        value={executorName}
-                        onChange={(e) => setExecutorName(e.target.value)}
+                        name="executorName"
+                        value={formData.executorName}
+                        onChange={handleChange}
                         className={`assign-executorform-input ${fieldErrors.executorName ? "error-field" : ""}`}
                     />
                     {fieldErrors.executorName && <span className="error-text">Executor name is required</span>}
@@ -102,30 +116,33 @@ const AssignExecutorForm = ({ onClose }) => {  // Add onClose prop
                     <label className="assign-executorform-lable">Executor Email</label>
                     <input
                         type="email"
-                        value={executorEmail}
-                        onChange={(e) => setExecutorEmail(e.target.value)}
+                        name="executorEmail"
+                        value={formData.executorEmail}
+                        onChange={handleChange}
                         className={`assign-executorform-input ${fieldErrors.executorEmail ? "error-field" : ""}`}
                     />
-                    {fieldErrors.executorEmail && <span className="error-text">Executor email is required</span>}
+                    {fieldErrors.executorEmail && <span className="error-text">Valid email is required</span>}
                 </div>
 
                 <div className="assign-executorform-content">
                     <label className="assign-executorform-lable">Executor NIC</label>
                     <input
                         type="text"
-                        value={executorNIC}
-                        onChange={(e) => setExecutorNIC(e.target.value)}
-                        className={`assign-executorform-input ${fieldErrors.executorNIC ? "error-field" : ""}`}
+                        name="executorNicNumber"
+                        value={formData.executorNicNumber}
+                        onChange={handleChange}
+                        className={`assign-executorform-input ${fieldErrors.executorNicNumber ? "error-field" : ""}`}
                     />
-                    {fieldErrors.executorNIC && <span className="error-text">Executor NIC is required</span>}
+                    {fieldErrors.executorNicNumber && <span className="error-text">NIC number is required</span>}
                 </div>
 
                 <div className="assign-executorform-content">
                     <label className="assign-executorform-lable">Relationship</label>
                     <input
                         type="text"
-                        value={executorRelationship}
-                        onChange={(e) => setExecutorRelationship(e.target.value)}
+                        name="executorRelationship"
+                        value={formData.executorRelationship}
+                        onChange={handleChange}
                         className={`assign-executorform-input ${fieldErrors.executorRelationship ? "error-field" : ""}`}
                     />
                     {fieldErrors.executorRelationship && <span className="error-text">Relationship is required</span>}

@@ -13,7 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "executor_details")
 public class AssignExecutor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int executorId;
@@ -25,6 +24,6 @@ public class AssignExecutor {
     @Lob
     private byte[] executorNicImage;
     private String executorPassword;
-    private int userId;// Foreign key to user who assigned this lawyer
-    private boolean registrationCompleted = false; // To track if lawyer completed registration
+    private int userId;
+    private boolean registrationCompleted = false;
 }

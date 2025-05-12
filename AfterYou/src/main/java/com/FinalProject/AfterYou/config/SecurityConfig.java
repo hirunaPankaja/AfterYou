@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("verify","").permitAll()
-                        .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback","api/lawyers/by-email-and-user","/complete-registration/{email}")
+                        .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback","api/lawyers/by-email-and-user","/complete-registration/{email}", "api/executors/by-email-and-user")
                         .permitAll()
                         .anyRequest().authenticated())
 //                .formLogin(Customizer.withDefaults())

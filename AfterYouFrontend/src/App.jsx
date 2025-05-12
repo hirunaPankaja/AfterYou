@@ -24,6 +24,7 @@ import ForgotPassword from "./main-screens/ForgotPassword.jsx";
 import UserProfile from './main-screens/UserProfile.jsx';
 import ChangePassword from "./popups-screens/ChangePassword.jsx";
 import LawyerRegister from './main-screens/LawyerRegister.jsx';
+import ExecutorRegister from './main-screens/ExecutorRegister.jsx';
 import './App.css';
 
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/executors" element={<AssignExecutor />} />     {/*executor */}
         <Route path="/assign-lawyer" element={<AssignLawyer />} />
         <Route path="/lawyers/register/:email/:userId" element={<LawyerRegister />} />
+        <Route path="/executors/register/:executorEmail/:userId" element={<ExecutorRegister />} />
         <Route path="/assign-executor" element={<AssignExecutorForm />} />
         <Route path="/user" element={<ProfilePage />} /> {/*user dashboard */}
         <Route path="/subscription" element={<ProfilePage />} /> {/*user dashboard */}
