@@ -16,7 +16,7 @@ const useNavigation = () => {
   const goToSubscriptionForm = () => navigate("/subscriptionform");
   const goToExecutorExecutingProcess = () => navigate("/executorExecutingProcess");
   const goToAssignExecutor = () => navigate("/assignexecutor");
-  const goToRegisterLawyer = () => navigate("/registerlawyer");
+  const goToRegisterLawyer = () => navigate("/registerlawyer" );
 
   const refreshPage = () => {
     window.location.reload(); // Assuming you meant this

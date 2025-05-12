@@ -72,82 +72,87 @@ const LawyerRegister = () => {
     }
   };
 
-  if (isLoading) return <div className="lawyer-form-container">Loading...</div>;
-  if (!lawyerExists) return <div className="lawyer-form-container">Lawyer not found or not assigned</div>;
+  if (isLoading) return <div className="lawyer-register-loading">Loading...</div>;
+  if (!lawyerExists) return <div className="lawyer-register-not-found">Lawyer not found or not assigned</div>;
 
   return (
-      <div className="lawyer-register-landing-page">
-      <div className="lawyer-register-form-container">
-        <div className="header">
-          <div className="logo">After You</div>
-          <h2>Lawyer Register</h2>
-        </div>
+    <div className="lawyer-register-landing-page">
+      {/* ✅ Logo and Title Added to Background Page */}
+      <div className="lawyer-register-background-header">
+        <img src="/path-to-logo.png" alt="Logo" className="lawyer-register-logo" />
+        <h2 className="lawyer-register-title">
+          <span className="after">After</span> <span className="you">You</span>
+        </h2>
+      </div>
 
-        {error && <div className="error-message">{error}</div>}
+      <div className="lawyer-register-form">
+        <h2>Lawyer Register</h2>
+
+        {error && <div className="lawyer-register-error">{error}</div>}
 
         {success ? (
-            <div className="success-message">
+            <div className="lawyer-register-success">
               Registration completed successfully!
             </div>
         ) : (
-            <form className="lawyer-register-form" onSubmit={handleSubmit}>
-              <div className="form-row">
-                <span className="label">Lawyer Name</span>
-                <span className="value">{formData.name}</span>
+            <form className="lawyer-register-form-content" onSubmit={handleSubmit}>
+              <div className="lawyer-register-row">
+                <span className="lawyer-register-label">Lawyer Name</span>
+                <span className="lawyer-register-value">{formData.name}</span>
               </div>
 
-              <div className="form-row">
-                <span className="label">Lawyer Email</span>
-                <span className="value">{formData.email}</span>
+              <div className="lawyer-register-row">
+                <span className="lawyer-register-label">Lawyer Email</span>
+                <span className="lawyer-register-value">{formData.email}</span>
               </div>
 
-              <div className="form-row">
-                <span className="label">Lawyer Contact</span>
-                <span className="value">{formData.contact}</span>
+              <div className="lawyer-register-row">
+                <span className="lawyer-register-label">Lawyer Contact</span>
+                <span className="lawyer-register-value">{formData.contact}</span>
               </div>
 
-              <div className="form-row">
-                <span className="label">National ID</span>
+              <div className="lawyer-register-row">
+                <span className="lawyer-register-label">National ID</span>
                 <input
                     type="text"
                     name="nationalId"
-                    className="input-field"
+                    className="lawyer-register-input"
                     value={formData.nationalId}
                     onChange={handleChange}
                     required
                 />
               </div>
 
-              <div className="form-row">
-                <span className="label">Lawyer ID</span>
+              <div className="lawyer-register-row">
+                <span className="lawyer-register-label">Lawyer ID</span>
                 <input
                     type="text"
                     name="lawyerId"
-                    className="input-field"
+                    className="lawyer-register-input"
                     value={formData.lawyerId}
                     onChange={handleChange}
                     required
                 />
               </div>
 
-              <div className="form-row">
-                <span className="label">Lawyer Identity Proof Upload</span>
+              <div className="lawyer-register-row">
+                <span className="lawyer-register-label">Lawyer Identity Proof Upload</span>
                 <input
                     type="file"
                     name="identityProof"
-                    className="file-input"
+                    className="lawyer-register-file-input"
                     onChange={handleChange}
                     required
                 />
               </div>
 
-              <button type="submit" className="submit-button">
+              <button type="submit" className="lawyer-register-submit">
                 Submit
               </button>
             </form>
         )}
       </div>
-      </div>
+    </div>
   );
 };
 
