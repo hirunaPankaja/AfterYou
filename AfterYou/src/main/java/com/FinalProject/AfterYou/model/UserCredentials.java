@@ -20,7 +20,7 @@ public class UserCredentials {
 
     private String email;
     private String password; // ✅ use lowercase 'password' (Java naming convention)
-    @OneToOne
+    private boolean verified = false;    @OneToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private UserRegistrationDetails user;

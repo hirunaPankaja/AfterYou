@@ -26,6 +26,33 @@ const LandingPage = () => {
   const [selectedRole, setSelectedRole] = useState(null);
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
   const [nextAction, setNextAction] = useState(null); // "login" or "signup"
+  const [formData, setFormData] = useState({
+  userBasicInfo: {
+    firstName: '',
+    lastName: '',
+    dob: '',
+    phoneNumber: '',
+    nationality: '',
+    address: '',
+    gender: '',
+    emergencyNumber: '',
+    credentials: {
+      email: '',
+      password: ''
+    },
+  },
+  accountSecurity: {
+    securityQuestion: '',
+    securityAnswer: ''
+  },
+  identity: {
+    identityType: '',
+    identityNumber: '',
+    idDocument: null,
+    selfieWithId: null
+  }
+});
+
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0);
@@ -77,16 +104,40 @@ const LandingPage = () => {
   const prevStep = () => setStep((prev) => prev - 1);
 
   const RenderSignUpForms = () => {
-    switch (step) {
-      case 1:
-        return <SignUpStep1 onNext={nextStep} />;
-      case 2:
-        return <SignUpStep2 onBack={prevStep} onClose={handleCloseModal} />;
-      default:
-        return null;
-    }
-  };
-  
+  switch (step) {
+    case 1:
+      return (
+        <SignUpStep1 
+          formData={formData} 
+          setFormData={setFormData} 
+          onNext={nextStep} 
+        />
+      );
+    case 2:
+      return (
+        <SignUpStep2 
+          formData={formData} 
+          setFormData={setFormData} 
+          onNext={nextStep}
+          onBack={prevStep} 
+        />
+      );
+    case 3:
+      return (
+        <SignUpStep3 
+          formData={formData} 
+          setFormData={setFormData}
+          onBack={prevStep}
+          onClose={handleCloseModal}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
+
+
 
   const RenderLoginForm = () => {
     if (selectedRole === "user") {

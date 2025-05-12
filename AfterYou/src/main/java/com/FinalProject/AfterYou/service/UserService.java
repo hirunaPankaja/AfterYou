@@ -6,6 +6,7 @@ import com.FinalProject.AfterYou.DTO.UserRegistrationRequest;
 import com.FinalProject.AfterYou.DTO.UserRegistrationResponse;
 import com.FinalProject.AfterYou.model.*;
 import com.FinalProject.AfterYou.repo.UserDetailsRepo;
+import com.FinalProject.AfterYou.repo.UserIdentityRepo;
 import com.FinalProject.AfterYou.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,10 +21,17 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
+    private EmailService emailService;
+
+
+    @Autowired
     private UserRepo userRepo;
 
     @Autowired
     private UserDetailsRepo userDetails;
+
+    @Autowired
+    private UserIdentityRepo userIdentityRepo;
 
     @Autowired
     private AuthenticationManager authManager;
@@ -63,13 +71,21 @@ public class UserService {
         // Save with cascading
         UserRegistrationDetails savedUser = userDetails.save(user);
 
-        // Build response DTO
+        // Send verification email
+        String verificationUrl = "http://localhost:8081/verify?email=" + user.getCredentials().getEmail();
+        try {
+            emailService.sendVerificationEmail(savedUser.getCredentials().getEmail(), verificationUrl);
+        } catch (Exception e) {
+            throw new RuntimeException("Email could not be sent", e);
+        }
+
+        // Build response DTO (must be after email is sent)
         UserRegistrationResponse response = new UserRegistrationResponse();
         response.setUserId(savedUser.getUserId());
         response.setFirstName(savedUser.getFirstName());
         response.setLastName(savedUser.getLastName());
         response.setEmail(savedUser.getCredentials().getEmail());
-        response.setMessage("Registration successful");
+        response.setMessage("Registration successful. Verification email sent.");
 
         return response;
     }
@@ -95,21 +111,38 @@ public class UserService {
     public UserProfileDto getUserProfile(int userId) {
         // Retrieve user registration details using the userId
         Optional<UserRegistrationDetails> registrationDetailsOpt = userDetails.findById(userId);
-        Optional<UserCredentials> credentialsOpt = userRepo.findById(userId);
 
-        if (registrationDetailsOpt.isPresent() && credentialsOpt.isPresent()) {
+        if (registrationDetailsOpt.isPresent()/* && identityOpt.isPresent()*/) {
             UserRegistrationDetails registrationDetails = registrationDetailsOpt.get();
-            UserCredentials userCredentials = credentialsOpt.get();
+
+            String nic = userIdentityRepo.getNicByUserId(userId);
+            String email = userRepo.getEmailByUserId(userId);
 
             // Map the data to a DTO for returning to the client
             return new UserProfileDto(
                     registrationDetails.getFirstName(),
                     registrationDetails.getLastName(),
-                    userCredentials.getEmail()
+                    email,
+                    registrationDetails.getGender(),
+                    registrationDetails.getDOB(),
+                    registrationDetails.getAddress(),
+                    registrationDetails.getPhoneNumber(),
+                    nic
+
             );
         } else {
             throw new RuntimeException("User not found with ID: " + userId);
         }
+    }
+
+    public boolean verifyEmail(String email) {
+        UserCredentials user = userRepo.findByEmail(email);
+        if (user != null) {
+            user.setVerified(true); // Add this field in your model if not exists
+            userRepo.save(user);
+            return true;
+        }
+        return false;
     }
 
 }

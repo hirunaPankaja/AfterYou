@@ -1,222 +1,164 @@
+/* Main container */
 .profile-container {
-  margin: 1% 2%;
-  padding: 30px;
-  font-family: Arial, sans-serif;
-  color: #000;
-  background-color: #C5C0C0;
-  border-radius: 10px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  justify-content: flex-start;
+  padding: 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  overflow: hidden;
 }
 
+/* Header: picture + name */
 .user-profile-header {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  background-color: #C5C0C0;
+  margin-bottom: 1rem;
 }
 
 .profile-photo-container {
   position: relative;
-  width: 70px;
-  height: 70px;
-  margin-right: 15px;
+  margin-right: 1rem;
 }
 
-.profile-photo {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.profile-picture {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ddd;
 }
 
 .default-icon {
-  font-size: 50px;
-  color: #ccc;
-}
-
-.profile-info {
-  flex: 1;
-}
-
-h1 {
-  font-size: 20px;
-  margin: 0 0 3px 0;
-}
-
-.profile-subheader {
-  font-size: 12px;
-  margin-bottom: 3px;
-  display: grid;
-  gap: 5px;
-}
-
-.details-container {
-  display: flex;
-  gap: 10px;
-}
-
-.user-details, .executor-details {
-  flex: 1;
-}
-
-.vertical-divider {
-  border-left: 1px solid #000;
-  height: auto;
-}
-
-.horizontal-divider {
-  background: #fff;
-  height: 1px;
-  width: auto;
-  margin: 8px 0;
-}
-
-.executor-details-container {
-  margin-left: 20px;
-}
-
-.executor-details h1 {
-  font-size: 18px;
-  margin: 10px 0 3px 0;
-  font-weight: bold;
-  text-align: center;
-}
-
-h2 {
-  font-size: 14px;
-  margin: 10px 0 3px 0;
-  font-weight: bold;
-}
-
-p {
-  padding-left: 8px;
-  line-height: 1.5;
-  margin: 3px 0;
-}
-
-strong {
-  font-weight: bold;
-}
-
-/* Edit Icon Styles */
-.edit-icon, .executor-edit-icon {
-  color: #fff;
-  background-color: #C5C0C0;
-  border: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-left: 6px;
-}
-
-.executor-edit-icon {
-  margin-top: 20px;
-}
-
-.edit-icon:hover,
-.executor-edit-icon:hover {
-  background: #e0e0e0;
+  font-size: 90px;
+  color: #aaa;
 }
 
 .photo-edit {
   position: absolute;
   bottom: 0;
   right: 0;
-  border: 1px solid #ddd;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.profile-info {
+  flex-grow: 1;
 }
 
 .name-edit-container {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.5rem;
 }
 
+.edit-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+}
+
+.profile-subheader {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.3rem;
+}
+
+.nic {
+  margin-left: 1rem;
+  font-weight: 600;
+}
+
+/* Content area: user + executor */
+.details-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 100px;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* Shared style */
+.user-details,
+.executor-details {
+  width: 50%;
+  height: calc(100vh - 160px); /* Adjust for header height */
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow-y: auto;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* Scrollbar custom */
+.user-details::-webkit-scrollbar,
+.executor-details::-webkit-scrollbar {
+  width: 6px;
+}
+.user-details::-webkit-scrollbar-thumb,
+.executor-details::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+/* Fields */
 .editable-field {
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
+}
+
+.editable-field h2 {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #333;
 }
 
 .field-value {
-  display: flex;
-  align-items: flex-start;
+  background: #f0f4f8;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #444;
+  position: relative;
 }
 
-.field-value p {
-  margin: 0;
-  flex-grow: 1;
+.executor-topic h1 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: #333;
 }
 
-/* Additional spacing for executor details */
-.executor-details .editable-field {
-  margin-bottom: 12px;
-}
-
-/* Adjusted profile photo for smaller size */
-.profile-photo-container {
-  width: 80px;
-  height: 80px;
-}
-
-.default-icon {
-  width: 100%;
-  height: 100%;
-  color: #ccc;
-}
-
-.profile-picture {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.edit-icon.photo-edit {
+.executor-edit-icon {
   position: absolute;
-  bottom: 3px;
-  right: 3px;
-  width: 20px;
-  height: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
+  right: 10px;
+  bottom: 10px;
+  font-size: 13px;
+  color: #007BFF;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.edit-icon.photo-edit:hover {
-  background-color: #f5f5f5;
+.executor-edit-icon:hover {
+  color: #0056b3;
 }
 
-/* Responsive adjustments */
+/* Mobile view */
 @media (max-width: 768px) {
-  .profile-container {
-    padding: 20px;
-  }
-
   .details-container {
     flex-direction: column;
+    height: auto;
   }
-
-  .vertical-divider {
-    border-left: none;
-    border-top: 1px solid #000;
+  .user-details,
+  .executor-details {
     width: 100%;
-    height: 1px;
-    margin: 10px 0;
-  }
-
-  .executor-details-container {
-    margin-left: 0;
-  }
-
-  .user-profile-header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .profile-photo-container {
-    margin-right: 0;
-    margin-bottom: 10px;
+    height: 40vh;
   }
 }
