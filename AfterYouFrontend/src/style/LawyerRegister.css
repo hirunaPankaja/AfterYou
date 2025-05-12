@@ -158,6 +158,42 @@
   font-weight: bold;
 }
 
+/* ✅ Responsive Design for 1366x768 Screens */
+@media screen and (max-width: 1366px) {
+  .lawyer-register-logo {
+    width: 6%; /* ✅ Adjust logo size for HD screens */
+    left: 10px;
+  }
+
+  .lawyer-register-title {
+    font-size: 28px;
+  }
+
+  .lawyer-register-form {
+    width: 70%;
+    padding: 25px;
+  }
+
+  .lawyer-register-row {
+    gap: 8px;
+  }
+
+  .lawyer-register-label {
+    font-size: 15px;
+  }
+
+  .lawyer-register-value,
+  .lawyer-register-input,
+  .lawyer-register-file-input {
+    font-size: 15px;
+  }
+
+  .lawyer-register-submit {
+    width: 90%;
+    margin-left: 5%;
+  }
+}
+
 /* ✅ Responsive Design for Mobile Screens */
 @media screen and (max-width: 768px) {
   .lawyer-register-background-header {
