@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback","add-primary")
+                        .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback","add-primary","/by-email-and-user")
                         .permitAll()
                         .anyRequest().authenticated())
 //                .formLogin(Customizer.withDefaults())

@@ -42,7 +42,7 @@ function App() {
         <Route path="/accounts" element={<AccountsPage />} />{/*User account page */}
         <Route path="/executors" element={<AssignExecutor />} />     {/*executor */}
         <Route path="/assign-lawyer" element={<AssignLawyer />} />
-        <Route path="/registerlawyer" element={<LawyerRegister />} />
+        <Route path="/lawyers/register/:email/:userId" element={<LawyerRegister />} />
         <Route path="/assign-executor" element={<AssignExecutorForm />} />
         <Route path="/user" element={<ProfilePage />} /> {/*user dashboard */}
         <Route path="/subscription" element={<ProfilePage />} /> {/*user dashboard */}

@@ -23,19 +23,24 @@ export const assignLawyer = (lawyerData, userId) => {
 export const getLawyerByEmailAndUserId = (email, userId) => {
     return axios.get(`${API_BASE_URL}/by-email-and-user`, {
         params: { email, userId },
-        headers: {Authorization: getAuthToken()
+        headers: {
+            Authorization: getAuthToken()
         }
     });
 };
 
-// ✅ Complete registration
-export const completeRegistration = (email, data) => {
+// ✅ Complete lawyer registration with file upload
+export const completeRegistration = (email, nicNumber, idNumber, idImageFile, userId) => {
     const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-        formData.append(key, value);
-    });
+    formData.append("nicNumber", nicNumber);
+    formData.append("idNumber", idNumber);
+    formData.append("idImage", idImageFile);
+    formData.append("userId", userId);
 
-    return axios.put(`${API_BASE_URL}/complete-registration/${email}`, formData, {
+    return axios.put(
+        `${API_BASE_URL}/complete-registration/${email}`,
+        formData,
+        {
             headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: getAuthToken()
