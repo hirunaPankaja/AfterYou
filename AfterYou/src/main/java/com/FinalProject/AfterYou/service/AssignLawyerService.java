@@ -17,12 +17,12 @@ public class AssignLawyerService {
         return assignLawyerRepository.save(assignLawyer);
     }
 
-    public AssignLawyer getLawyerByEmail(String email) {
-        return assignLawyerRepository.findByLawyerEmail(email);
+    public AssignLawyer getLawyerByEmailAndUserId(String email, int userId) {
+        return assignLawyerRepository.findByLawyerEmailAndUserId(email, userId);
     }
 
-    public AssignLawyer completeRegistration(String email,String nicNumber, String idNumber, byte[] idImage) {
-        AssignLawyer lawyer = assignLawyerRepository.findByLawyerEmail(email);
+    public AssignLawyer completeRegistration(String email,String nicNumber, String idNumber, byte[] idImage, int userID) {
+        AssignLawyer lawyer = assignLawyerRepository.findByLawyerEmailAndUserId(email, userID);
         if (lawyer != null) {
             lawyer.setLawyerNicNumber(nicNumber);
             lawyer.setLawyerIdNumber(idNumber);

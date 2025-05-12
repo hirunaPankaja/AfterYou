@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AssignLawyerRepository extends JpaRepository<AssignLawyer, Integer> {
-    AssignLawyer findByLawyerEmail(String email);
+    AssignLawyer findByLawyerEmailAndUserId(String email, int userId);
 }

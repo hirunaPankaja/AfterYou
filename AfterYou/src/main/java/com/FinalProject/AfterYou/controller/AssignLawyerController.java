@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/lawyers")
 public class AssignLawyerController {
@@ -34,13 +35,15 @@ public class AssignLawyerController {
         return ResponseEntity.ok(saveLawyer);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<AssignLawyer> getLawyerByEmail(@PathVariable String email)  {
-        AssignLawyer lawyer = service.getLawyerByEmail(email);
-        if (lawyer != null) {
-            return ResponseEntity.ok(lawyer);
-        }
-        return ResponseEntity.notFound().build();
+    @GetMapping("/by-email-and-user")
+    public ResponseEntity<AssignLawyer> getLawyerByEmailAndUserId(
+            @RequestParam String email,
+            @RequestParam int userId) {
+
+        AssignLawyer lawyer = service.getLawyerByEmailAndUserId(email, userId);
+        return lawyer != null ?
+                ResponseEntity.ok(lawyer) :
+                ResponseEntity.notFound().build();
     }
 
     @PutMapping(value = "/complete-registration/{email}", consumes =MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -48,13 +51,15 @@ public class AssignLawyerController {
             @PathVariable String email,
             @RequestParam String nicNumber,
             @RequestParam String idNumber,
-            @RequestParam ("idImage") MultipartFile idImage) throws IOException{
+            @RequestParam ("idImage") MultipartFile idImage,
+            @RequestParam int userId) throws IOException{
 
         AssignLawyer updatedLawyer = service.completeRegistration(
                 email,
                 nicNumber,
                 idNumber,
-                idImage.getBytes());
+                idImage.getBytes(),
+                userId);
 
         if (updatedLawyer != null) {
             return ResponseEntity.ok(updatedLawyer);

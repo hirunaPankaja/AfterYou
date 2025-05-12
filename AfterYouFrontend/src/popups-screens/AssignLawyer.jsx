@@ -1,18 +1,48 @@
 import React, { useState } from "react";
 import  "../style/AssignLawyer.css";
+import lawyerService from "../Services/lawyerService.js";
 
 const AssignLawyer = () => {
     const [lawyerName, setLawyerName] = useState("");
     const [lawyerEmail, setLawyerEmail] = useState("");
     const [lawyerContact, setLawyerContact] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
 
-    const handleSubmit = () => {
-        // Replace with real form submission logic
-        console.log("Submitted:", {
-            lawyerName,
-            lawyerEmail,
-            lawyerContact,
-        });
+    const handleSubmit =async () => {
+
+        setIsSubmitting(true);
+        setError(null);
+        setSuccess(false);
+
+        try{
+            //Get userId from auth context or localStorage
+            const userId = localStorage.getItem("userId");
+
+            const response = await lawyerService.assignLawyer(
+                {
+                    lawyerName,
+                    lawyerEmail,
+                    lawyerContact,
+                },
+                userId,
+            );
+
+            setSuccess(true);
+            console.log("Lawyer assigned successfully:", response);
+
+            //Reset form on success
+            setLawyerName("");
+            setLawyerEmail("");
+            setLawyerContact("");
+        }
+        catch(err){
+            setError(err.response?.data?.message || "Failed to assign lawyer");
+            console.error("Error assigning lawyer:", err);
+        }finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -20,6 +50,9 @@ const AssignLawyer = () => {
 
             <div className="assign-lawyer-container">
                 <h1 className="assign-lawyer-title">Assign Lawyer</h1>
+
+                {error && <div className="error-message">{error}</div>}
+                {success && <div className="success-message">Lawyer assigned successfully!</div>}
 
                 <div className="divider" />
                 <div className="assign-lawyer-content">
@@ -52,8 +85,12 @@ const AssignLawyer = () => {
                     />
                 </div>
 
-                <button className="assign-lawyer-submit-button" onClick={handleSubmit}>
-                    Submit
+                <button
+                    className="assign-lawyer-submit-button"
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                >
+                    {isSubmitting ? "Submitting...": "Submit"}
                 </button>
             </div>
         </div>
