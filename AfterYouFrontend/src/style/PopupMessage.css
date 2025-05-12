@@ -1,0 +1,66 @@
+.popup-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out, fadeOut 0.3s ease-in-out 2.7s;
+}
+
+.popup-message.success {
+  background-color: #28a745; /* ✅ Green for success */
+}
+
+.popup-message.error {
+  background-color: #dc3545; /* ✅ Red for error */
+}
+
+.popup-icon {
+  font-size: 20px;
+}
+
+.popup-text {
+  flex-grow: 1;
+}
+
+.popup-close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.popup-close-btn:hover {
+  opacity: 0.7;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
