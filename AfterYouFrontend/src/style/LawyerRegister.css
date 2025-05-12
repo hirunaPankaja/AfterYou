@@ -1,3 +1,4 @@
+/* ✅ Landing Page Background */
 .lawyer-register-landing-page {
   width: 100%;
   min-height: 100vh;
@@ -6,34 +7,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; 
+  justify-content: flex-start;
 }
 
-
+/* ✅ Background Header */
 .lawyer-register-background-header {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
   padding: 20px;
   position: relative;
 }
 
+/* ✅ Logo Styling - Left-Aligned */
 .lawyer-register-logo {
-  width: 4%; 
+  width: 4%;
   height: auto;
   position: absolute;
-  left: 15px; 
+  left: 15px;
   top: -1px;
 }
 
-
+/* ✅ Title Styling - Centered */
 .lawyer-register-title {
   font-size: 32px;
   font-weight: bold;
   color: #333;
   text-align: center;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .lawyer-register-title .after {
@@ -97,7 +99,7 @@
   font-size: 16px;
   color: #333;
   border: 1px solid #ddd;
-  text-align: left; /* ✅ Ensures left alignment */
+  text-align: left;
 }
 
 /* ✅ Input Fields (Right Side) */
@@ -108,7 +110,7 @@
   border-radius: 4px;
   font-size: 16px;
   background-color: #fff;
-  text-align: left; /* ✅ Ensures left alignment */
+  text-align: left;
 }
 
 /* ✅ File Upload */
@@ -154,4 +156,51 @@
   font-size: 20px;
   margin-top: 20px;
   font-weight: bold;
+}
+
+/* ✅ Responsive Design for Mobile Screens */
+@media screen and (max-width: 768px) {
+  .lawyer-register-background-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .lawyer-register-logo {
+    width: 12%; /* ✅ Adjust logo size for mobile */
+    position: static;
+    margin-bottom: 10px;
+  }
+
+  .lawyer-register-title {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+
+  .lawyer-register-form {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .lawyer-register-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lawyer-register-label {
+    width: 100%;
+    text-align: left;
+  }
+
+  .lawyer-register-value,
+  .lawyer-register-input,
+  .lawyer-register-file-input {
+    width: 100%;
+  }
+
+  .lawyer-register-submit {
+    width: 100%;
+    margin-left: 0;
+  }
 }
