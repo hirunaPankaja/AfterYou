@@ -10,8 +10,10 @@ const getAuthToken = () => {
 
 // ✅ Assign a new executor
 export const assignExecutor = (executorData, userId) => {
-    return axios.post(`${API_BASE_URL}/assign`, executorData, {
-        params: { userId },
+    return axios.post(`${API_BASE_URL}/assign`, {
+        ...executorData,
+        userId: userId
+    },{
         headers: {
             "Content-Type": "application/json",
             Authorization: getAuthToken()

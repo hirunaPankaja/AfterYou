@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../style/AssignExecutorForm.css";
 import { assignExecutor, sendExecutorVerification } from "../services/executorService";
 
-const AssignExecutorForm = () => {
+const AssignExecutorForm = ({ onClose }) => {  // Add onClose prop
     const [executorName, setExecutorName] = useState("");
     const [executorEmail, setExecutorEmail] = useState("");
     const [executorNIC, setExecutorNIC] = useState("");
@@ -33,7 +33,6 @@ const AssignExecutorForm = () => {
     const handleSubmit = async () => {
         setError(null);
 
-        // Validate fields before submission
         if (!validateFields()) {
             return;
         }
@@ -46,7 +45,8 @@ const AssignExecutorForm = () => {
                 executorName,
                 executorEmail,
                 executorNicNumber: executorNIC,
-                executorRelationship
+                executorRelationship,
+                userId: parseInt(userId)
             };
 
             const response = await assignExecutor(executorData, userId);
@@ -56,12 +56,11 @@ const AssignExecutorForm = () => {
             }
 
             setSuccess(true);
-            // Reset form
-            setExecutorName("");
-            setExecutorEmail("");
-            setExecutorNIC("");
-            setExecutorRelationship("");
-            setSendVerification(false);
+            // Close the form after 2 seconds
+            setTimeout(() => {
+                onClose();
+            }, 2000);
+
         } catch (err) {
             setError(err.response?.data?.message || "Failed to assign executor");
         } finally {
@@ -69,13 +68,23 @@ const AssignExecutorForm = () => {
         }
     };
 
+    // If success, show only success message
+    if (success) {
+        return (
+            <div className="assign-modal-content">
+                <div className="assign-executorform-container">
+                    <div className="assign-executorform-success-message">Executor assigned successfully!</div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="assign-modal-content">
             <div className="assign-executorform-container">
                 <h1 className="assign-executorform-title">Assign Executor</h1>
 
                 {error && <div className="error-message">{error}</div>}
-                {success && <div className="success-message">Executor assigned successfully!</div>}
 
                 <div className="divider" />
                 <div className="assign-executorform-content">

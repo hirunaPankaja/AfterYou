@@ -87,3 +87,24 @@
 .closs:hover{
     background-color: #fb0303;
 }
+
+.error-field {
+    border: 1px solid #ff0000 !important;
+}
+
+.error-text {
+    color: #ff0000;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.assign-lawyer-success-message{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 25px;
+    font-weight: bold;
+}
