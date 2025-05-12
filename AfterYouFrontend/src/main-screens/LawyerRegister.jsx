@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../style/LawyerRegister.css";
 import lawyerLandingpage from "../assets/logo.png";
+import { validateLawyerId } from '../Services/validation';
 import { getLawyerByEmailAndUserId, completeRegistration } from '../Services/lawyerService';
 
 const LawyerRegister = () => {
@@ -55,23 +56,39 @@ const LawyerRegister = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
+  e.preventDefault();
+  setError(null);
+  setSuccess(false);
 
-    try {
-      await completeRegistration(
-          formData.email,
-          formData.nationalId,
-          formData.lawyerId,
-          formData.identityProof,
-          userId
-      );
-      setSuccess(true);
-    } catch (err) {
-      setError("Registration failed: " + (err.response?.data?.message || err.message));
-      console.error('Registration error:', err);
+  try {
+    // Validate uploaded identity proof image against entered lawyer ID
+    const validationError = await validateLawyerId(
+      formData.identityProof,
+      formData.lawyerId,
+      null // You can use a setProgress state here if needed
+    );
+
+    if (validationError) {
+      setError(validationError);
+      return;
     }
-  };
+
+    // If validation passes, continue registration
+    await completeRegistration(
+      formData.email,
+      formData.nationalId,
+      formData.lawyerId,
+      formData.identityProof,
+      userId
+    );
+
+    setSuccess(true);
+  } catch (err) {
+    setError("Registration failed: " + (err.response?.data?.message || err.message));
+    console.error('Registration error:', err);
+  }
+};
+
 
   if (isLoading) return <div className="lawyer-register-loading">Loading...</div>;
   if (!lawyerExists) return <div className="lawyer-register-not-found">Lawyer not found or not assigned</div>;

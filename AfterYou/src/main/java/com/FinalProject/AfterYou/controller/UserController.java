@@ -5,13 +5,13 @@ import com.FinalProject.AfterYou.model.UserCredentials;
 import com.FinalProject.AfterYou.service.EmailService;
 import com.FinalProject.AfterYou.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
 public class UserController {
+
     @Autowired
     private UserService service;
 
@@ -23,12 +23,9 @@ public class UserController {
         return ResponseEntity.ok(service.register(request));
     }
 
-
-
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserCredentials user){
+    public ResponseEntity<?> login(@RequestBody UserCredentials user) {
         LoginResponse response = service.verify(user);
-
         if (response != null) {
             return ResponseEntity.ok(response);
         } else {
@@ -36,28 +33,28 @@ public class UserController {
         }
     }
 
-    @PostMapping("/profile") // change to POST because you're using @RequestBody
+    @PostMapping("/profile")
     public ResponseEntity<UserProfileDto> getUserProfile(@RequestBody UserIdRequest request) {
         try {
             UserProfileDto userProfile = service.getUserProfile(request.getUserId());
             return ResponseEntity.ok(userProfile);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(404).body(null);
         }
     }
 
     @GetMapping("/verify")
     public ResponseEntity<String> verifyEmail(@RequestParam String email) {
         boolean verified = service.verifyEmail(email);
-
         if (verified) {
-            // Frontend login page redirect
             return ResponseEntity.status(302)
                     .header("Location", "http://localhost:5173/login/user")
-                    .build();
+            .build();
         } else {
             return ResponseEntity.status(400).body("Invalid verification request");
         }
     }
-
 }
+
+
+

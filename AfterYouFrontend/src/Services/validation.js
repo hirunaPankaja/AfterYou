@@ -92,3 +92,25 @@ export async function validateIdentityImages(idNumber, idDoc, selfie, setProgres
 
   return null;
 }
+
+export async function validateLawyerId(LidDoc, LidNumber, setProgress) {
+  // Use setProgress safely
+  if (setProgress) setProgress(10);
+
+  const result1 = await Tesseract.recognize(LidDoc, 'eng', {
+    logger: m => {
+      if (setProgress) setProgress(m.progress * 50); // Just an example
+      console.log(m);
+    },
+  });
+
+  const idText = result1.data.text;
+
+  console.log("ID Document Text:", idText);
+
+  if (!idText.includes(LidNumber)) {
+    return 'ID number not clearly visible in both images.';
+  }
+
+  return null;
+}
