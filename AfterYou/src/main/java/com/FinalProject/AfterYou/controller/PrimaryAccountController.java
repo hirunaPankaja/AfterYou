@@ -4,8 +4,10 @@ import com.FinalProject.AfterYou.model.PrimaryAccount;
 import com.FinalProject.AfterYou.service.PrimaryAccountService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/primary-account") // ✅ Add request mapping
 public class PrimaryAccountController {
@@ -36,6 +38,11 @@ public class PrimaryAccountController {
     @GetMapping("/primary/{id}")
     public PrimaryAccount getPrimaryAccountById(@PathVariable Long id) {
         return primaryAccountService.getPrimaryAccountById(id);
+    }
+
+    @GetMapping("/all")
+    public List<PrimaryAccount> getAllPrimaryAccounts() {
+        return primaryAccountService.getAllPrimaryAccounts();
     }
 
 }
