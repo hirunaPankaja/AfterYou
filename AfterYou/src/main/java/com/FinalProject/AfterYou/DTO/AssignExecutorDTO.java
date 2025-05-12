@@ -12,4 +12,5 @@ public class AssignExecutorDTO {
     private String executorEmail;
     private String executorNicNumber;
     private String executorRelationship;
+    private int userId;
 }

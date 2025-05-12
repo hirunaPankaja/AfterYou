@@ -18,7 +18,7 @@ public class AssignExecutorService {
         this.assignExecutorRepository = assignExecutorRepository;
     }
 
-    public AssignExecutor assignExecutor(AssignExecutorDTO assignExecutorDTO, int userId) {
+    public AssignExecutor assignExecutor(AssignExecutorDTO assignExecutorDTO) {
         // Check if executor with same email or NIC already exists
         if (assignExecutorRepository.existsByExecutorEmail(assignExecutorDTO.getExecutorEmail())) {
             throw new RuntimeException("Executor with this email already exists");
@@ -33,7 +33,7 @@ public class AssignExecutorService {
         executor.setExecutorEmail(assignExecutorDTO.getExecutorEmail());
         executor.setExecutorNicNumber(assignExecutorDTO.getExecutorNicNumber());
         executor.setExecutorRelationship(assignExecutorDTO.getExecutorRelationship());
-        executor.setUserId(userId);
+        executor.setUserId(assignExecutorDTO.getUserId());
         executor.setRegistrationCompleted(false); // Registration not completed yet
 
         return assignExecutorRepository.save(executor);

@@ -25,12 +25,10 @@ public class AssignExecutorController {
 
     @PostMapping("/assign")
     public ResponseEntity<AssignExecutor> assignExecutor(
-            @RequestBody AssignExecutorDTO assignExecutorDTO,
-            @RequestHeader("X-User-ID") int userId) {
-        AssignExecutor executor = assignExecutorService.assignExecutor(assignExecutorDTO, userId);
+            @RequestBody AssignExecutorDTO assignExecutorDTO) {
+        AssignExecutor executor = assignExecutorService.assignExecutor(assignExecutorDTO);
         return ResponseEntity.ok(executor);
     }
-
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<AssignExecutor>> getExecutorsByUser(@PathVariable int userId) {
