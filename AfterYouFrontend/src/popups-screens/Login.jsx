@@ -4,14 +4,16 @@ import useNavigation from "../hooks/useNavigate";
 import "../style/Login.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import ForgotPassword from "../main-screens/ForgotPassword";
-import { loginUser } from "../Services/authService.js"; // ✅ import login API
+import { loginUser } from "../Services/authService.js"; // ✅ Import login API
+import PopupMessage from "../popups-screens/PopupMessage"; // ✅ Import Popup Component
 
 const Login = () => {
   const { goToHome } = useNavigation();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [popupMessage, setPopupMessage] = useState(""); // ✅ Popup message state
+  const [popupType, setPopupType] = useState(""); // ✅ "success" or "error"
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,13 +23,14 @@ const Login = () => {
     }));
   };
 
- const handleSubmit = async (e) => {
+
+const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const response = await loginUser(formData); // Expecting { token, userId }
 
     if (response.data === "fail") {
-      setError("Invalid credentials.");
+      // ✅ Updated error message
     } else {
       const { token, userId } = response.data;
 
@@ -36,12 +39,26 @@ const Login = () => {
       localStorage.setItem("userId", userId);
       console.log("token", token);
       console.log("userId", userId);
-      goToHome(); // Navigate to homepage/dashboard
+
+      showPopup("✅ Login successful!", "success"); // ✅ Updated success message
+
+      setTimeout(() => {
+        goToHome(); // ✅ Navigate to homepage after success
+      }, 900); 
     }
   } catch (err) {
     console.error("Login error:", err);
-    setError("Login failed. Please try again.");
+     showPopup("⚠️ Email or password is incorrect. Please try again.", "error");
   }
+};
+
+const showPopup = (message, type) => {
+  setPopupMessage(message);
+  setPopupType(type);
+};
+
+const closePopup = () => {
+  setPopupMessage("");
 };
 
 
@@ -59,7 +76,8 @@ const Login = () => {
         <img src={logo} alt="Logo" className="logo" />
         <h1 className="login-title">Login</h1>
 
-        {error && <p className="error-message">{error}</p>} {/* ✅ Error message */}
+        {/* ✅ Popup Message */}
+        {popupMessage && <PopupMessage message={popupMessage} type={popupType} />}
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
