@@ -1,6 +1,5 @@
 package com.FinalProject.AfterYou.service;
 
-
 import com.FinalProject.AfterYou.model.LinkedAccount;
 import com.FinalProject.AfterYou.model.PrimaryAccount;
 import com.FinalProject.AfterYou.repo.LinkedAccountRepository;
@@ -8,7 +7,6 @@ import com.FinalProject.AfterYou.repo.PrimaryAccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LinkedAccountService {
@@ -21,22 +19,38 @@ public class LinkedAccountService {
         this.primaryAccountRepository = primaryAccountRepository;
     }
 
-    // ✅ Add Linked Account (Fix for constructor issue)
+    // ✅ Add Linked Account (Improved Error Handling)
     public LinkedAccount addLinkedAccount(Long primaryId, String platform, String username, String profileUrl, String actionType) {
-        Optional<PrimaryAccount> primaryAccount = primaryAccountRepository.findById(primaryId);
-        if (primaryAccount.isPresent()) {
-            LinkedAccount linkedAccount = new LinkedAccount(primaryAccount.get(), platform, username, profileUrl, actionType);
-            return linkedAccountRepository.save(linkedAccount);
-        } else {
-            throw new RuntimeException("Primary account not found");
-        }
+        PrimaryAccount primaryAccount = primaryAccountRepository.findById(primaryId)
+                .orElseThrow(() -> new RuntimeException("Primary account not found"));
+
+        LinkedAccount linkedAccount = new LinkedAccount(primaryAccount, platform, username, profileUrl, actionType);
+        return linkedAccountRepository.save(linkedAccount);
     }
 
     // ✅ Get Linked Accounts by Primary ID
     public List<LinkedAccount> getLinkedAccounts(Long primaryId) {
-        Optional<PrimaryAccount> primaryAccount = primaryAccountRepository.findById(primaryId);
-        return primaryAccount.map(linkedAccountRepository::findByPrimaryAccount)
+        PrimaryAccount primaryAccount = primaryAccountRepository.findById(primaryId)
                 .orElseThrow(() -> new RuntimeException("Primary account not found"));
+
+        return linkedAccountRepository.findByPrimaryAccountAndIsDeletedFalse(primaryAccount);
+    }
+
+    // ✅ Soft Delete Linked Account (Ensures Data Integrity)
+    public void softDeleteLinkedAccount(Long linkedAccountId) {
+        LinkedAccount linkedAccount = linkedAccountRepository.findById(linkedAccountId)
+                .orElseThrow(() -> new RuntimeException("Linked account not found"));
+
+        if (!linkedAccount.isDeleted()) {
+            linkedAccount.setDeleted(true);
+            linkedAccountRepository.save(linkedAccount);
+        } else {
+            throw new RuntimeException("Linked account is already deleted.");
+        }
+    }
+
+    // ✅ Get All Linked Accounts (For Admin Use)
+    public List<LinkedAccount> getAllLinkedAccounts() {
+        return linkedAccountRepository.findAll();
     }
 }
-

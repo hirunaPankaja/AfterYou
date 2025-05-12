@@ -1,89 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../style/AccountsPage.css';
-import AccountCard from '../components/AccountCard'; // Make sure this path is correct
-
-// Dummy data
-const defaultAccounts = [
-  {
-    id: 1,
-    name: "Hiruna Pankaja",
-    action: "Transfer",
-    platform: "Facebook"
-  },
-  {
-    id: 2,
-    name: "Nimal Perera",
-    action: "Delete",
-    platform: "Instagram"
-  },
-  {
-    id: 3,
-    name: "Nimal Perera",
-    action: "Delete",
-    platform: "Netflix"
-  },
-  {
-    id: 4,
-    name: "Nimal Perera",
-    action: "Delete",
-    platform: "Discode"
-  },
-  {
-    id: 5,
-    name: "Nimal Perera",
-    action: "Delete",
-    platform: "Twitter"
-  },
-  {
-    id: 6,
-    name: "Nimal Perera",
-    action: "Delete",
-    platform: "Telegram"
-  },
-  {
-    id: 7,
-    name: "Nimal Perera",
-    action: "Delete",
-    platform: "Whatsapp"
-  },
-  {
-    id: 8,
-    name: "Sunil Silva",
-    action: "Memorialize",
-    platform: "Gmail"
-  }
-];
+import AccountCard from '../components/AccountCard'; // Ensure correct path
+import { getLinkedAccounts } from '../Services/userAccountService'; // ✅ Import API function
 
 const AccountsPage = () => {
-  return (
-    
-      
-        <div className="content-wrapper">
-          <div className="left-section">
-            <img 
-              src="https://dashboard.codeparrot.ai/api/image/Z-o7rXn5m-GBkPHN/istockph.png" 
-              alt="Social Media" 
-              className="social-media-image" 
-            />
-          </div>
-          <div className="right-section">
-            <h2 className="section-title">Accounts</h2>
-            <div className="account-page-divider"></div>
+  const [linkedAccounts, setLinkedAccounts] = useState([]);
 
-            {/* Account cards displayed in two-column layout */}
-            <div className="account-cards-grid">
-              {defaultAccounts.map(account => (
-                <AccountCard 
-                  key={account.id} 
-                  accountCard={account} 
-                  platform={account.platform} 
-                />
-              ))}
-            </div>
-          </div>
+  useEffect(() => {
+    fetchLinkedAccounts();
+  }, []);
+
+ const fetchLinkedAccounts = async () => {
+  try {
+    const jwtToken = localStorage.getItem("jwtToken");
+    const primaryId = localStorage.getItem("primaryId");
+
+    if (!jwtToken || !primaryId) {
+      console.error("Primary account not found. Please register first.");
+      return;
+    }
+
+    console.log("Fetching linked accounts for primaryId:", primaryId); // ✅ Debugging log
+
+    const linkedAccounts = await getLinkedAccounts(primaryId);
+    console.log("Linked accounts fetched successfully:", linkedAccounts); // ✅ Debugging log
+
+    setLinkedAccounts(linkedAccounts);
+  } catch (error) {
+    console.error("Error fetching linked accounts:", error.response ? error.response.data : error.message);
+  }
+};
+
+
+  return (
+    <div className="content-wrapper">
+      <div className="left-section">
+        <img 
+          src="https://dashboard.codeparrot.ai/api/image/Z-o7rXn5m-GBkPHN/istockph.png" 
+          alt="Social Media" 
+          className="social-media-image" 
+        />
+      </div>
+      <div className="right-section">
+        <h2 className="section-title">Accounts</h2>
+        <div className="account-page-divider"></div>
+
+        {/* ✅ Pass linked accounts to AccountCard */}
+        <div className="account-cards-grid">
+          {linkedAccounts.length > 0 ? (
+            linkedAccounts.map(account => (
+              <AccountCard 
+                key={account.linkedId} // ✅ Fix key to match database column
+                accountCard={account} 
+              />
+            ))
+          ) : (
+            <p className="no-accounts-message">No linked accounts found.</p>
+          )}
         </div>
-      
-    
+      </div>
+    </div>
   );
 };
 

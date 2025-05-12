@@ -10,6 +10,18 @@
 
 }
 
+.social-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+
 /* Left section */
 .left-section {
   flex: 1;

@@ -7,14 +7,15 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
   const [primaryGmail, setPrimaryGmail] = useState("");
   const [primaryPassword, setPrimaryPassword] = useState("");
   const [recoveryCode, setRecoveryCode] = useState("");
-  const [linkedPlatform, setLinkedPlatform] = useState("Facebook"); // ✅ Default selection
+  const [linkedPlatform, setLinkedPlatform] = useState("Facebook");
   const [linkedUsername, setLinkedUsername] = useState("");
-  const [profileUrl, setProfileUrl] = useState(""); // ✅ Added profile URL field
-  const [actionType, setActionType] = useState("TRANSFER"); // ✅ Default selection
-  const [selectedPrimaryId, setSelectedPrimaryId] = useState(""); // ✅ Store selected primary account
-  const [primaryAccounts, setPrimaryAccounts] = useState([]); // ✅ Store available primary accounts
+  const [profileUrl, setProfileUrl] = useState("");
+  const [actionType, setActionType] = useState("TRANSFER");
+  const [selectedPrimaryId, setSelectedPrimaryId] = useState("");
+  const [primaryAccounts, setPrimaryAccounts] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     if (selectedOption === "linked") {
@@ -24,15 +25,12 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
 
   const fetchPrimaryAccounts = async () => {
     try {
-      const jwtToken = localStorage.getItem("jwtToken");
-      const response = await getPrimaryAccounts(jwtToken);
-      if (response.status === 200) {
-        setPrimaryAccounts(response.data);
-      } else {
-        setErrorMessage("Error fetching primary accounts.");
-      }
+      const response = await getPrimaryAccounts();
+      console.log("Fetched primary accounts:", response);
+      setPrimaryAccounts(response);
     } catch (error) {
-      setErrorMessage("Network error while fetching primary accounts.");
+      console.error("Error fetching primary accounts:", error);
+      setErrorMessage(error.response?.data || "Network error while fetching primary accounts.");
     }
   };
 
@@ -41,8 +39,8 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
   const handleRecoveryCodeChange = (e) => setRecoveryCode(e.target.value);
   const handleLinkedPlatformChange = (e) => setLinkedPlatform(e.target.value);
   const handleLinkedUsernameChange = (e) => setLinkedUsername(e.target.value);
-  const handleProfileUrlChange = (e) => setProfileUrl(e.target.value); // ✅ Added handler for profile URL
-  const handleActionTypeChange = (e) => setActionType(e.target.value); // ✅ Added handler for action type
+  const handleProfileUrlChange = (e) => setProfileUrl(e.target.value);
+  const handleActionTypeChange = (e) => setActionType(e.target.value);
   const handlePrimaryAccountChange = (e) => setSelectedPrimaryId(e.target.value);
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -51,6 +49,7 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
   const handleSubmitPrimary = async (e) => {
     e.preventDefault();
     setErrorMessage("");
+    setSuccessMessage("");
 
     if (!isValidEmail(primaryGmail)) {
       setErrorMessage("Please enter a valid email address.");
@@ -59,32 +58,23 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
 
     setIsSubmitting(true);
     try {
-      const jwtToken = localStorage.getItem("jwtToken");
-      const userId = localStorage.getItem("userId");
+      const response = await addPrimaryAccount({
+        email: primaryGmail,
+        password: primaryPassword,
+        recoveryCode: recoveryCode,
+        userId: localStorage.getItem("userId"),
+      });
 
-      if (!jwtToken || !userId) {
-        setErrorMessage("Authentication error. Please log in again.");
-        return;
-      }
+      console.log("Primary Account Submitted:", response);
+      
 
-      const response = await addPrimaryAccount(
-        {
-          email: primaryGmail,
-          password: primaryPassword,
-          recoveryCode: recoveryCode,
-          userId: userId,
-        },
-        jwtToken
-      );
-
-      if (response.status === 200) {
-        console.log("Primary Account Submitted:", response.data);
-        setSelectedOption("linked"); // ✅ Switch to Linked Account Form
-      } else {
-        setErrorMessage("Error submitting primary account. Please try again.");
-      }
+      // ✅ Navigate to Linked Account Form
+      setTimeout(() => {
+        setSelectedOption("linked");
+      }, 100);
     } catch (error) {
-      setErrorMessage("Network error. Please check your connection.");
+      console.error("Error submitting primary account:", error);
+      setErrorMessage(error.response?.data || "Network error. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -94,6 +84,7 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
   const handleSubmitLinked = async (e) => {
     e.preventDefault();
     setErrorMessage("");
+    setSuccessMessage("");
 
     if (!selectedPrimaryId) {
       setErrorMessage("Please select a primary account.");
@@ -102,27 +93,20 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
 
     setIsSubmitting(true);
     try {
-      const jwtToken = localStorage.getItem("jwtToken");
+      const response = await addLinkedAccount({
+        primaryAccount: { primaryId: selectedPrimaryId },
+        platform: linkedPlatform,
+        username: linkedUsername,
+        profileUrl: profileUrl,
+        actionType: actionType,
+      });
 
-      const response = await addLinkedAccount(
-        {
-          primaryAccount: { primaryId: selectedPrimaryId },
-          platform: linkedPlatform,
-          username: linkedUsername,
-          profileUrl: profileUrl, // ✅ Added profile URL field
-          actionType: actionType, // ✅ Added action type field
-        },
-        jwtToken
-      );
-
-      if (response.status === 200) {
-        console.log("Linked Account Submitted:", response.data);
-        onClose(); // ✅ Close modal after successful submission
-      } else {
-        setErrorMessage("Error submitting linked account. Please try again.");
-      }
+      console.log("Linked Account Submitted:", response);
+      setSuccessMessage("Linked account added successfully!");
+      onClose();
     } catch (error) {
-      setErrorMessage("Network error. Please check your connection.");
+      console.error("Error submitting linked account:", error);
+      setErrorMessage(error.response?.data || "Network error. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -151,64 +135,18 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
           </div>
         ) : selectedOption === "primary" ? (
           <form className="useraccountselection-form" onSubmit={handleSubmitPrimary}>
-            <input
-              type="email"
-              name="primaryGmail"
-              placeholder="Enter Gmail Address"
-              className="useraccountselection-form-input"
-              value={primaryGmail}
-              onChange={handlePrimaryGmailChange}
-              required
-            />
-
-            <input
-              type="password"
-              name="primaryPassword"
-              placeholder="Enter Password"
-              className="useraccountselection-form-input"
-              value={primaryPassword}
-              onChange={handlePrimaryPasswordChange}
-              required
-            />
-
-      <div className="useraccountselection-recovery-container">
-       <input
-        type="text"
-        name="recoveryCode"
-        placeholder="Enter Recovery Code"
-        className="useraccountselection-recovery-input"
-        value={recoveryCode}
-        onChange={handleRecoveryCodeChange}
-        required
-       />
-
-    
-       <button
-        type="button"
-        className="useraccountselection-info-btn"
-        onClick={() => window.open("https://support.google.com/accounts/answer/185839?hl=en&co=GENIE.Platform%3DAndroid", "_blank")}
-           >
-           ℹ️ Info
-           </button>
-          </div>
-
-
+            <input type="email" placeholder="Enter Gmail Address" value={primaryGmail} onChange={handlePrimaryGmailChange} required />
+            <input type="password" placeholder="Enter Password" value={primaryPassword} onChange={handlePrimaryPasswordChange} required />
+            <input type="text" placeholder="Enter Recovery Code" value={recoveryCode} onChange={handleRecoveryCodeChange} required />
 
             {errorMessage && <p className="useraccountselection-error">{errorMessage}</p>}
+            {successMessage && <p className="useraccountselection-success">{successMessage}</p>}
 
-            <button type="submit" className="useraccountselection-submit-btn" disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Next"}
-            </button>
+            <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting..." : "Next"}</button>
           </form>
         ) : selectedOption === "linked" ? (
           <form className="useraccountselection-form" onSubmit={handleSubmitLinked}>
-            <select
-              name="selectedPrimaryId"
-              className="useraccountselection-form-input"
-              value={selectedPrimaryId}
-              onChange={handlePrimaryAccountChange}
-              required
-            >
+            <select className="useraccountselection-form-input" value={selectedPrimaryId} onChange={handlePrimaryAccountChange} required>
               <option value="">Select Primary Account</option>
               {primaryAccounts.map((account) => (
                 <option key={account.primaryId} value={account.primaryId}>
@@ -217,55 +155,25 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
               ))}
             </select>
 
-            <select
-              name="linkedPlatform"
-              className="useraccountselection-form-input"
-              value={linkedPlatform}
-              onChange={handleLinkedPlatformChange}
-              required
-            >
+            <select className="useraccountselection-form-input" value={linkedPlatform} onChange={handleLinkedPlatformChange} required>
               <option value="Facebook">Facebook</option>
               <option value="Twitter">Twitter</option>
               <option value="Instagram">Instagram</option>
               <option value="LinkedIn">LinkedIn</option>
             </select>
 
-            <input
-              type="text"
-              name="linkedUsername"
-              placeholder="Enter Username"
-              className="useraccountselection-form-input"
-              value={linkedUsername}
-              onChange={handleLinkedUsernameChange}
-              required
-            />
+            <input type="text" placeholder="Enter Username" value={linkedUsername} onChange={handleLinkedUsernameChange} required />
+            <input type="url" placeholder="Enter Profile URL" value={profileUrl} onChange={handleProfileUrlChange} required />
 
-            <input
-              type="url"
-              name="profileUrl"
-              placeholder="Enter Profile URL"
-              className="useraccountselection-form-input"
-              value={profileUrl}
-              onChange={handleProfileUrlChange}
-              required
-            />
-
-            <select
-              name="actionType"
-              className="useraccountselection-form-input"
-              value={actionType}
-              onChange={handleActionTypeChange}
-              required
-            >
+            <select className="useraccountselection-form-input" value={actionType} onChange={handleActionTypeChange} required>
               <option value="TRANSFER">Transfer</option>
               <option value="DELETE">Delete</option>
             </select>
 
             {errorMessage && <p className="useraccountselection-error">{errorMessage}</p>}
+            {successMessage && <p className="useraccountselection-success">{successMessage}</p>}
 
-            <button type="submit" className="useraccountselection-submit-btn" disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </button>
+            <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting..." : "Submit"}</button>
           </form>
         ) : null}
       </div>

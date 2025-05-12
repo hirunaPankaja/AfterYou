@@ -1,24 +1,25 @@
 package com.FinalProject.AfterYou.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
 @Setter
 @Getter
+@ToString
 @Entity
-@Table(name = "linked_accounts")
+@Table(name = "linked_accounts") // ✅ Ensure correct table mapping
 @NoArgsConstructor
 @AllArgsConstructor
 public class LinkedAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "linked_id") // ✅ Fix column name to match database
     private Long linkedId;
 
     @ManyToOne
-    @JoinColumn(name = "primary_id", nullable = false)
-    private PrimaryAccount primaryAccount; // ✅ Store PrimaryAccount as an entity reference
+    @JoinColumn(name = "primary_id", nullable = false) // ✅ Ensure correct column mapping
+    private PrimaryAccount primaryAccount;
 
     @Column(nullable = false)
     private String platform;
@@ -32,17 +33,21 @@ public class LinkedAccount {
     @Column(nullable = true)
     private String actionType;
 
-    // ✅ Add Getter for Primary ID
+    @Column(nullable = false)
+    private boolean isDeleted = false; // ✅ Soft delete flag
+
+    // ✅ Getter for Primary ID (Handles null safely)
     public Long getPrimaryId() {
-        return primaryAccount != null ? primaryAccount.getPrimaryId() : null;
+        return (primaryAccount != null) ? primaryAccount.getPrimaryId() : null;
     }
 
-    // ✅ Constructor Matching Service Call
+    // ✅ Constructor Matching Service Call (Ensures `isDeleted = false`)
     public LinkedAccount(PrimaryAccount primaryAccount, String platform, String username, String profileUrl, String actionType) {
         this.primaryAccount = primaryAccount;
         this.platform = platform;
         this.username = username;
         this.profileUrl = profileUrl;
         this.actionType = actionType;
+        this.isDeleted = false; // ✅ Ensure default value
     }
 }

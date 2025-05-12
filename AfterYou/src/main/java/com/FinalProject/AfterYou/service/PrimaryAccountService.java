@@ -18,10 +18,15 @@ public class PrimaryAccountService {
         this.primaryAccountRepository = primaryAccountRepository;
     }
 
-    // ✅ Add Primary Account
     public PrimaryAccount addPrimaryAccount(Long userId, String email, String password, String recoveryCode) {
-        PrimaryAccount account = new PrimaryAccount(userId, email, passwordEncoder.encode(password), recoveryCode);
-        return primaryAccountRepository.save(account);
+        // ✅ Check if email already exists
+        Optional<PrimaryAccount> existingAccount = primaryAccountRepository.findByEmail(email);
+        if (existingAccount.isPresent()) {
+            throw new RuntimeException("Email already registered: " + email);
+        }
+
+        PrimaryAccount primaryAccount = new PrimaryAccount(userId, email, password, recoveryCode);
+        return primaryAccountRepository.save(primaryAccount);
     }
 
     // ✅ Get Primary Account by Email
