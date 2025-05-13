@@ -11,12 +11,6 @@ public class AssignExecutorService {
     private AssignExecutorRepository repository;
 
     public AssignExecutor assignExecutor(AssignExecutor executor, int userId) {
-        if (repository.existsByExecutorEmail(executor.getExecutorEmail())) {
-            throw new RuntimeException("Executor with this email already exists");
-        }
-        if (repository.existsByExecutorNicNumber(executor.getExecutorNicNumber())) {
-            throw new RuntimeException("Executor with this NIC number already exists");
-        }
 
         executor.setUserId(userId);
         executor.setRegistrationCompleted(false);

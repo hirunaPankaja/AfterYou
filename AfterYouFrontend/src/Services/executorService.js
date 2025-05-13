@@ -2,6 +2,9 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8081/api/executors";
 
+
+
+
 // Helper function to get the token
 const getAuthToken = () => {
     const token = localStorage.getItem("jwtToken");
@@ -24,11 +27,10 @@ export const assignExecutor = (executorData, userId) => {
 export const getExecutorByEmailAndUserId = (email, userId) => {
     return axios.get(`${API_BASE_URL}/by-email-and-user`, {
         params: {
-            email: encodeURIComponent(email),
+            email: email,
             userId: userId
         },
         headers: {
-            'Content-Type': 'application/json',
             Authorization: getAuthToken()
         }
     });

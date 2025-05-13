@@ -95,7 +95,8 @@ const ExecutorRegister = () => {
 
             // Complete registration
             await completeExecutorRegistration(
-                executorId,
+                decodedEmail,
+                parseInt(userId),
                 formData.executorIdentityProof,
                 formData.password
             );
@@ -104,11 +105,11 @@ const ExecutorRegister = () => {
 
             // Redirect after 3 seconds
             setTimeout(() => {
-                navigate('/login'); // Or your desired redirect path
+                navigate('/login/executor'); // Or your desired redirect path
             }, 3000);
         } catch (err) {
             setError("Registration failed: " + (err.response?.data?.message || err.message));
-            console.error('Registration error:', err);
+            console.error('Registration error:', err.response || err);
         }
     };
 

@@ -37,7 +37,9 @@ public class AssignExecutorController {
             @RequestParam String email,
             @RequestParam int userId) {
         AssignExecutor executor = service.getExecutorByEmailAndUserId(email, userId);
-        return executor != null ? ResponseEntity.ok(executor) : ResponseEntity.notFound().build();
+        return executor != null ?
+                ResponseEntity.ok(executor) :
+                ResponseEntity.notFound().build();
     }
 
     @PutMapping(value = "/complete-registration/{executorEmail}/{userId}",
@@ -49,7 +51,8 @@ public class AssignExecutorController {
             @RequestParam String password) throws IOException {
 
         // 1. Find executor by email and userId
-        AssignExecutor executor = service.getExecutorByEmailAndUserId(executorEmail, userId);
+        AssignExecutor executor = service.getExecutorByEmailAndUserId(
+                executorEmail, userId);
 
         if (executor == null) {
             return ResponseEntity.notFound().build();
