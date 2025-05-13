@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../style/SubscriptionForm.css"; // ✅ Ensure correct CSS file import
-import { getPrimaryAccounts } from "../Services/userAccountService"; // ✅ Import API call
+import { getPrimaryAccounts, addSubscription } from "../Services/userAccountService"; // ✅ Import API calls
 
 const SubscriptionForm = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +8,8 @@ const SubscriptionForm = () => {
     selectedPrimaryId: "",
     subscriptionPlan: "",
     planPrice: "",
+    subscriptionStartDate: "",
+    subscriptionEndDate: "",
   });
 
   const [validationError, setValidationError] = useState("");
@@ -25,7 +27,6 @@ const SubscriptionForm = () => {
 
   const fetchPrimaryAccounts = async (userId) => {
     try {
-      // ✅ Fetch primary accounts linked to the user ID
       const response = await getPrimaryAccounts(userId);
       
       if (!response || response.length === 0) {
@@ -36,7 +37,6 @@ const SubscriptionForm = () => {
       console.log("Fetched primary accounts:", response);
       setPrimaryAccounts(response);
 
-      // ✅ Set default selected primary ID
       setFormData((prev) => ({
         ...prev,
         selectedPrimaryId: response[0]?.primaryId || "",
@@ -52,21 +52,43 @@ const SubscriptionForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setValidationError("");
     setSuccessMessage("");
+    setIsSubmitting(true);
 
-    if (!formData.platformName || !formData.selectedPrimaryId || !formData.subscriptionPlan || !formData.planPrice) {
+    if (!formData.platformName || !formData.selectedPrimaryId || !formData.subscriptionPlan || !formData.planPrice || !formData.subscriptionStartDate || !formData.subscriptionEndDate) {
       setValidationError("All fields are required.");
+      setIsSubmitting(false);
       return;
     }
 
-    if (isNaN(formData.planPrice) || Number(formData.planPrice) <= 0) {
-      setValidationError("Please enter a valid price in LKR.");
-      return;
-    }
+    try {
+      const selectedAccount = primaryAccounts.find(account => account.primaryId === formData.selectedPrimaryId);
 
-    setSuccessMessage("Subscription saved successfully!");
+      if (!selectedAccount) {
+        setValidationError("Invalid primary account selected.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const response = await addSubscription({
+        platformName: formData.platformName,
+        primaryAccount: { email: selectedAccount.email }, // ✅ Send email instead of primaryId
+        subscriptionPlan: formData.subscriptionPlan,
+        planPrice: formData.planPrice,
+        subscriptionStartDate: formData.subscriptionStartDate,
+        subscriptionEndDate: formData.subscriptionEndDate,
+      });
+
+      console.log("Subscription saved:", response);
+      setSuccessMessage("Subscription saved successfully!");
+    } catch (error) {
+      console.error("Error saving subscription:", error);
+      setValidationError(error.response?.data || "Failed to save subscription.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -77,48 +99,24 @@ const SubscriptionForm = () => {
         <div className="subscription-form">
           <div className="subscription-form-group">
             <label>Platform Name</label>
-            <input
-              type="text"
-              name="platformName"
-              className="subscription-input"
-              value={formData.platformName}
-              onChange={handleInputChange}
-              placeholder="Enter platform name"
-              required
-            />
+            <input type="text" name="platformName" className="subscription-input" value={formData.platformName} onChange={handleInputChange} placeholder="Enter platform name" required />
           </div>
 
           <div className="subscription-form-group">
             <label>Select Primary Email</label>
-            <select
-              name="selectedPrimaryId"
-              className="subscription-input"
-              value={formData.selectedPrimaryId}
-              onChange={handleInputChange}
-              required
-            >
+            <select name="selectedPrimaryId" className="subscription-input" value={formData.selectedPrimaryId} onChange={handleInputChange} required>
               <option value="">Select Primary Account</option>
-              {primaryAccounts.length > 0 ? (
-                primaryAccounts.map((account) => (
-                  <option key={account.primaryId} value={account.primaryId}>
-                    {account.email}
-                  </option>
-                ))
-              ) : (
-                <option disabled>No primary accounts available</option>
-              )}
+              {primaryAccounts.map((account) => (
+                <option key={account.primaryId} value={account.primaryId}>
+                  {account.email}
+                </option>
+              ))}
             </select>
           </div>
 
           <div className="subscription-form-group">
             <label>Subscription Plan</label>
-            <select
-              name="subscriptionPlan"
-              className="subscription-input"
-              value={formData.subscriptionPlan}
-              onChange={handleInputChange}
-              required
-            >
+            <select name="subscriptionPlan" className="subscription-input" value={formData.subscriptionPlan} onChange={handleInputChange} required>
               <option value="">Select Plan</option>
               <option value="1_month">1 Month</option>
               <option value="3_months">3 Months</option>
@@ -129,27 +127,26 @@ const SubscriptionForm = () => {
 
           <div className="subscription-form-group">
             <label>Plan Price (LKR)</label>
-            <input
-              type="number"
-              name="planPrice"
-              className="subscription-input"
-              value={formData.planPrice}
-              onChange={handleInputChange}
-              placeholder="Enter plan price"
-              required
-            />
+            <input type="number" name="planPrice" className="subscription-input" value={formData.planPrice} onChange={handleInputChange} placeholder="Enter plan price" required />
+          </div>
+
+          <div className="subscription-form-group">
+            <label>Subscription Start Date</label>
+            <input type="date" name="subscriptionStartDate" className="subscription-input" value={formData.subscriptionStartDate} onChange={handleInputChange} required />
+          </div>
+
+          <div className="subscription-form-group">
+            <label>Subscription End Date</label>
+            <input type="date" name="subscriptionEndDate" className="subscription-input" value={formData.subscriptionEndDate} onChange={handleInputChange} required />
           </div>
         </div>
 
         {validationError && <p className="subscription-error">{validationError}</p>}
         {successMessage && <p className="subscription-success">{successMessage}</p>}
 
-        <div className="subscription-buttons">
-          <button className="subscription-save-button" onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? "Submitting..." : "Save"}
-          </button>
-          <button className="subscription-cancel-button">Cancel</button>
-        </div>
+        <button className="subscription-save-button" onClick={handleSubmit} disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Save"}
+        </button>
       </div>
     </div>
   );

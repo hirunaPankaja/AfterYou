@@ -123,12 +123,23 @@ export const getPrimaryAccountsuser = async (userId) => {
   }
 };
 
+
 export const addSubscription = async (subscriptionData) => {
   try {
-    const response = await axios.post(`${API_URL}/subscription/add`, subscriptionData);
+    console.log("Sending subscription data:", subscriptionData); // ✅ Debugging log
+
+    const response = await axios.post(`${API_URL}/subscription/add`, subscriptionData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: getAuthToken(), // ✅ Include authentication token
+      },
+    });
+
+    console.log("API Response:", response.data); // ✅ Log full response
     return response.data;
   } catch (error) {
-    console.error("Error adding subscription:", error);
+    console.error("Error adding subscription:", error.response ? error.response.data : error.message);
     throw error;
   }
 };
+

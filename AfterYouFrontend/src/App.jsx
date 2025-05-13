@@ -4,7 +4,7 @@ import './App.css';
 import DeathCertificateUpload from './main-screens/DeathCertificateUpload';
 import LandingPage from './main-screens/LandingPage';
 import Home from './main-screens/Home';
-import SignUpStep1 from './popups-screens/SignUpStep1.jsx';
+import SignUpStep1 from './popups-screens/SignUpForm.jsx';
 import Login from './popups-screens/Login';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import ProfilePage from './main-screens/ProfilePage';
@@ -14,8 +14,6 @@ import AssignLawyer from "./popups-screens/AssignLawyer.jsx";
 import AssignExecutorForm from "./main-screens/AssignExecutorForm.jsx";
 import ExecutorUploadDeathCertificate from './main-screens/ExecutorDeathVerify';
 import LastWillStepper from './main-screens/LastWillStepper';
-import AccountForm from './popups-screens/AddAccount.jsx';
-import ExecutorForm from './popups-screens/AddSubscription.jsx';
 import Executor from './main-screens/Executor';
 import ExecutorExecutingProcess from './main-screens/ExecutorExecutingProcess';
 import ExecutorHome from './main-screens/ExecutorHome.jsx';
@@ -25,6 +23,8 @@ import UserProfile from './main-screens/UserProfile.jsx';
 import ChangePassword from "./popups-screens/ChangePassword.jsx";
 import LawyerRegister from './main-screens/LawyerRegister.jsx';
 import ExecutorRegister from './main-screens/ExecutorRegister.jsx';
+import SubscriptionForm from './popups-screens/SubscriptionForm.jsx';
+
 import './App.css';
 
 
@@ -51,12 +51,11 @@ function App() {
         <Route path="/executor" element={<Executor />} />{/*m222jijijjij2n*/}
         <Route path="/VerifyDeathCertificate" element={<ExecutorUploadDeathCertificate />} />{/*m222jijijjij2n*/}
         <Route path="/LastWillStepper" element={<LastWillStepper />} />{/*m2ij2n*/}
-        <Route path="/accountform" element={<AccountForm />} />{/*m222jijijjij2n*/}
-        <Route path="/subscriptionForm" element={<ExecutorForm />} />{/*m222jijijjij2n*/}
         <Route path="/" element={<Executor />} /> {/* Set Executor as default page */}
         <Route path="/executors" element={<Executor />} />
         <Route path="/deathcertificateupload" element={<DeathCertificateUpload />} /> {/* Corrected spelling */}
         <Route path="/executorExecutingProcess" element={<ExecutorExecutingProcess />} />
+        <Route path="/subscriptionform" element={<SubscriptionForm />} />
         <Route path="/executor-home" element={<ExecutorHome />} />
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/change-password" element={ChangePassword} />

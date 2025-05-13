@@ -1,5 +1,6 @@
 package com.FinalProject.AfterYou.controller;
 
+import com.FinalProject.AfterYou.DTO.SubscriptionDTO;
 import com.FinalProject.AfterYou.model.Subscription;
 import com.FinalProject.AfterYou.model.PrimaryAccount;
 import com.FinalProject.AfterYou.service.SubscriptionService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin("*")
 @RestController
@@ -23,12 +25,12 @@ public class SubscriptionController {
         this.primaryAccountService = primaryAccountService;
     }
 
-    // ✅ Add Subscription
+    // ✅ Add Subscription Using Email Instead of PrimaryAccount Object
     @PostMapping("/add")
     public ResponseEntity<?> addSubscription(@RequestBody Subscription subscription) {
         try {
-            // ✅ Validate Primary Account
-            Optional<PrimaryAccount> primaryAccountOptional = Optional.ofNullable(primaryAccountService.getPrimaryAccountById(subscription.getPrimaryAccount().getPrimaryId()));
+            // ✅ Validate Primary Account Using Email
+            Optional<PrimaryAccount> primaryAccountOptional = primaryAccountService.getPrimaryAccount(subscription.getPrimaryAccount().getEmail());
 
             if (primaryAccountOptional.isEmpty()) {
                 return ResponseEntity.status(404).body("Primary account not found.");
@@ -40,31 +42,43 @@ public class SubscriptionController {
             // ✅ Save Subscription Using Service Method with Individual Parameters
             Subscription savedSubscription = subscriptionService.addSubscription(
                     subscription.getPlatformName(),
-                    primaryAccount, // ✅ Pass extracted PrimaryAccount
+                    primaryAccount.getEmail(), // ✅ Pass email instead of PrimaryAccount object
                     subscription.getSubscriptionPlan(),
-                    subscription.getPlanPrice()
+                    subscription.getPlanPrice(),
+                    subscription.getSubscriptionStartDate(),
+                    subscription.getSubscriptionEndDate()
             );
 
-            return ResponseEntity.ok(savedSubscription);
+            // ✅ Convert to DTO to exclude PrimaryAccount details
+            SubscriptionDTO subscriptionDTO = new SubscriptionDTO(
+                    savedSubscription.getSubscriptionId(),
+                    savedSubscription.getPlatformName(),
+                    savedSubscription.getSubscriptionPlan(),
+                    savedSubscription.getPlanPrice(),
+                    savedSubscription.getSubscriptionStartDate(),
+                    savedSubscription.getSubscriptionEndDate()
+            );
+
+            return ResponseEntity.ok(subscriptionDTO);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error saving subscription: " + e.getMessage());
         }
     }
 
-    // ✅ Get Subscriptions by Primary Account ID
-    @GetMapping("/primary/{primaryId}")
-    public ResponseEntity<?> getSubscriptionsByPrimaryId(@PathVariable Long primaryId) {
-        List<Subscription> subscriptions = subscriptionService.getSubscriptionsByPrimaryId(primaryId);
-        if (subscriptions.isEmpty()) {
-            return ResponseEntity.status(404).body("No subscriptions found for this primary account.");
-        }
-        return ResponseEntity.ok(subscriptions);
-    }
-
-    // ✅ Get All Subscriptions
+    // ✅ Get All Subscriptions Without PrimaryAccount Details
     @GetMapping("/all")
-    public ResponseEntity<List<Subscription>> getAllSubscriptions() {
-        List<Subscription> subscriptions = subscriptionService.getAllSubscriptions();
+    public ResponseEntity<List<SubscriptionDTO>> getAllSubscriptions() {
+        List<SubscriptionDTO> subscriptions = subscriptionService.getAllSubscriptions().stream()
+                .map(subscription -> new SubscriptionDTO(
+                        subscription.getSubscriptionId(),
+                        subscription.getPlatformName(),
+                        subscription.getSubscriptionPlan(),
+                        subscription.getPlanPrice(),
+                        subscription.getSubscriptionStartDate(),
+                        subscription.getSubscriptionEndDate()
+                ))
+                .collect(Collectors.toList());
+
         return ResponseEntity.ok(subscriptions);
     }
 }
