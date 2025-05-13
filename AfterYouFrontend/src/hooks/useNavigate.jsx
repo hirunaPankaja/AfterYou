@@ -10,9 +10,8 @@ const useNavigation = () => {
   const goToAccounts = () => navigate("/accounts");
   const goToExecutors = () => navigate("/executors");
   const goToUser = () => navigate("/user");
-  const goToSubscription = () => navigate("/subscription");
+  const goToSubscription = () => navigate("/subscriptionForm");
   const goToDeathCertificateUpload = () => navigate("/deathcertificateupload");
-  const goToAccountForm = () => navigate("/accountform");
   const goToSubscriptionForm = () => navigate("/subscriptionform");
   const goToExecutorExecutingProcess = () => navigate("/executorExecutingProcess");
   const goToAssignExecutor = () => navigate("/assignexecutor");
@@ -32,7 +31,6 @@ const useNavigation = () => {
     goToHome,
     goToDeathCertificateUpload,
     goToSubscription,
-    goToAccountForm,
     goToAssignExecutor,
     refreshPage,
     goToRegisterLawyer,

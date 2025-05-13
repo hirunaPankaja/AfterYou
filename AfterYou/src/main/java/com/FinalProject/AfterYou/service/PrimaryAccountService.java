@@ -39,6 +39,8 @@ public class PrimaryAccountService {
                 .orElseThrow(() -> new RuntimeException("Primary account not found with ID: " + id));
     }
 
+
+
     public List<PrimaryAccount> getAllPrimaryAccounts() {
         return primaryAccountRepository.findAll();
     }

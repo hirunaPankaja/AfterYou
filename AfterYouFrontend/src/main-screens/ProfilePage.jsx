@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import '../style/ProfilePage.css';
 import AccountSelectionModal from '../popups-screens/AccountSelectionModal.jsx';
-import AddAccount from '../popups-screens/AddAccount';
+import SubscriptionForm from '../popups-screens/SubscriptionForm.jsx'; // ✅ Correct import
 import AssignExecutor from './AssignExecutor';
 
-const ProfilePage = ({ userName = "Shey Silva" }) => {
+const ProfilePage = ({ userName = "Shey Silva", primaryEmail }) => {
   const [isAccountSelectionOpen, setIsAccountSelectionOpen] = useState(false);
-  const [isAddAccountOpen, setIsAddAccountOpen] = useState(false);
+  const [isSubscriptionFormOpen, setIsSubscriptionFormOpen] = useState(false);
   const [showExecutors, setShowExecutors] = useState(false);
 
   const handleAssignExecutorClick = () => {
@@ -24,25 +24,25 @@ const ProfilePage = ({ userName = "Shey Silva" }) => {
     document.body.style.overflow = "auto";
   };
 
-  const handleOpenForm = (e) => {
+  const handleOpenSubscriptionForm = (e) => {
     e.preventDefault();
-    setIsAddAccountOpen(true);
+    setIsSubscriptionFormOpen(true);
     document.body.style.overflow = "hidden";
   };
 
-  const handleCloseForm = () => {
-    setIsAddAccountOpen(false);
+  const handleCloseSubscriptionForm = () => {
+    setIsSubscriptionFormOpen(false);
     document.body.style.overflow = "auto";
   };
 
   const AccountFormModal = () => {
-    if (!isAccountSelectionOpen && !isAddAccountOpen) return null;
+    if (!isAccountSelectionOpen && !isSubscriptionFormOpen) return null;
     return (
-      <div className="modal-overlay-account" onClick={isAccountSelectionOpen ? handleCloseAccountSelection : handleCloseForm}>
-        <button className="close-account" onClick={isAccountSelectionOpen ? handleCloseAccountSelection : handleCloseForm}>X</button>
+      <div className="modal-overlay-account" onClick={isAccountSelectionOpen ? handleCloseAccountSelection : handleCloseSubscriptionForm}>
+        <button className="close-account" onClick={isAccountSelectionOpen ? handleCloseAccountSelection : handleCloseSubscriptionForm}>X</button>
         <div className="modal-content-account" onClick={(e) => e.stopPropagation()}>
           {isAccountSelectionOpen && <AccountSelectionModal isOpen={isAccountSelectionOpen} onClose={handleCloseAccountSelection} />}
-          {isAddAccountOpen && <AddAccount />}
+          {isSubscriptionFormOpen && <SubscriptionForm primaryEmail={primaryEmail} />} 
         </div>
       </div>
     );
@@ -75,7 +75,7 @@ const ProfilePage = ({ userName = "Shey Silva" }) => {
 
             {/* Add Subscription Button */}
             <div className="profile-action-item">
-              <div className="profile-action-button" onClick={handleOpenForm}>
+              <div className="profile-action-button" onClick={handleOpenSubscriptionForm}>
                 <img src="https://dashboard.codeparrot.ai/api/image/Z-l04wz4-w8v6RoA/icons-8-s.png" alt="Subscribe" className="action-icon" />
               </div>
               <span className="profile-action-text">Add Subscription</span>

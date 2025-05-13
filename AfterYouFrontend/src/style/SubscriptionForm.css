@@ -1,0 +1,109 @@
+/* Main Container */
+.subscription-container {
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+
+/* Form Card */
+.subscription-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  width: 420px;
+  text-align: center;
+}
+
+/* Title */
+.subscription-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form */
+.subscription-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs */
+.subscription-form-group label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.subscription-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+.subscription-input:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Buttons */
+.subscription-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.subscription-save-button,
+.subscription-cancel-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.subscription-save-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.subscription-save-button:hover {
+  background-color: #0056b3;
+}
+
+.subscription-cancel-button {
+  background-color: #ccc;
+  color: black;
+}
+
+.subscription-cancel-button:hover {
+  background-color: #999;
+}
+
+/* Error Messages */
+.subscription-error {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.subscription-success {
+  color: green;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}

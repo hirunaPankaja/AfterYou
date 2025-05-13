@@ -109,3 +109,26 @@ export const softDeleteLinkedAccount = async (linkedAccountId) => {
     throw error;
   }
 };
+
+// ✅ Define API Base URL
+const API_URL = "http://localhost:8081/api"; // ✅ Ensure correct backend URL
+
+export const getPrimaryAccountsuser = async (userId) => {
+  try {
+    const response = await axios.get(`${API_URL}/primary-account/primary/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching primary accounts:", error);
+    throw error;
+  }
+};
+
+export const addSubscription = async (subscriptionData) => {
+  try {
+    const response = await axios.post(`${API_URL}/subscription/add`, subscriptionData);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding subscription:", error);
+    throw error;
+  }
+};
