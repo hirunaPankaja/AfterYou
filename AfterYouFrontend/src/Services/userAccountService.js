@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const API_BASE_URL = "http://localhost:8081/api";
 
 // ✅ Helper function to get the token
@@ -139,6 +140,26 @@ export const addSubscription = async (subscriptionData) => {
     return response.data;
   } catch (error) {
     console.error("Error adding subscription:", error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+
+export const getSubscriptions = async () => {
+  try {
+    console.log("Fetching subscriptions from database..."); // ✅ Debugging log
+
+    const response = await axios.get(`${API_URL}/subscription/all`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: getAuthToken(), // ✅ Include authentication token
+      },
+    });
+
+    console.log("API Response:", response.data); // ✅ Log full response
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching subscriptions:", error.response ? error.response.data : error.message);
     throw error;
   }
 };
