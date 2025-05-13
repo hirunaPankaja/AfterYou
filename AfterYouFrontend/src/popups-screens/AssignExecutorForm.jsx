@@ -42,6 +42,7 @@ const AssignExecutorForm = ({ onClose }) => {
 
     const handleSubmit = async () => {
         setError(null);
+        setSuccess(false);
 
         if (!validateFields()) {
             return;
@@ -51,28 +52,39 @@ const AssignExecutorForm = ({ onClose }) => {
 
         try {
             const userId = parseInt(localStorage.getItem("userId"));
-            console.log(userId);
+            const token = localStorage.getItem("jwtToken");
+
+            if (!token) {
+                throw new Error("Authentication token not found");
+            }
 
             const executorData = {
-                executorName: "",
-                executorEmail: "",
-                executorNicNumber: executorNIC,
-                executorRelationship
+                executorName: formData.executorName,
+                executorEmail: formData.executorEmail,
+                executorNicNumber: formData.executorNicNumber,
+                executorRelationship: formData.executorRelationship
             };
 
-            // Pass both executorData and userId separately
             const response = await assignExecutor(executorData, userId);
 
-            // Send verification if checkbox is checked
-            if (sendVerification) {
-                await sendExecutorVerification(response.data.executorId);
+            if (sendVerification && response.data?.executorId) {
+                try {
+                    await sendExecutorVerification(response.data.executorId);
+                } catch (verificationError){
+                    console.warn("Verification email failed:", verificationError);
+                }
             }
 
             setSuccess(true);
             setTimeout(() => onClose(), 2000);
 
         } catch (err) {
-            setError(err.response?.data?.message || "Failed to assign executor");
+            const erroMessage = err.response?.data?.message || err.message || "Failed to assign executor";
+            setError(erroMessage);
+            console.error("Error details:", {
+                error: err,
+                response: err.response
+            });
         } finally {
             setIsSubmitting(false);
         }
@@ -82,7 +94,7 @@ const AssignExecutorForm = ({ onClose }) => {
         return (
             <div className="assign-modal-content">
                 <div className="assign-executorform-container">
-                    <div className="success-message">
+                    <div className="assign-executor-success-message">
                         Executor assigned successfully!
                         {sendVerification && <p>Verification email has been sent.</p>}
                     </div>
