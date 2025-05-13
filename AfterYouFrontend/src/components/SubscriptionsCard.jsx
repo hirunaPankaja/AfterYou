@@ -9,12 +9,13 @@ import {
   faGoogle,
   faTelegram,
   faWhatsapp,
-} from '@fortawesome/free-brands-svg-icons'; // FontAwesome brand icons
+} from '@fortawesome/free-brands-svg-icons'; // ✅ Brand icons
 
 import {
   faTrash,
   faEdit,
-} from '@fortawesome/free-solid-svg-icons'; // FontAwesome solid icons
+  faQuestionCircle, // ✅ Correct import from solid icons
+} from '@fortawesome/free-solid-svg-icons'; // ✅ Solid icons
 
 import '../style/AccountCard.css';
 
@@ -30,7 +31,8 @@ function SubscriptionsCard({ subscriptionAccountCard, platform, onClick }) {
     Netflix: { icon: SiNetflix, color: '#E50914', type: 'si' },
   };
 
-  const { icon, color, type } = platformIcons[platform] || {};
+  // ✅ Use fallback icon if platform is not recognized
+  const { icon, color, type } = platformIcons[platform] || { icon: faQuestionCircle, color: '#888', type: 'fa' };
 
   return (
     <div className="account-card" onClick={onClick}>
@@ -48,8 +50,8 @@ function SubscriptionsCard({ subscriptionAccountCard, platform, onClick }) {
       <div className="verticle-divider"></div>
 
       <div className="account-body">
-        <p><strong>User:</strong> {subscriptionAccountCard.name}</p>
-        <p><strong>Type:</strong> {subscriptionAccountCard.type}</p>
+        <p><strong>User:</strong> {subscriptionAccountCard.name || platform}</p> {/* ✅ Fallback to platform name */}
+        <p><strong>Type:</strong> {subscriptionAccountCard.type || "Unknown Plan"}</p> {/* ✅ Fallback to "Unknown Plan" */}
       </div>
 
       <div className="account-actions">

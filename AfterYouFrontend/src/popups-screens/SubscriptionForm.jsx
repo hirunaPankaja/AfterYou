@@ -17,7 +17,7 @@ const SubscriptionForm = () => {
   const [primaryAccounts, setPrimaryAccounts] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ✅ Fetch user ID from local storage and get primary accounts from backend
+
   useEffect(() => {
     const userId = localStorage.getItem("userId"); // ✅ Get user ID from local storage
     if (userId) {
@@ -47,49 +47,53 @@ const SubscriptionForm = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
 
-  const handleSubmit = async () => {
-    setValidationError("");
-    setSuccessMessage("");
-    setIsSubmitting(true);
+  setFormData((prev) => ({
+    ...prev,
+    [name]: name === "selectedPrimaryId" ? Number(value) : value, // ✅ Convert selectedPrimaryId to a number
+  }));
+};
+const handleSubmit = async () => {
+  setValidationError("");
+  setSuccessMessage("");
+  setIsSubmitting(true);
 
-    if (!formData.platformName || !formData.selectedPrimaryId || !formData.subscriptionPlan || !formData.planPrice || !formData.subscriptionStartDate || !formData.subscriptionEndDate) {
-      setValidationError("All fields are required.");
+  if (!formData.platformName || !formData.selectedPrimaryId || !formData.subscriptionPlan || !formData.planPrice || !formData.subscriptionStartDate || !formData.subscriptionEndDate) {
+    setValidationError("All fields are required.");
+    setIsSubmitting(false);
+    return;
+  }
+
+  try {
+    // ✅ Convert selectedPrimaryId to a number before comparison
+    const selectedAccount = primaryAccounts.find(account => account.primaryId === formData.selectedPrimaryId);
+
+    if (!selectedAccount) {
+      setValidationError("Invalid primary account selected.");
       setIsSubmitting(false);
       return;
     }
 
-    try {
-      const selectedAccount = primaryAccounts.find(account => account.primaryId === formData.selectedPrimaryId);
+    const response = await addSubscription({
+      platformName: formData.platformName,
+      primaryAccount: { email: selectedAccount.email }, // ✅ Send email instead of primaryId
+      subscriptionPlan: formData.subscriptionPlan,
+      planPrice: formData.planPrice,
+      subscriptionStartDate: formData.subscriptionStartDate,
+      subscriptionEndDate: formData.subscriptionEndDate,
+    });
 
-      if (!selectedAccount) {
-        setValidationError("Invalid primary account selected.");
-        setIsSubmitting(false);
-        return;
-      }
-
-      const response = await addSubscription({
-        platformName: formData.platformName,
-        primaryAccount: { email: selectedAccount.email }, // ✅ Send email instead of primaryId
-        subscriptionPlan: formData.subscriptionPlan,
-        planPrice: formData.planPrice,
-        subscriptionStartDate: formData.subscriptionStartDate,
-        subscriptionEndDate: formData.subscriptionEndDate,
-      });
-
-      console.log("Subscription saved:", response);
-      setSuccessMessage("Subscription saved successfully!");
-    } catch (error) {
-      console.error("Error saving subscription:", error);
-      setValidationError(error.response?.data || "Failed to save subscription.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    console.log("Subscription saved:", response);
+    setSuccessMessage("Subscription saved successfully!");
+  } catch (error) {
+    console.error("Error saving subscription:", error);
+    setValidationError(error.response?.data || "Failed to save subscription.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <div className="subscription-container">

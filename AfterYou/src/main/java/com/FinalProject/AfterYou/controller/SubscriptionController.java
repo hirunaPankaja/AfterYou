@@ -68,17 +68,7 @@ public class SubscriptionController {
     // ✅ Get All Subscriptions Without PrimaryAccount Details
     @GetMapping("/all")
     public ResponseEntity<List<SubscriptionDTO>> getAllSubscriptions() {
-        List<SubscriptionDTO> subscriptions = subscriptionService.getAllSubscriptions().stream()
-                .map(subscription -> new SubscriptionDTO(
-                        subscription.getSubscriptionId(),
-                        subscription.getPlatformName(),
-                        subscription.getSubscriptionPlan(),
-                        subscription.getPlanPrice(),
-                        subscription.getSubscriptionStartDate(),
-                        subscription.getSubscriptionEndDate()
-                ))
-                .collect(Collectors.toList());
-
+        List<SubscriptionDTO> subscriptions = subscriptionService.getAllSubscriptions();
         return ResponseEntity.ok(subscriptions);
     }
 }

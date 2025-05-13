@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
     List<Subscription> findByPrimaryAccount_PrimaryId(Long primaryId);
+    List<Subscription> findAll();
 }
