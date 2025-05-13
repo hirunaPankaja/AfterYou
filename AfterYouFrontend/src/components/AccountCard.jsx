@@ -13,12 +13,11 @@ import {
 
 import {
   faTrash,
-  faEdit,
 } from '@fortawesome/free-solid-svg-icons'; // FontAwesome solid icons
 
 import '../style/AccountCard.css';
 
-function AccountCard({ accountCard, onEdit, onDelete }) {
+function AccountCard({ accountCard, onDelete }) {
   const platformIcons = {
     Facebook: { icon: faFacebook, color: '#1877F2', type: 'fa' },
     Twitter: { icon: faTwitter, color: '#1DA1F2', type: 'fa' },
@@ -58,10 +57,6 @@ function AccountCard({ accountCard, onEdit, onDelete }) {
       </div>
 
       <div className="account-actions">
-        <button className="action-button edit-btn" onClick={() => onEdit(accountCard)}>
-          <FontAwesomeIcon icon={faEdit} />
-          <span className="tooltip">Edit</span>
-        </button>
         <button className="action-button delete-btn" onClick={() => onDelete(accountCard.id)}>
           <FontAwesomeIcon icon={faTrash} />
           <span className="tooltip">Delete</span>

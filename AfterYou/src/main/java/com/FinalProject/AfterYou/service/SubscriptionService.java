@@ -51,4 +51,19 @@ public class SubscriptionService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public List<SubscriptionDTO> getSubscriptionsByPrimaryAccount(Long primaryId) {
+        List<Subscription> subscriptions = subscriptionRepository.findByPrimaryAccount_PrimaryId(primaryId);
+
+        return subscriptions.stream()
+                .map(subscription -> new SubscriptionDTO(
+                        subscription.getSubscriptionId(),
+                        subscription.getPlatformName(),
+                        subscription.getSubscriptionPlan(),
+                        subscription.getPlanPrice(),
+                        subscription.getSubscriptionStartDate(),
+                        subscription.getSubscriptionEndDate()
+                ))
+                .collect(Collectors.toList());
+    }
 }
