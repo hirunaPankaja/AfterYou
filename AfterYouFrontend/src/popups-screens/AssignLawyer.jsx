@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../style/AssignLawyer.css";
 import { assignLawyer } from '../Services/lawyerService';
 
-const AssignLawyer = () => {
+const AssignLawyer = ({ onClose }) => {  // Add onClose prop
     const [lawyerName, setLawyerName] = useState("");
     const [lawyerEmail, setLawyerEmail] = useState("");
     const [lawyerContact, setLawyerContact] = useState("");
@@ -58,17 +58,16 @@ const AssignLawyer = () => {
                 throw new Error("Authentication token not found");
             }
 
-            const response = await assignLawyer(
+            await assignLawyer(
                 {
                     lawyerName,
                     lawyerEmail,
                     lawyerContact,
                 },
                 userId,
-            ).then(res => res.data);
+            );
 
             setSuccess(true);
-            console.log("Lawyer assigned successfully:", response);
 
             // Reset form on success
             setLawyerName("");
@@ -79,6 +78,11 @@ const AssignLawyer = () => {
                 lawyerEmail: false,
                 lawyerContact: false
             });
+
+            // Close the form after 2 seconds
+            setTimeout(() => {
+                if (onClose) onClose();
+            }, 2000);
         }
         catch(err) {
             setError(err.response?.data?.message || "Failed to assign lawyer");
@@ -88,13 +92,25 @@ const AssignLawyer = () => {
         }
     };
 
+    // If success is true, show only the success message
+    if (success) {
+        return (
+            <div className="assign-modal-content">
+                <div className="assign-lawyer-container">
+                    <div className="assign-lawyer-success-message">
+                        Lawyer assigned successfully!
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="assign-modal-content">
             <div className="assign-lawyer-container">
                 <h1 className="assign-lawyer-title">Assign Lawyer</h1>
 
                 {error && <div className="error-message">{error}</div>}
-                {success && <div className="assign-lawyer-success-message">Lawyer assigned successfully!</div>}
 
                 <div className="divider" />
                 <div className="assign-lawyer-content">
