@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import "../style/ProfilePictureForm.css";
+import { updateUserProfile } from "../Services/userService";
 
 const ProfilePictureForm = ({ onClose, onSave }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -15,10 +16,23 @@ const ProfilePictureForm = ({ onClose, onSave }) => {
     };
 
     const handleSave = () => {
-        if (selectedFile) {
+    if (!selectedFile) return;
+
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("jwtToken");
+
+    const formData = new FormData();
+    formData.append("profilePic", selectedFile); // ✅ Match backend key name
+
+    updateUserProfile(userId, formData, token)
+        .then(() => {
             onSave(selectedFile);
-        }
-    };
+        })
+        .catch((error) => {
+            console.error("Error uploading profile image:", error);
+        });
+};
+
 
     const triggerFileInput = () => {
         fileInputRef.current.click();
@@ -27,11 +41,9 @@ const ProfilePictureForm = ({ onClose, onSave }) => {
     return (
         <div className="picture-form-overlay">
             <div className="picture-form-container">
-                <button className="picture-form-close-btn" onClick={onClose}>X</button>
+                <button className="picture-form-close-btn" onClick={onClose}>×</button>
                 <div className="picture-form-header">
-
                     <h2>Update Profile Picture</h2>
-
                 </div>
 
                 <div className="picture-preview-container">
@@ -51,17 +63,10 @@ const ProfilePictureForm = ({ onClose, onSave }) => {
                 />
 
                 <div className="profile-picture-form-actions">
-                    <button
-                        className="select-btn"
-                        onClick={triggerFileInput}
-                    >
+                    <button className="select-btn" onClick={triggerFileInput}>
                         Select Image
                     </button>
-                    <button
-                        className="save-btn"
-                        onClick={handleSave}
-                        disabled={!selectedFile}
-                    >
+                    <button className="save-btn" onClick={handleSave} disabled={!selectedFile}>
                         Save Changes
                     </button>
                 </div>
@@ -71,3 +76,4 @@ const ProfilePictureForm = ({ onClose, onSave }) => {
 };
 
 export default ProfilePictureForm;
+` `

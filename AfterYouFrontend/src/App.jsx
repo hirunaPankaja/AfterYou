@@ -60,6 +60,7 @@ function App() {
         <Route path="/forgot-password" component={ForgotPassword} />
         <Route path="/change-password" element={ChangePassword} />
         <Route path="/user-profile" component={UserProfile} />
+        <Route path="/executor" element={<Executor />} />
         <Route path="*" element={<div>Page Not Found</div>} /> {/* Fallback for undefined routes */} 
       </Routes>
     </Router>

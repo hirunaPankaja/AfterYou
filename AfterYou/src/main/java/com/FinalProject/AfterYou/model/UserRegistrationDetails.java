@@ -25,6 +25,7 @@ public class UserRegistrationDetails {
     private String address;
     private String gender;
     private String emergencyNumber;
+    private byte [] profilePic;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference

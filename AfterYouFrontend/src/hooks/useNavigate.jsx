@@ -16,6 +16,7 @@ const useNavigation = () => {
   const goToExecutorExecutingProcess = () => navigate("/executorExecutingProcess");
   const goToAssignExecutor = () => navigate("/assignexecutor");
   const goToRegisterLawyer = () => navigate("/registerlawyer" );
+  const goToExecutorHome = () => navigate("/executor", { replace: true });
 
   const refreshPage = () => {
     window.location.reload(); // Assuming you meant this
@@ -36,6 +37,7 @@ const useNavigation = () => {
     goToRegisterLawyer,
     goToSubscriptionForm,
     goToExecutorExecutingProcess,
+    goToExecutorHome
   };
 };
 

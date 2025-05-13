@@ -160,6 +160,8 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
               <option value="Twitter">Twitter</option>
               <option value="Instagram">Instagram</option>
               <option value="LinkedIn">LinkedIn</option>
+              <option value="Discode">Discode</option>
+              <option value="Github">Github</option>
             </select>
 
             <input type="text" placeholder="Enter Username" value={linkedUsername} onChange={handleLinkedUsernameChange} required />

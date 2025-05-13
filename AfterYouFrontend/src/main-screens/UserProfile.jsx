@@ -21,8 +21,11 @@ const UserProfile = () => {
         mobile: "077 8564632"
     });
 
+    // ✅ Expect a File and convert to previewable URL
     const handlePictureUpdate = (file) => {
-        setProfilePicture(URL.createObjectURL(file));
+        if (file instanceof File) {
+            setProfilePicture(URL.createObjectURL(file));
+        }
         setShowPictureForm(false);
     };
 
@@ -97,11 +100,16 @@ const UserProfile = () => {
 
             <div className="user-profile-header">
                 <div className="profile-photo-container">
-                    {profilePicture ? (
-                        <img src={profilePicture} alt="Profile" className="profile-picture" />
-                    ) : (
-                        <FaUserCircle className="default-icon" />
-                    )}
+                    {profile?.profilePic ? (
+  <img
+    src={`data:image/jpeg;base64,${profile.profilePic}`}
+    alt="Profile"
+    className="profile-picture"
+  />
+) : (
+  <FaUserCircle className="default-icon" />
+)}
+
                     <button
                         className="edit-icon photo-edit"
                         onClick={() => setShowPictureForm(true)}

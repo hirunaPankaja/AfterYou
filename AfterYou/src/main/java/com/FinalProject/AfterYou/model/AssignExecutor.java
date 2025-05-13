@@ -21,6 +21,7 @@ public class AssignExecutor {
     private String executorNicNumber;
     private String executorRelationship;
 
+
     @Lob
     private byte[] executorNicImage;
     private String executorPassword;

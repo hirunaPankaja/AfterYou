@@ -1,6 +1,9 @@
 package com.FinalProject.AfterYou.controller;
 
 import com.FinalProject.AfterYou.DTO.AssignExecutorDTO;
+import com.FinalProject.AfterYou.DTO.ExecutorLoginRequestDto;
+import com.FinalProject.AfterYou.DTO.ExecutorLoginResponseDto;
+import com.FinalProject.AfterYou.DTO.UserProfileDto;
 import com.FinalProject.AfterYou.model.AssignExecutor;
 import com.FinalProject.AfterYou.service.AssignExecutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +75,16 @@ public class AssignExecutorController {
     public ResponseEntity<AssignExecutor> getExecutorById(@PathVariable int executorId) {
         AssignExecutor executor = service.getExecutorById(executorId);
         return executor != null ? ResponseEntity.ok(executor) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/profile/by-email")
+    public ResponseEntity<UserProfileDto> getUserProfileByEmail(@RequestParam String email) {
+        UserProfileDto profileDto = service.getUserProfileByEmail(email);
+        return ResponseEntity.ok(profileDto);
+    }
+
+    @PostMapping("/executor/login")
+    public ExecutorLoginResponseDto loginExecutor(@RequestBody ExecutorLoginRequestDto request) {
+        return service.executorLogin(request.getEmail(), request.getPassword());
     }
 }
