@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../style/SubscriptionDashboard.css";
 import SubscriptionCard from "../components/SubscriptionsCard";
-import { getSubscriptions } from "../Services/userAccountService"; // ✅ Import API call
+import { getPrimaryAccounts, getSubscriptionsByPrimaryAccount } from "../Services/userAccountService"; // ✅ Import API calls
 
 const formatSubscriptionPlan = (plan) => {
   const planMapping = {
@@ -10,31 +10,76 @@ const formatSubscriptionPlan = (plan) => {
     "6_months": "6 Months",
     "yearly": "Yearly",
   };
-  return planMapping[plan] || plan; // ✅ Default to original if not found
+  return planMapping[plan] || plan;
 };
 
 const SubscriptionDashboard = () => {
+  const [primaryAccounts, setPrimaryAccounts] = useState([]);
+  const [selectedPrimaryId, setSelectedPrimaryId] = useState(null);
   const [subscriptions, setSubscriptions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const fetchSubscriptions = async () => {
-      try {
-        console.log("Fetching subscriptions..."); 
-        const data = await getSubscriptions();
-        console.log("Fetched subscriptions:", data); 
-        setSubscriptions(data);
-      } catch (err) {
-        setError("Failed to fetch subscriptions.");
-        console.error("Error fetching subscriptions:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSubscriptions();
+    fetchPrimaryAccounts();
   }, []);
+
+  // ✅ Fetch all primary accounts for the user
+  const fetchPrimaryAccounts = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        console.error("User authentication error. Please log in.");
+        setErrorMessage("User authentication error. Please log in.");
+        return;
+      }
+
+      console.log("Fetching primary accounts for userId:", userId); // ✅ Debugging log
+
+      const primaryAccounts = await getPrimaryAccounts();
+      console.log("Primary accounts fetched successfully:", primaryAccounts); // ✅ Debugging log
+
+      setPrimaryAccounts(primaryAccounts);
+
+      // ✅ Set default selected primary account if available
+      if (primaryAccounts.length > 0) {
+        setSelectedPrimaryId(primaryAccounts[0].primaryId);
+      }
+    } catch (error) {
+      console.error("Error fetching primary accounts:", error.response ? error.response.data : error.message);
+      setErrorMessage("Error fetching primary accounts.");
+    }
+  };
+
+  useEffect(() => {
+    if (selectedPrimaryId !== null) {
+      fetchSubscriptions(selectedPrimaryId);
+    }
+  }, [selectedPrimaryId]); 
+
+ 
+  const fetchSubscriptions = async (primaryId) => {
+    try {
+      setLoading(true); // ✅ Reset loading state when fetching new subscriptions
+      setErrorMessage(""); // ✅ Clear previous errors before fetching new data
+      console.log(`Fetching subscriptions for primary account ID: ${primaryId}`);
+      const data = await getSubscriptionsByPrimaryAccount(primaryId);
+      console.log(`Subscriptions for primaryId ${primaryId}:`, data); // ✅ Debugging log
+      setSubscriptions(data);
+    } catch (error) {
+      console.error(`Error fetching subscriptions for primaryId ${primaryId}:`, error.response ? error.response.data : error.message);
+      setErrorMessage("Error fetching subscriptions.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ✅ Handle primary account selection change
+  const handlePrimaryAccountChange = (e) => {
+    const newPrimaryId = Number(e.target.value);
+    setSelectedPrimaryId(newPrimaryId);
+  };
 
   return (
     <div className="content-wrapper">
@@ -47,28 +92,49 @@ const SubscriptionDashboard = () => {
       </div>
       <div className="right-section">
         <h2 className="section-title">Subscriptions</h2>
-
         <div className="subscription-divider"></div>
 
-        {/* Show loading or error messages */}
-        {loading && <p>Loading subscriptions...</p>}
-        {error && <p className="error-message">{error}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        {/* Subscription cards displayed in two-column layout */}
+        {/* ✅ Dropdown to select primary account */}
+        {primaryAccounts.length > 0 ? (
+          <div className="primary-account-dropdown">
+            <label htmlFor="primaryAccountSelect">Select Primary Account:</label>
+            <select 
+              id="primaryAccountSelect" 
+              className="useraccountselection-form-input" 
+              value={selectedPrimaryId || ""} 
+              onChange={handlePrimaryAccountChange}
+            >
+              {primaryAccounts.map(account => (
+                <option key={account.primaryId} value={account.primaryId}>
+                  {account.email}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : (
+          <p className="no-accounts-message">No primary accounts found.</p>
+        )}
+
+        {/* ✅ Show loading message */}
+        {loading && <p>Loading subscriptions...</p>}
+
+        {/* ✅ Display subscriptions for the selected primary account */}
         <div className="account-cards-grid">
           {subscriptions.length > 0 ? (
-            subscriptions.map((subscription) => (
+            subscriptions.map(subscription => (
               <SubscriptionCard 
                 key={subscription.subscriptionId} 
                 subscriptionAccountCard={{
-                  name: subscription.platformName, // ✅ Use platform name as fallback
-                  type: formatSubscriptionPlan(subscription.subscriptionPlan), // ✅ Format subscription plan
+                  name: subscription.platformName, 
+                  type: formatSubscriptionPlan(subscription.subscriptionPlan), 
                 }}
                 platform={subscription.platformName} 
               />
             ))
           ) : (
-            <p>No subscriptions found.</p> // ✅ Show message if no subscriptions exist
+            !loading && <p className="no-accounts-message">No subscriptions found for this primary account.</p>
           )}
         </div>
       </div>

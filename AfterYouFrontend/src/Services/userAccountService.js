@@ -164,3 +164,21 @@ export const getSubscriptions = async () => {
   }
 };
 
+export const getSubscriptionsByPrimaryAccount = async (primaryId) => {
+  try {
+    console.log(`Fetching subscriptions for primary account ID: ${primaryId}`); // ✅ Debugging log
+
+    const response = await axios.get(`${API_URL}/subscription/by-primary/${primaryId}`, {
+      headers: {
+        "Content-Type": "application/json",
+         Authorization: getAuthToken(),
+      },
+    });
+
+    console.log("Subscriptions API Response:", response.data); // ✅ Log full response
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching subscriptions for primaryId ${primaryId}:`, error.response ? error.response.data : error.message);
+    throw error;
+  }
+};

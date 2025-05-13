@@ -13,7 +13,6 @@ import {
 
 import {
   faTrash,
-  faEdit,
   faQuestionCircle, // ✅ Correct import from solid icons
 } from '@fortawesome/free-solid-svg-icons'; // ✅ Solid icons
 
@@ -50,15 +49,12 @@ function SubscriptionsCard({ subscriptionAccountCard, platform, onClick }) {
       <div className="verticle-divider"></div>
 
       <div className="account-body">
-        <p><strong>User:</strong> {subscriptionAccountCard.name || platform}</p> {/* ✅ Fallback to platform name */}
-        <p><strong>Type:</strong> {subscriptionAccountCard.type || "Unknown Plan"}</p> {/* ✅ Fallback to "Unknown Plan" */}
+        <p><strong>User:</strong> {subscriptionAccountCard.userName || "Unknown User"}</p> {/* ✅ Show user name */}
+        <p><strong>Platform:</strong> {platform}</p> {/* ✅ Show platform */}
+        <p><strong>Subscription Plan:</strong> {subscriptionAccountCard.type || "Unknown Plan"}</p> {/* ✅ Show subscription plan */}
       </div>
 
       <div className="account-actions">
-        <div className="action-button edit-btn">
-          <FontAwesomeIcon icon={faEdit} />
-          <span className="tooltip">Edit</span>
-        </div>
         <div className="action-button delete-btn">
           <FontAwesomeIcon icon={faTrash} />
           <span className="tooltip">Delete</span>

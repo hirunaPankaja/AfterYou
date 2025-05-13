@@ -71,4 +71,11 @@ public class SubscriptionController {
         List<SubscriptionDTO> subscriptions = subscriptionService.getAllSubscriptions();
         return ResponseEntity.ok(subscriptions);
     }
+
+    @GetMapping("/by-primary/{primaryId}")
+    public ResponseEntity<List<SubscriptionDTO>> getSubscriptionsByPrimaryAccount(@PathVariable Long primaryId) {
+        List<SubscriptionDTO> subscriptions = subscriptionService.getSubscriptionsByPrimaryAccount(primaryId);
+        return ResponseEntity.ok(subscriptions);
+    }
 }
+
