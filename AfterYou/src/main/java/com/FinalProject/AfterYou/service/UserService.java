@@ -14,7 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -135,10 +138,18 @@ public class UserService {
                     registrationDetails.getDOB(),
                     registrationDetails.getAddress(),
                     registrationDetails.getPhoneNumber(),
-                    nic
+                    nic,
+                    registrationDetails.getProfilePic()
             );
         } else {
             throw new RuntimeException("User not found with ID: " + userId);
         }
+    }
+
+    public void updateProfilePicture(int userId, MultipartFile profilePic) throws IOException {
+        // Retrieve the user and update the profile picture
+        UserRegistrationDetails user = userDetails.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setProfilePic(profilePic.getBytes());
+        userDetails.save(user);
     }
 }

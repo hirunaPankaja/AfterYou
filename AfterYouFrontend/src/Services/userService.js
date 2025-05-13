@@ -26,3 +26,14 @@ export const getUserProfile = (userId, token) =>
 
   return response.data;
 };
+
+
+export const updateUserProfile = (userId, formData, token) => {
+  return axios.put(`${API}/updateProfile/${userId}`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data"
+    }
+  });
+};
+

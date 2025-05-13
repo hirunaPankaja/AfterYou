@@ -8,6 +8,8 @@ import {
   faInstagram,
   faGoogle,
   faTelegram,
+  faGithub,
+  faLinkedin,
   faWhatsapp,
 } from '@fortawesome/free-brands-svg-icons'; // FontAwesome brand icons
 
@@ -27,6 +29,8 @@ function AccountCard({ accountCard, onDelete }) {
     Whatsapp: { icon: faWhatsapp, color: '#25D366', type: 'fa' },
     Discord: { icon: SiDiscord, color: '#7289DA', type: 'si' },
     Netflix: { icon: SiNetflix, color: '#E50914', type: 'si' },
+    Github: { icon: faGithub, color: '#333', type: 'fa' },
+    LinkedIn: { icon: faLinkedin, color: '#0077B5', type: 'fa' }, // Placeholder for LinkedIn
   };
 
   const { icon, color, type } = platformIcons[accountCard.platform] || {};

@@ -147,4 +147,13 @@
     width: 80px;
     height: 80px;
   }
+  .profile-image {
+  width: 100px;           /* or any preferred size */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;     /* makes the image circular */
+  border: 2px solid #ccc; /* optional: adds a soft border */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); /* optional */
+}
+
 }
