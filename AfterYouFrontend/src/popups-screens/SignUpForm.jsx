@@ -185,8 +185,15 @@ const handleSubmit = async () => {
   useEnterSubmit(handleNext);
 
   if (isSubmitted) {
-    return <DoneComponent />;
-  }
+  return (
+    <div className="signup-success-container">
+      <div className="signup-success-card">
+        <h2 className="signup-success-heading">🎉 Registration Complete!</h2>
+        <p className="signup-success-text">Your account has been created successfully.</p>
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="signup-container">

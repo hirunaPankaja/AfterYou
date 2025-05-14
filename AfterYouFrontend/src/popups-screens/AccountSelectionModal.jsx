@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../style/AccountSelectionModal.css";
 import { addPrimaryAccount, addLinkedAccount, getPrimaryAccounts } from "../Services/userAccountService";
+import infoIcon from '../assets/icons8-information-80.png'; 
+
 
 const AccountSelectionModal = ({ isOpen, onClose }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -16,6 +18,10 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const handleInfoClick = () => {
+  window.open("https://support.google.com/accounts/answer/185839?hl=en&co=GENIE.Platform%3DAndroid", "_blank");
+};
+
 
   useEffect(() => {
     if (selectedOption === "linked") {
@@ -137,7 +143,21 @@ const AccountSelectionModal = ({ isOpen, onClose }) => {
           <form className="useraccountselection-form" onSubmit={handleSubmitPrimary}>
             <input type="email" placeholder="Enter Gmail Address" value={primaryGmail} onChange={handlePrimaryGmailChange} required />
             <input type="password" placeholder="Enter Password" value={primaryPassword} onChange={handlePrimaryPasswordChange} required />
-            <input type="text" placeholder="Enter Recovery Code" value={recoveryCode} onChange={handleRecoveryCodeChange} required />
+    <div className="useraccountselection-recovery-container">
+  <input 
+    type="text" 
+    placeholder="Enter Recovery Code" 
+    value={recoveryCode} 
+    onChange={handleRecoveryCodeChange} 
+    required 
+    className="useraccountselection-recovery-input"
+  />
+  <button type="button" className="useraccountselection-info-btn" onClick={handleInfoClick}>
+    <img src={infoIcon} alt="Info" className="useraccountselection-info-icon" /> {/* ✅ Custom Icon */}
+  </button>
+</div>
+
+
 
             {errorMessage && <p className="useraccountselection-error">{errorMessage}</p>}
             {successMessage && <p className="useraccountselection-success">{successMessage}</p>}

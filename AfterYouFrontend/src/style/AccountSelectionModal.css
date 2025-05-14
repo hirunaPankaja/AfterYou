@@ -166,6 +166,17 @@
   transform: scale(1.05);
 }
 
+.useraccountselection-info-icon {
+  width: 30px; /* ✅ Adjust size */
+  height: 30px;
+  display: inline-block;
+}
+
+.useraccountselection-info-btn:hover .useraccountselection-info-icon {
+  transform: scale(1.1);
+}
+
+
 /* Submit Button */
 .useraccountselection-submit-btn {
   padding: 12px;

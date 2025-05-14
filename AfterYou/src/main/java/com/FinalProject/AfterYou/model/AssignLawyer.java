@@ -24,6 +24,7 @@ public class AssignLawyer {
     private String lawyerIdNumber;
 
     @Lob
+    @Column(name = "lawyer_id_image", columnDefinition = "LONGBLOB")
     private byte[] lawyerIdImage;
     private int userId;// Foreign key to user who assigned this lawyer
     private boolean registrationCompleted = false; // To track if lawyer completed registration

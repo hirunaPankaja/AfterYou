@@ -23,6 +23,7 @@ public class AssignExecutor {
 
 
     @Lob
+    @Column(name = "executor_nic_image", columnDefinition = "LONGBLOB")
     private byte[] executorNicImage;
     private String executorPassword;
     private int userId;
