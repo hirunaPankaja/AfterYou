@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import '../style/ChangePassword.css';
+import {changePassword} from '../Services/userService'
 
 function ChangePassword() {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ function ChangePassword() {
 
     const [isSuccess, setIsSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,7 +28,6 @@ function ChangePassword() {
             ...prev,
             [name]: value
         }));
-        // Clear error when user types
         setErrorMessage('');
     };
 
@@ -51,6 +52,26 @@ function ChangePassword() {
             return false;
         }
 
+        if (!/[A-Z]/.test(formData.newPassword)) {
+            setErrorMessage('Password must contain at least one uppercase letter');
+            return false;
+        }
+
+        if (!/[a-z]/.test(formData.newPassword)) {
+            setErrorMessage('Password must contain at least one lowercase letter');
+            return false;
+        }
+
+        if (!/[0-9]/.test(formData.newPassword)) {
+            setErrorMessage('Password must contain at least one number');
+            return false;
+        }
+
+        if (!/[!@#$%^&*]/.test(formData.newPassword)) {
+            setErrorMessage('Password must contain at least one special character');
+            return false;
+        }
+
         if (formData.newPassword !== formData.confirmPassword) {
             setErrorMessage('Passwords do not match');
             return false;
@@ -59,19 +80,40 @@ function ChangePassword() {
         return true;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            // Here you would typically make an API call to change the password
-            console.log('Password change submitted:', formData);
+        if (!validateForm()) return;
+
+        setIsLoading(true);
+        try {
+            const token = localStorage.getItem('jwtToken');
+            console.log("token", token);
+            await changePassword(
+                formData.currentPassword,
+                formData.newPassword,
+                formData.confirmPassword,
+                token
+            );
             setIsSuccess(true);
+        } catch (error) {
+            if (error.response) {
+                // Backend returned an error response
+                setErrorMessage(error.response.data || 'Password change failed');
+            } else if (error.request) {
+                // Request was made but no response received
+                setErrorMessage('Network error. Please try again.');
+            } else {
+                // Something happened in setting up the request
+                setErrorMessage('An error occurred. Please try again.');
+            }
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const handleContinue = () => {
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('userData');
-        navigate('/');
+        // Optional: You may want to keep the user logged in after password change
+        navigate('/profile'); // Or wherever you want to redirect
     };
 
     return (
@@ -81,7 +123,6 @@ function ChangePassword() {
                     <h1 className="change-password-title">Change Password</h1>
                     <div className="change-password-divider"></div>
 
-                    {/* Error message box */}
                     {errorMessage && (
                         <div className="error-comment-box">
                             <div className="error-comment-content">
@@ -101,6 +142,7 @@ function ChangePassword() {
                                     name="currentPassword"
                                     value={formData.currentPassword}
                                     onChange={handleChange}
+                                    disabled={isLoading}
                                 />
                                 <span
                                     className="password-toggle"
@@ -120,6 +162,7 @@ function ChangePassword() {
                                     name="newPassword"
                                     value={formData.newPassword}
                                     onChange={handleChange}
+                                    disabled={isLoading}
                                 />
                                 <span
                                     className="password-toggle"
@@ -139,6 +182,7 @@ function ChangePassword() {
                                     name="confirmPassword"
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
+                                    disabled={isLoading}
                                 />
                                 <span
                                     className="password-toggle"
@@ -149,8 +193,12 @@ function ChangePassword() {
                             </div>
                         </div>
 
-                        <button type="submit" className="update-password-btn">
-                            Update
+                        <button
+                            type="submit"
+                            className="update-password-btn"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? 'Updating...' : 'Update'}
                         </button>
                     </form>
                 </>
@@ -159,12 +207,11 @@ function ChangePassword() {
                     <FaCheckCircle className="success-icon" />
                     <h2>Successful</h2>
                     <p>Congratulations! Your password has been changed.</p>
-                    <p className="instruction">You will be redirected to the login page</p>
                     <button
                         className="continue-btn"
                         onClick={handleContinue}
                     >
-                        Done
+                        Continue
                     </button>
                 </div>
             )}

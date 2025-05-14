@@ -16,7 +16,7 @@ export const getUserProfile = (userId, token) =>
   formDataToSend.append("accountSecurity", JSON.stringify(formData.accountSecurity));
   formDataToSend.append("identity", JSON.stringify(formData.identity));
 
- 
+
 
   const response = await axios.post("http://localhost:8081/register", formDataToSend, {
     headers: {
@@ -37,3 +37,25 @@ export const updateUserProfile = (userId, formData, token) => {
   });
 };
 
+export const changePassword = async (currentPassword, newPassword, confirmPassword, token) => {
+  try {
+    const response = await axios.put(`${API}/changePassword`, {
+      currentPassword,
+      newPassword,
+      confirmPassword
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response?.status === 401) {
+      // Token is invalid - redirect to login
+      localStorage.removeItem('authToken');
+      window.location.href = '/login';
+    }
+    throw error;
+  }
+};
