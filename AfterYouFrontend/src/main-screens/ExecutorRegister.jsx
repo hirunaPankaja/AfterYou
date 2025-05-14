@@ -185,7 +185,6 @@ const ExecutorRegister = () => {
                                 accept="image/*,.pdf"
                                 required
                             />
-                            <small>Accepted formats: JPG, PNG, PDF</small>
                         </div>
 
                         <button type="submit" className="executor-register-submit">
