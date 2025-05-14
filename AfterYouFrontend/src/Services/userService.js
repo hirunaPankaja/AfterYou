@@ -9,24 +9,44 @@ export const getUserProfile = (userId, token) =>
     }
   });
 
-  export const submitSignupData = async (formData) => {
+export const submitSignupData = async (data) => {
   const formDataToSend = new FormData();
 
-  formDataToSend.append("userBasicInfo", JSON.stringify(formData.userBasicInfo));
-  formDataToSend.append("accountSecurity", JSON.stringify(formData.accountSecurity));
-  formDataToSend.append("identity", JSON.stringify(formData.identity));
+  // Attach JSON (user info) as a string
+  formDataToSend.append("userBasicInfo", JSON.stringify(data.userBasicInfo));
 
+<<<<<<< Updated upstream
 
+=======
+  // Attach the files
+  formDataToSend.append("identityDocument", data.identityDocument);
+  formDataToSend.append("selfieWithIdDocument", data.selfieWithIdDocument);
+>>>>>>> Stashed changes
 
-  const response = await axios.post("http://localhost:8081/register", formDataToSend, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    }
+  // Send request via axios
+  const response = await axios.post(`${API}/register`, formDataToSend, {
+    headers: { "Content-Type": "multipart/form-data" },
   });
 
   return response.data;
 };
 
+// Services/userService.js
+
+export const registerUser = async (payload) => {
+  const response = await fetch('http://localhost:8081/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to register user');
+  }
+  return response.json();
+};
 
 export const updateUserProfile = (userId, formData, token) => {
   return axios.put(`${API}/updateProfile/${userId}`, formData, {

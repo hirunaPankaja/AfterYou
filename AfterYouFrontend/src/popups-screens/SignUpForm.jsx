@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../style/SignUp.css'; // Unified CSS file
 import logo from '../assets/logo.png';
 import { validateEmail, validatePhoneNumber, validateIdentityImages, validatePassword, validateAgreement } from '../Services/validation';
+import {registerUser} from '../Services/userService';
 import useEnterSubmit from '../hooks/useEnterSubmit';
 
 const DoneComponent = () => {
@@ -34,8 +35,8 @@ const SignUpForm = () => {
     address: '',
     gender: '',
     emergencyContact: '',
-    idType: '',
-    idNumber: '',
+    identityType: '',
+    identityNumber: '',
     idDocument: null,
     selfieWithId: null,
     username: '',
@@ -50,7 +51,6 @@ const SignUpForm = () => {
   const [validationError, setValidationError] = useState('');
   const [progress, setProgress] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
 
 const handleSubmit = async () => {
   setValidationError('');
@@ -68,34 +68,40 @@ const handleSubmit = async () => {
     return;
   }
 
-const handleSubmit = async () => {
-  console.log("Sending data to backend:", JSON.stringify(formData)); // ✅ Log request data
+  // BUILD THE PAYLOAD as backend expects
+  const payload = {
+    userBasicInfo: {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      dob: formData.dateOfBirth,
+      phoneNumber: formData.phoneNumber,
+      nationality: formData.nationality,
+      address: formData.address,
+      gender: formData.gender,
+      emergencyNumber: formData.emergencyContact,
+      credentials: {
+        email: formData.email,
+        password: formData.password,
+        username: formData.username
+      },
+      accountSecurity: {
+        securityQuestion: formData.securityQuestion,
+        securityAnswer: formData.securityAnswer
+      },
+      identity: {
+        identityType: formData.idType || formData.identityType, // support both field names
+        identityNumber: formData.idNumber || formData.identityNumber
+      }
+    }
+  };
 
   try {
-    const response = await fetch('http://localhost:8081/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-
-    console.log("Response status:", response.status); // ✅ Log response status
-
-    const data = await response.json();
-    console.log("Backend response:", data); // ✅ Log backend response
-
-    if (response.ok) {
-      setIsSubmitted(true);
-    } else {
-      setValidationError(data.message || 'Something went wrong.');
-    }
+    const data = await registerUser(payload); // Use ONLY the exported method
+    setIsSubmitted(true);
   } catch (error) {
-    console.error("Fetch error:", error);
-    setValidationError('Network error. Please try again.');
+    setValidationError(error.message || 'Something went wrong.');
   }
-};
-
+ // <-- This closing brace was missing
 
 };
 
@@ -123,56 +129,58 @@ const handleSubmit = async () => {
   };
 
   const handleNext = async () => {
-    setValidationError('');
-    setProgress(0);
+  setValidationError('');
+  setProgress(0);
 
-    if (step === 1) {
-      // Validate Step 1 (Personal Information)
-      const emailError = validateEmail(formData.email);
-      const phoneError = validatePhoneNumber(formData.emergencyContact, formData.phoneNumber);
+  if (step === 1) {
+    // Validate Step 1 (Personal Information)
+    const emailError = validateEmail(formData.email);
+    const phoneError = validatePhoneNumber(formData.emergencyContact, formData.phoneNumber);
 
-      if (emailError || phoneError) {
-        setValidationError(emailError || phoneError);
-        return;
-      }
-    } else if (step === 2) {
-      // Validate Step 2 (ID Verification)
-      if (!formData.idType || !formData.idNumber || !formData.idDocument || !formData.selfieWithId) {
-        setValidationError('All ID verification fields are required.');
-        return;
-      }
-
-      const idError = await validateIdentityImages(
-        formData.idNumber,
-        formData.idDocument,
-        formData.selfieWithId,
-        setProgress
-      );
-
-      if (idError) {
-        setValidationError(idError);
-        return;
-      }
-    } else if (step === 3) {
-      // Validate Step 3 (Account Security)
-      const passwordError = validatePassword(formData.password, formData.confirmPassword);
-      if (passwordError) {
-        setValidationError(passwordError);
-        return;
-      }
-
-      const agreementError = validateAgreement(formData.agreeTerms, formData.agreeDataPolicy);
-      if (agreementError) {
-        setValidationError(agreementError);
-        return;
-      }
-
-      setIsSubmitted(true);
+    if (emailError || phoneError) {
+      setValidationError(emailError || phoneError);
+      return;
+    }
+  } else if (step === 2) {
+    // Validate Step 2 (ID Verification)
+    if (!formData.idType || !formData.idNumber || !formData.idDocument || !formData.selfieWithId) {
+      setValidationError('All ID verification fields are required.');
       return;
     }
 
-    setStep(prevStep => prevStep + 1);
-  };
+    const idError = await validateIdentityImages(
+      formData.idNumber,
+      formData.idDocument,
+      formData.selfieWithId,
+      setProgress
+    );
+
+    if (idError) {
+      setValidationError(idError);
+      return;
+    }
+  } else if (step === 3) {
+    // Validate Step 3 (Account Security)
+    const passwordError = validatePassword(formData.password, formData.confirmPassword);
+    if (passwordError) {
+      setValidationError(passwordError);
+      return;
+    }
+
+    const agreementError = validateAgreement(formData.agreeTerms, formData.agreeDataPolicy);
+    if (agreementError) {
+      setValidationError(agreementError);
+      return;
+    }
+
+    // 👇 Final submission step
+    await handleSubmit();
+    return;
+  }
+
+  setStep(prevStep => prevStep + 1);
+};
+
 
   useEnterSubmit(handleNext);
 

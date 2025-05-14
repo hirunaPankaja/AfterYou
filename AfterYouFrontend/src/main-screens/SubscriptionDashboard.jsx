@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../style/SubscriptionDashboard.css";
 import SubscriptionCard from "../components/SubscriptionsCard";
-import { getPrimaryAccounts, getSubscriptionsByPrimaryAccount } from "../Services/userAccountService"; // ✅ Import API calls
+import { getPrimaryAccounts, getSubscriptionsByPrimaryAccount, deleteSubscription } from "../Services/userAccountService"; // ✅ Import API calls
 
 const formatSubscriptionPlan = (plan) => {
   const planMapping = {
@@ -56,9 +56,8 @@ const SubscriptionDashboard = () => {
     if (selectedPrimaryId !== null) {
       fetchSubscriptions(selectedPrimaryId);
     }
-  }, [selectedPrimaryId]); 
+  }, [selectedPrimaryId]); // ✅ Fetch subscriptions when selectedPrimaryId changes
 
- 
   const fetchSubscriptions = async (primaryId) => {
     try {
       setLoading(true); // ✅ Reset loading state when fetching new subscriptions
@@ -75,11 +74,21 @@ const SubscriptionDashboard = () => {
     }
   };
 
-  // ✅ Handle primary account selection change
   const handlePrimaryAccountChange = (e) => {
     const newPrimaryId = Number(e.target.value);
     setSelectedPrimaryId(newPrimaryId);
   };
+
+ const handleDeleteSubscription = async (subscriptionId) => {
+  try {
+    console.log("Deleting subscription with ID:", subscriptionId); // ✅ Debugging log
+
+    await deleteSubscription(subscriptionId); // ✅ Call API to delete subscription
+    setSubscriptions(subscriptions.filter(sub => sub.subscriptionId !== subscriptionId)); 
+  } catch (error) {
+    console.error("Error deleting subscription:", error);
+  }
+};
 
   return (
     <div className="content-wrapper">
@@ -127,10 +136,12 @@ const SubscriptionDashboard = () => {
               <SubscriptionCard 
                 key={subscription.subscriptionId} 
                 subscriptionAccountCard={{
+                  subscriptionId: subscription.subscriptionId, // ✅ Pass subscription ID for deletion
                   name: subscription.platformName, 
                   type: formatSubscriptionPlan(subscription.subscriptionPlan), 
                 }}
                 platform={subscription.platformName} 
+                onDelete={handleDeleteSubscription} // ✅ Handle deletion
               />
             ))
           ) : (

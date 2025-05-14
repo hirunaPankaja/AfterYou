@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("verify").permitAll()
                         .requestMatchers("verify","api/executors/executor/login", "api/executors/profile/by-email").permitAll()
                         .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback","api/lawyers/by-email-and-user","/complete-registration/{email}", "api/executors/by-email-and-user","/api/executors/assign","/api/executors/complete-registration/{executorEmail}/{userId}")
                         .permitAll()

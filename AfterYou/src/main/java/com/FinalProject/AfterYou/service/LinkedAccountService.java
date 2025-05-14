@@ -53,4 +53,12 @@ public class LinkedAccountService {
     public List<LinkedAccount> getAllLinkedAccounts() {
         return linkedAccountRepository.findAll();
     }
+
+    // ✅ Delete linked account by ID
+    public void deleteLinkedAccount(Long linkedAccountId) {
+        if (!linkedAccountRepository.existsById(linkedAccountId)) {
+            throw new IllegalArgumentException("Linked account with ID " + linkedAccountId + " not found.");
+        }
+        linkedAccountRepository.deleteById(linkedAccountId);
+    }
 }

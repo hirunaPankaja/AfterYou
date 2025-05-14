@@ -72,10 +72,21 @@ public class SubscriptionController {
         return ResponseEntity.ok(subscriptions);
     }
 
+
     @GetMapping("/by-primary/{primaryId}")
     public ResponseEntity<List<SubscriptionDTO>> getSubscriptionsByPrimaryAccount(@PathVariable Long primaryId) {
         List<SubscriptionDTO> subscriptions = subscriptionService.getSubscriptionsByPrimaryAccount(primaryId);
         return ResponseEntity.ok(subscriptions);
+    }
+
+    @DeleteMapping("/{subscriptionId}")
+    public ResponseEntity<String> deleteSubscription(@PathVariable Long subscriptionId) {
+        try {
+            subscriptionService.deleteSubscription(subscriptionId);
+            return ResponseEntity.ok("Subscription deleted successfully.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
 

@@ -182,3 +182,55 @@ export const getSubscriptionsByPrimaryAccount = async (primaryId) => {
     throw error;
   }
 };
+
+
+export const deleteSubscription = async (subscriptionId) => {
+  try {
+    console.log(`Sending DELETE request for subscription ID: ${subscriptionId}`); 
+
+    const response = await axios.delete(`${API_URL}/subscription/${subscriptionId}`, {
+      headers: {
+        "Content-Type": "application/json",
+         Authorization: getAuthToken(),
+      },
+    });
+
+    if (response.status === 200) {
+      console.log("Subscription deleted successfully:", response.data); // ✅ Log response
+      return response.data;
+    } else {
+      console.error(`Unexpected response status: ${response.status}`);
+      throw new Error(`Unexpected response status: ${response.status}`);
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      console.warn(`Subscription with ID ${subscriptionId} not found. It may have already been deleted.`);
+    } else {
+      console.error(`Error deleting subscription with ID ${subscriptionId}:`, error.response ? error.response.data : error.message);
+    }
+    throw error;
+  }
+};
+
+
+export const deleteLinkedAccount = async (linkedAccountId) => {
+  try {
+    console.log(`Sending DELETE request for linked account ID: ${linkedAccountId}`); 
+
+    const response = await axios.delete(`${API_URL}/linked-accounts/${linkedAccountId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: getAuthToken(),
+      },
+    });
+
+    console.log("Linked account deleted successfully:", response.data); 
+    return response.data;
+  } catch (error) {
+    console.error(`Error deleting linked account with ID ${linkedAccountId}:`, error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+
+

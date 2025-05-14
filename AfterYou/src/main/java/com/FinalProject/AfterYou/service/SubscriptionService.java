@@ -66,4 +66,11 @@ public class SubscriptionService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public void deleteSubscription(Long subscriptionId) {
+        if (!subscriptionRepository.existsById(subscriptionId)) {
+            throw new IllegalArgumentException("Subscription with ID " + subscriptionId + " not found.");
+        }
+        subscriptionRepository.deleteById(subscriptionId);
+    }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SiDiscord, SiNetflix } from 'react-icons/si'; // Only Discord & Netflix from simple-icons
+import { deleteSubscription } from '../Services/userAccountService'; // ✅ Import delete function
 
 import {
   faFacebook,
@@ -18,7 +19,7 @@ import {
 
 import '../style/AccountCard.css';
 
-function SubscriptionsCard({ subscriptionAccountCard, platform, onClick }) {
+function SubscriptionsCard({ subscriptionAccountCard, platform, onDelete }) {
   const platformIcons = {
     Facebook: { icon: faFacebook, color: '#1877F2', type: 'fa' },
     Twitter: { icon: faTwitter, color: '#1DA1F2', type: 'fa' },
@@ -33,8 +34,25 @@ function SubscriptionsCard({ subscriptionAccountCard, platform, onClick }) {
   // ✅ Use fallback icon if platform is not recognized
   const { icon, color, type } = platformIcons[platform] || { icon: faQuestionCircle, color: '#888', type: 'fa' };
 
+const handleDelete = async () => {
+  try {
+    console.log("Attempting to delete subscription:", subscriptionAccountCard); // ✅ Debugging log
+
+    if (!subscriptionAccountCard.subscriptionId) {
+      console.error("Error: Subscription ID is missing.");
+      return;
+    }
+
+    await deleteSubscription(subscriptionAccountCard.subscriptionId); // ✅ Call API to delete subscription
+    onDelete(subscriptionAccountCard.subscriptionId); // ✅ Update UI after deletion
+  } catch (error) {
+    console.error("Error deleting subscription:", error);
+  }
+};
+
+
   return (
-    <div className="account-card" onClick={onClick}>
+    <div className="account-card">
       <div className="account-header">
         {type === 'fa' && icon && (
           <FontAwesomeIcon icon={icon} className="platform-icon" style={{ color }} />
@@ -55,10 +73,10 @@ function SubscriptionsCard({ subscriptionAccountCard, platform, onClick }) {
       </div>
 
       <div className="account-actions">
-        <div className="action-button delete-btn">
+        <button className="action-button delete-btn" onClick={handleDelete}>
           <FontAwesomeIcon icon={faTrash} />
           <span className="tooltip">Delete</span>
-        </div>
+        </button>
       </div>
     </div>
   );

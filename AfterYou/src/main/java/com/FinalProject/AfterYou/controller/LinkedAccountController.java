@@ -68,4 +68,14 @@ public class LinkedAccountController {
         return accounts.isEmpty() ? ResponseEntity.status(404).body(null)
                 : ResponseEntity.ok(accounts);
     }
+
+    @DeleteMapping("/{linkedAccountId}")
+    public ResponseEntity<String> deleteLinkedAccount(@PathVariable Long linkedAccountId) {
+        try {
+            linkedAccountService.deleteLinkedAccount(linkedAccountId);
+            return ResponseEntity.ok("Linked account deleted successfully.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

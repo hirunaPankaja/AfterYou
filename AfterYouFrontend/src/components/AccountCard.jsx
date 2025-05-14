@@ -35,6 +35,19 @@ function AccountCard({ accountCard, onDelete }) {
 
   const { icon, color, type } = platformIcons[accountCard.platform] || {};
 
+const handleDelete = () => {
+  console.log("Attempting to delete linked account:", accountCard); // ✅ Debugging log
+
+  if (!accountCard.linkedId) {
+    console.error("Error: Linked account ID is missing.");
+    return;
+  }
+
+  console.log("Calling onDelete with ID:", accountCard.linkedId); // ✅ Debugging log
+  onDelete(accountCard.linkedId); // ✅ Call delete function
+};
+
+
   return (
     <div className="account-card">
       <div className="account-header">
@@ -61,7 +74,7 @@ function AccountCard({ accountCard, onDelete }) {
       </div>
 
       <div className="account-actions">
-        <button className="action-button delete-btn" onClick={() => onDelete(accountCard.id)}>
+        <button className="action-button delete-btn" onClick={handleDelete}>
           <FontAwesomeIcon icon={faTrash} />
           <span className="tooltip">Delete</span>
         </button>

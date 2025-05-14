@@ -3,8 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
+  min-height: 80vh;
   font-family: Arial, sans-serif;
 }
 

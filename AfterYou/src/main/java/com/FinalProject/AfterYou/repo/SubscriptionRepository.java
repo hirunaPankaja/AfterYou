@@ -10,4 +10,6 @@ import java.util.List;
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
     List<Subscription> findByPrimaryAccount_PrimaryId(Long primaryId);
     List<Subscription> findAll();
+    void deleteById(Long subscriptionId);
+
 }

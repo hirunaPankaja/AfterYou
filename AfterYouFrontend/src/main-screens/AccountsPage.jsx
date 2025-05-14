@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import '../style/AccountsPage.css';
-import AccountCard from '../components/AccountCard'; // Ensure correct path
-import { getPrimaryAccounts, getLinkedAccounts } from '../Services/userAccountService'; // ✅ Import API functions
+import React, { useState, useEffect } from "react";
+import "../style/AccountsPage.css";
+import AccountCard from "../components/AccountCard"; // Ensure correct path
+import { getPrimaryAccounts, getLinkedAccounts, deleteLinkedAccount } from "../Services/userAccountService"; // ✅ Import API functions
 
 const AccountsPage = () => {
   const [primaryAccounts, setPrimaryAccounts] = useState([]);
-  const [selectedPrimaryId, setSelectedPrimaryId] = useState(""); // ✅ Store selected primary account
+  const [selectedPrimaryId, setSelectedPrimaryId] = useState("");
   const [linkedAccounts, setLinkedAccounts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -63,6 +63,18 @@ const AccountsPage = () => {
     fetchLinkedAccounts(newPrimaryId);
   };
 
+  const handleDeleteLinkedAccount = async (linkedAccountId) => {
+  try {
+    console.log("Deleting linked account with ID:", linkedAccountId); // ✅ Debugging log
+
+    await deleteLinkedAccount(linkedAccountId); // ✅ Call API to delete linked account
+    setLinkedAccounts(linkedAccounts.filter(account => account.linkedId !== linkedAccountId)); // ✅ Remove deleted account from UI
+  } catch (error) {
+    console.error("Error deleting linked account:", error);
+  }
+};
+
+
   return (
     <div className="content-wrapper">
       <div className="left-section">
@@ -106,6 +118,7 @@ const AccountsPage = () => {
               <AccountCard 
                 key={linkedAccount.linkedId} 
                 accountCard={linkedAccount} 
+                onDelete={handleDeleteLinkedAccount} // ✅ Handle deletion
               />
             ))
           ) : (
