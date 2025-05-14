@@ -76,3 +76,8 @@ export const sendExecutorVerification = (executorId) => {
         }
     );
 };
+
+export const verified = async (executorId) => {
+  const response = await axios.get(`${API_BASE_URL}}/verified/${executorId}`);
+  return response.data; // expected to be "yes" or something else
+};

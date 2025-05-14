@@ -6,10 +6,7 @@ import com.FinalProject.AfterYou.model.AssignExecutor;
 import com.FinalProject.AfterYou.model.UserCredentials;
 import com.FinalProject.AfterYou.model.UserIdentity;
 import com.FinalProject.AfterYou.model.UserRegistrationDetails;
-import com.FinalProject.AfterYou.repo.AssignExecutorRepository;
-import com.FinalProject.AfterYou.repo.UserDetailsRepo;
-import com.FinalProject.AfterYou.repo.UserIdentityRepo;
-import com.FinalProject.AfterYou.repo.UserRepo;
+import com.FinalProject.AfterYou.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -30,12 +27,26 @@ public class AssignExecutorService {
     @Autowired
     private UserRepo userRepo;
 
-    public AssignExecutor assignExecutor(AssignExecutor executor, int userId) {
+    @Autowired
+    private AssignLawyerRepository assignLawyerRepository;
 
+    @Autowired
+    private EmailService emailService;
+
+    public AssignExecutor assignExecutor(AssignExecutor executor, int userId) {
         executor.setUserId(userId);
         executor.setRegistrationCompleted(false);
-        return repository.save(executor);
+        AssignExecutor savedExecutor = repository.save(executor);
+
+        // Fetch lawyer email
+        String lawyerEmail = assignLawyerRepository.findLawyerEmailByUserId(userId);
+
+        // Send email
+        emailService.sendExecutorInfoToLawyer(lawyerEmail, savedExecutor, userId);
+
+        return savedExecutor;
     }
+
 
     public AssignExecutor getExecutorByEmailAndUserId(String email, int userId) {
         return repository.findByExecutorEmailAndUserId(email, userId)

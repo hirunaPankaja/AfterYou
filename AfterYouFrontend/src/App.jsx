@@ -26,6 +26,7 @@ import ExecutorRegister from './main-screens/ExecutorRegister.jsx';
 import SubscriptionForm from './popups-screens/SubscriptionForm.jsx';
 
 import './App.css';
+import LawyerVerificationForm from './popups-screens/LawyerDeathApprove.jsx';
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/executor" element={<Executor />} />
         <Route path="*" element={<div>Page Not Found</div>} /> {/* Fallback for undefined routes */} 
+        <Route path="/lawyer-verification" element={<LawyerVerificationForm />} />
       </Routes>
     </Router>
   );

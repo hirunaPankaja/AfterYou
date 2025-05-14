@@ -1,9 +1,12 @@
 package com.FinalProject.AfterYou.service;
 
+import com.FinalProject.AfterYou.DTO.LawyerDetailsDTO;
 import com.FinalProject.AfterYou.model.AssignLawyer;
 import com.FinalProject.AfterYou.repo.AssignLawyerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AssignLawyerService {
@@ -32,4 +35,21 @@ public class AssignLawyerService {
         }
         return null;
     }
+    public LawyerDetailsDTO getLawyerDetailsById(Integer lawyerId) {
+        Optional<AssignLawyer> optionalLawyer = assignLawyerRepository.findById(lawyerId);
+
+        if (optionalLawyer.isEmpty()) {
+            throw new RuntimeException("Lawyer not found");
+        }
+
+        AssignLawyer lawyer = optionalLawyer.get();
+
+        LawyerDetailsDTO dto = new LawyerDetailsDTO();
+        dto.setLawyerName(lawyer.getLawyerName());
+        dto.setLawyerEmail(lawyer.getLawyerEmail());
+        dto.setLawyerIdNumber(lawyer.getLawyerIdNumber());
+
+        return dto;
+    }
+
 }

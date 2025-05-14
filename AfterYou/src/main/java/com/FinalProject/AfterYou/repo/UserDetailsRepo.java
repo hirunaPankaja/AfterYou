@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserDetailsRepo extends JpaRepository<UserRegistrationDetails, Integer> {
+    UserRegistrationDetails findByUserId(int userId);
+
+
 }

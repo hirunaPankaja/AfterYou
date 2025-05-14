@@ -183,6 +183,15 @@
     padding: 10px;
   }
 
+  .status-indicator.approved {
+  color: green;
+  font-weight: bold;
+}
+
+.dot.approved {
+  background-color: green;
+}
+
   /* Approval Section */
   .approval-section {
     width: 100%;

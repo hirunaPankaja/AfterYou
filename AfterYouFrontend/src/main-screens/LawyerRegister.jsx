@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../style/LawyerRegister.css";
 import lawyerLandingpage from "../assets/logo.png";
-import { validateLawyerId } from '../Services/validation';
+import { validateLawyerId } from '../Services/validation'; 
 import { getLawyerByEmailAndUserId, completeRegistration } from '../Services/lawyerService';
 
 const LawyerRegister = () => {

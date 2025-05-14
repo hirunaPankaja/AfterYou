@@ -48,3 +48,13 @@ export const completeRegistration = (email, nicNumber, idNumber, idImageFile, us
         }
     );
 };
+
+export const fetchLawyerDetails = async (lawyerId) => {
+  try {
+    const response = await axios.get(`http://localhost:8081/api/lawyers/details/${lawyerId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch lawyer details:", error);
+    return null;
+  }
+};

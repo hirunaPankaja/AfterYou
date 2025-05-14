@@ -1,8 +1,9 @@
-// DeathCertificateService.java
+
 package com.FinalProject.AfterYou.service;
 
 import com.FinalProject.AfterYou.model.AssignExecutor;
 import com.FinalProject.AfterYou.model.AssignLawyer;
+import com.FinalProject.AfterYou.model.DeathCertificate;
 import com.FinalProject.AfterYou.model.UserRegistrationDetails;
 import com.FinalProject.AfterYou.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;

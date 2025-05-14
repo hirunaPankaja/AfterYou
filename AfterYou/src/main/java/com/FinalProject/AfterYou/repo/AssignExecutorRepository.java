@@ -15,5 +15,5 @@ public interface AssignExecutorRepository extends JpaRepository<AssignExecutor, 
     @Query("SELECT u.userId FROM AssignExecutor u WHERE u.executorEmail = :email")
     Integer findUserIdByEmail(String email);
     Optional<AssignExecutor> findByExecutorEmail(String email);
-
+    AssignExecutor findByUserId(int userId);
 }

@@ -1,5 +1,6 @@
 package com.FinalProject.AfterYou.controller;
 
+import com.FinalProject.AfterYou.model.DeathCertificate;
 import com.FinalProject.AfterYou.service.DeathCertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

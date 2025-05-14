@@ -1,129 +1,148 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import '../style/DeathCertificateUpload.css';
+import React, { useState, useEffect } from "react";
+import { uploadDeathCertificate, verifyDeathCertificate, verified } from "../Services/DeathCertificateService.js";
+import "../Style/DeathCertificateUpload.css"; // Adjust the path as necessary
 
 const DeathCertificateUpload = () => {
-  const [fullName, setFullName] = useState('');
-  const [dateOfDeath, setDateOfDeath] = useState('');
-  const [deathCertificate, setDeathCertificate] = useState(null);
-  const [status, setStatus] = useState('Pending');
-  const [processingTime, setProcessingTime] = useState('48 hrs');
-  const [loadingWidth, setLoadingWidth] = useState(0);
-  const [isProcessing, setIsProcessing] = useState(false);
-  
-  const navigate = useNavigate(); // Initialize navigation
+  const [form, setForm] = useState({
+    name: "",
+    date: "",
+    file: null,
+  });
 
-  useEffect(() => {
-    if (isProcessing) {
-      const totalTimeInMilliseconds = 5000; 
-      const updateInterval = 100; 
-      const increment = 100 / (totalTimeInMilliseconds / updateInterval);
+  const [status, setStatus] = useState("Pending");
+  const [certId, setCertId] = useState(null);
+  const [isVerified, setIsVerified] = useState(false);
+  const [processingTime] = useState("48 hrs");
 
-      const loadingInterval = setInterval(() => {
-        setLoadingWidth((prev) => {
-          if (prev + increment >= 100) {
-            clearInterval(loadingInterval);
-            return 100;
-          }
-          return prev + increment;
-        });
-      }, updateInterval);
+  const executorId = localStorage.getItem("executorId");
 
-      return () => clearInterval(loadingInterval);
-    }
-  }, [isProcessing]);
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: files ? files[0] : value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus('Processing');
-    setIsProcessing(true);
-    setLoadingWidth(0);
+    const formData = new FormData();
+    formData.append("deceasedName", form.name);
+    formData.append("deceasedDate", form.date);
+    formData.append("deathCertificate", form.file);
+    formData.append("executorId", executorId);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-      setStatus('Approved');
-    } catch (error) {
-      console.error('Error:', error);
-      setStatus('Error');
-    } finally {
-      setIsProcessing(false);
+      // Upload Death Certificate
+      const uploadResponse = await uploadDeathCertificate(formData);
+
+      // Get certId from the response
+      if (uploadResponse.data.certId) {
+        setCertId(uploadResponse.data.certId);
+        setStatus("Waiting for approval...");
+        alert("Your death certificate is uploaded. Waiting for legal approval.");
+        
+        // Start polling for verification
+        checkVerification(uploadResponse.data.certId);
+      } else {
+        alert("Failed to upload certificate.");
+      }
+    } catch (err) {
+      console.error("Upload failed:", err);
+      alert("Submission failed.");
     }
   };
 
-  const handleFileChange = (e) => {
-    setDeathCertificate(e.target.files[0]);
-  };
-
-  const handleDoneClick = () => {
-    if (status === 'Approved') {
-      navigate('/executorExecutingProcess'); // Navigate on button click
+  const checkVerification = async (certId) => {
+    try {
+      const verifiedRes = await verified(executorId);
+      if (verifiedRes === "yes") {
+        setStatus("Approved");
+        setIsVerified(true);
+      } else {
+        setStatus("Pending");
+        setIsVerified(false);
+      }
+    } catch (err) {
+      console.error("Verification check failed:", err);
+      setStatus("Error occurred while checking verification.");
     }
   };
+
+  useEffect(() => {
+    if (certId) {
+      const interval = setInterval(() => {
+        checkVerification(certId); // Check verification every 10 seconds
+      }, 10000); // 10 seconds interval
+      return () => clearInterval(interval); // Cleanup on component unmount
+    }
+  }, [certId]);
 
   return (
-    <div className="certificate-container">
-      <div className="upload-section">
-        <h2 className="certificate-section-title">Upload Death Certificate</h2>
-        <form onSubmit={handleSubmit} className="certificate-form">
-          <div className="input-group">
-            <label className="input-label">Full Name of deceased</label>
-            <input
-              type="text"
-              className="certificate-input"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label className="input-label">Date of death</label>
-            <input
-              type="date"
-              className="certificate-input"
-              value={dateOfDeath}
-              onChange={(e) => setDateOfDeath(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label className="input-label">Upload Death Certificate</label>
+    <div className="container">
+      <div className="panel left-panel">
+        <h2>Upload Death Certificate</h2>
+        <form onSubmit={handleSubmit}>
+          <label>Full Name of deceased</label>
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+
+          <label>Date of death</label>
+          <input
+            type="date"
+            name="date"
+            value={form.date}
+            onChange={handleChange}
+            required
+          />
+
+          <label>Upload Death Certificate</label>
+          <div className="file-upload">
             <input
               type="file"
-              className="certificate-input"
-              onChange={handleFileChange}
+              name="file"
+              accept=".pdf,.jpg,.jpeg,.png"
+              onChange={handleChange}
               required
             />
+            <span className="camera-icon">&#128247;</span>
           </div>
-          <button type="submit" className="submit-button">Submit</button>
+          <button type="submit" className="submit-btn">Submit</button>
         </form>
       </div>
-      <div className="approval-section">
-        <h2 className="section-title">Waiting For Legal Approval</h2>
-        <p className="review-text">Your request is under review.</p>
-        <div className="status-container">
-          <label className="status-label">Status</label>
-          <span className={`status-indicator ${status === 'Approved' ? 'approved' : ''}`}>
-            ●
+
+      <div className="panel right-panel">
+        <h2>{status === "Approved" ? "Approved by Legal Team" : "Waiting For Legal Approval"}</h2>
+        <p>
+          {status === "Approved"
+            ? "The death certificate has been officially approved."
+            : "Your request is under review by our legal team."}
+        </p>
+
+        <div className="status-row">
+          <span>Status</span>
+          <span className={`status-indicator ${status.toLowerCase()}`}>
+            <span className={`dot ${status.toLowerCase()}`}></span> {status}
           </span>
-          <span className="status-value">{status}</span>
         </div>
-        <div className="processing-container">
-          <label className="processing-label">Expected Processing Time</label>
-          <span className="processing-value">{isProcessing ? 'Loading...' : processingTime}</span>
-          {isProcessing && (
-            <div className="loading-bar">
-              <div className="loading-fill" style={{ width: `${loadingWidth}%` }}></div>
-            </div>
-          )}
+
+        <div className="status-row">
+          <span>Expected Processing Time</span>
+          <input
+            type="text"
+            value={processingTime}
+            readOnly
+            className="processing-time"
+          />
         </div>
-        <button 
-          className="done-button" 
-          disabled={status !== 'Approved'}
-          onClick={handleDoneClick} 
-        >
-          Done
-        </button>
       </div>
+
+      <button className="done-btn" disabled={!isVerified}>Done</button>
     </div>
   );
 };
