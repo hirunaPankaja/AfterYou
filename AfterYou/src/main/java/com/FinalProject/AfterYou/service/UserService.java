@@ -4,6 +4,7 @@ import com.FinalProject.AfterYou.DTO.LoginResponse;
 import com.FinalProject.AfterYou.DTO.UserProfileDto;
 import com.FinalProject.AfterYou.DTO.UserRegistrationRequest;
 import com.FinalProject.AfterYou.DTO.UserRegistrationResponse;
+import com.FinalProject.AfterYou.DTO.ChangePasswordRequest;
 import com.FinalProject.AfterYou.model.*;
 import com.FinalProject.AfterYou.repo.UserRepo;
 import com.FinalProject.AfterYou.repo.UserDetailsRepo;
@@ -151,5 +152,55 @@ public class UserService {
         UserRegistrationDetails user = userDetails.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user.setProfilePic(profilePic.getBytes());
         userDetails.save(user);
+    }
+
+    public boolean changePassword(String email, ChangePasswordRequest request) {
+        // Validate new password and confirm password match
+        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
+            throw new RuntimeException("New password and confirm password do not match");
+        }
+
+        // Validate password complexity
+        validatePassword(request.getNewPassword());
+
+        // Get user credentials
+        UserCredentials credentials = userRepo.findByEmail(email);
+        if (credentials == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        // Verify current password
+        if (!encoder.matches(request.getCurrentPassword(), credentials.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+
+        // Update password
+        credentials.setPassword(encoder.encode(request.getNewPassword()));
+        userRepo.save(credentials);
+
+        return true;
+    }
+
+    private void validatePassword(String password) {
+        if (password == null || password.length() < 8) {
+            throw new RuntimeException("Password must be at least 8 characters long");
+        }
+
+        // Add more complexity rules if needed
+        if (!password.matches(".*[A-Z].*")) {
+            throw new RuntimeException("Password must contain at least one uppercase letter");
+        }
+
+        if (!password.matches(".*[a-z].*")) {
+            throw new RuntimeException("Password must contain at least one lowercase letter");
+        }
+
+        if (!password.matches(".*\\d.*")) {
+            throw new RuntimeException("Password must contain at least one digit");
+        }
+
+        if (!password.matches(".*[!@#$%^&*()].*")) {
+            throw new RuntimeException("Password must contain at least one special character");
+        }
     }
 }
