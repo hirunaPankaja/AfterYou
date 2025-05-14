@@ -52,12 +52,44 @@
   flex-direction: column;
 }
 
+.signup-form-emgfield{
+ display: flex;
+ flex-direction: column;
+ width: 210%;
+
+}
+
+.signup-form-emgfield label{
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+
+}
+
 .signup-form-field label {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
   color: #555;
 }
+
+.signup-form-emgfield input,
+.signup-form-emgfield select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.signup-form-emgfield input:focus,
+.signup-form-emgfield select:focus {
+  border-color: #4facfe;
+  outline: none;
+}
+
+
+
 
 .signup-form-field input,
 .signup-form-field select {
@@ -95,7 +127,7 @@
 }
 
 .signup-gender-button.active {
-  background: #4facfe;
+  background: #151515;
   color: white;
   border-color: #4facfe;
 }
@@ -127,7 +159,7 @@
 .signup-submit-btn {
   width: 100%;
   padding: 12px;
-  background: #4facfe;
+  background: #272728;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -138,7 +170,7 @@
 }
 
 .signup-submit-btn:hover {
-  background: #00c6ff;
+  background: #101010;
 }
 
 /* Responsive Design */

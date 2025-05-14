@@ -15,13 +15,9 @@ export const submitSignupData = async (data) => {
   // Attach JSON (user info) as a string
   formDataToSend.append("userBasicInfo", JSON.stringify(data.userBasicInfo));
 
-<<<<<<< Updated upstream
-
-=======
   // Attach the files
   formDataToSend.append("identityDocument", data.identityDocument);
   formDataToSend.append("selfieWithIdDocument", data.selfieWithIdDocument);
->>>>>>> Stashed changes
 
   // Send request via axios
   const response = await axios.post(`${API}/register`, formDataToSend, {

@@ -248,7 +248,7 @@ const handleSubmit = async () => {
                  </div>
                </div>
 
-                <div className="signup-form-field">
+                <div className="signup-form-emgfield">
                   <label>Emergency Contact No</label>
                   <input type="tel" name="emergencyContact" value={formData.emergencyContact} onChange={handleInputChange} />
                 </div>
