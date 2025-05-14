@@ -22,6 +22,8 @@ function ProfileHeader({
     setShowPopup(prev => !prev);
   };
 
+  
+
   const handleClickOutside = (e) => {
     if (popupRef.current && !popupRef.current.contains(e.target)) {
       setShowPopup(false);
@@ -96,23 +98,33 @@ function ProfileHeader({
         <a href="#profile" className={`nav-link ${activePage === 'user-profile' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'user-profile', goToUserProfile)}>Profile</a>
       </nav>
 
-      <div className="user-info" onClick={togglePopup}>
-        <span className="user-name">{profile?.firstName || 'User'}</span>
-        <img
-          src="https://dashboard.codeparrot.ai/api/image/Z-l04wz4-w8v6RoA/icons-8-m.png"
-          alt="User"
-          className="header-user-avatar"
-        />
-      </div>
+      {/* User info avatar */}
+<div className="user-info" onClick={togglePopup}>
+  <span className="user-name">{profile?.firstName || 'User'}</span>
+  <img
+    src={
+      profile?.profilePic
+        ? `data:image/jpeg;base64,${profile.profilePic}`
+        : "https://dashboard.codeparrot.ai/api/image/Z-l04wz4-w8v6RoA/icons-8-m.png"
+    }
+    alt="User"
+    className="header-user-avatar"
+  />
+</div>
 
-      {showPopup && (
-        <div className="profile-popup" ref={popupRef}>
-          <div className="popup-header">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
-              alt="Avatar"
-              className="popup-avatar"
-            />
+{/* Popup avatar */}
+{showPopup && (
+  <div className="profile-popup" ref={popupRef}>
+    <div className="popup-header">
+      <img
+        src={
+          profile?.profilePic
+            ? `data:image/jpeg;base64,${profile.profilePic}`
+            : "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
+        }
+        alt="Avatar"
+        className="popup-avatar"
+      />
             <h4>{profile?.firstName} {profile?.lastName}</h4>
             <p>{profile?.email}</p>
           </div>

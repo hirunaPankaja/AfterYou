@@ -6,9 +6,11 @@ export const getUserProfile = (userId, token) =>
   axios.post(`${API}/profile`, { userId }, {
     headers: {
       Authorization: `Bearer ${token}`,
-    }
+    }   
+    
   });
 
+  
 export const submitSignupData = async (data) => {
   const formDataToSend = new FormData();
 

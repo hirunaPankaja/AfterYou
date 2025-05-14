@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../style/ProfilePage.css';
 import AccountSelectionModal from '../popups-screens/AccountSelectionModal.jsx';
 import SubscriptionForm from '../popups-screens/SubscriptionForm.jsx'; // ✅ Correct import
 import AssignExecutor from './AssignExecutor';
+import { getUserProfile } from '../Services/userService.js';
 
-const ProfilePage = ({ userName = "Shey Silva", primaryEmail }) => {
+const ProfilePage = ({ primaryEmail }) => {
   const [isAccountSelectionOpen, setIsAccountSelectionOpen] = useState(false);
   const [isSubscriptionFormOpen, setIsSubscriptionFormOpen] = useState(false);
   const [showExecutors, setShowExecutors] = useState(false);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('jwtToken');
+    if (userId && token) {
+      getUserProfile(parseInt(userId), token)
+        .then(res => {
+          setProfile(res.data);
+        })
+        .catch(err => {
+          console.error("Failed to load profile", err);
+        });
+    }
+  }, []);
 
   const handleAssignExecutorClick = () => {
     setShowExecutors(true);
@@ -56,7 +72,9 @@ const ProfilePage = ({ userName = "Shey Silva", primaryEmail }) => {
         </>
       ) : (
         <>
-          <h2 className="greeting">Hello {userName}!</h2>
+          <h2 className="greeting">
+            Hello {profile ? `${profile.firstName} ${profile.lastName}` : "User"}!
+          </h2>
           <h1 className="welcome-text">Welcome to your profile.</h1>
 
           <div className="main-divider"></div>

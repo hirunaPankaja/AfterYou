@@ -10,6 +10,16 @@
   margin-bottom: 20px;
 }
 
+.header-user-avatar {
+  width: 40px;          /* Adjust size as needed */
+  height: 40px;         /* Make width and height equal for perfect circle */
+  border-radius: 50%;   /* This makes the image circular */
+  object-fit: cover;    /* Ensures the image covers the area without distortion */
+  border: 2px solid #fff; /* Optional: white border around avatar */
+  cursor: pointer;      /* Optional: cursor pointer if clickable */
+}
+
+
 .header-logo {
   width: 30px;
   height: 30px;
