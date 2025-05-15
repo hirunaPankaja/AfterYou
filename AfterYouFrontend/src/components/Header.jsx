@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../style/Header.css';
 import ChangePassword from '../popups-screens/ChangePassword.jsx';
 import { getUserProfile } from '../Services/userService.js';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileHeader({
   goToHome,
@@ -10,7 +11,7 @@ function ProfileHeader({
   goToUserProfile,
   activePage,
   refreshPage,
-  goToChangePassword
+
 }) {
   const [showPopup, setShowPopup] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -63,12 +64,25 @@ function ProfileHeader({
     }
   };
 
+  const navigate = useNavigate();
+
   const handleLogoutClick = (e) => {
+
     e.preventDefault();
     setShowPopup(false);
-    localStorage.removeItem('jwtToken'); // 🛠️ Corrected key
+
+    // Clear all user-related data from localStorage
+    localStorage.removeItem('jwtToken');
     localStorage.removeItem('userId');
-    window.location.href = '/';
+    localStorage.removeItem('userData'); // if you store additional user data
+    localStorage.removeItem('userEmail'); // example of other possible user data
+
+    // Alternatively, clear everything from localStorage
+    // localStorage.clear();
+
+    // Redirect to landing page with a hard refresh to clear any cached data
+    navigate('/');
+    window.location.reload(true); // force a hard refresh (though parameter is deprecated, it may still work)
   };
 
   const handleAccountSettings = (e) => {
