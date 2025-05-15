@@ -1,15 +1,15 @@
 package com.FinalProject.AfterYou.service;
 
-import com.FinalProject.AfterYou.DTO.LoginResponse;
-import com.FinalProject.AfterYou.DTO.UserProfileDto;
-import com.FinalProject.AfterYou.DTO.UserRegistrationRequest;
-import com.FinalProject.AfterYou.DTO.UserRegistrationResponse;
-import com.FinalProject.AfterYou.DTO.ChangePasswordRequest;
+import com.FinalProject.AfterYou.DTO.*;
 import com.FinalProject.AfterYou.model.*;
 import com.FinalProject.AfterYou.repo.UserRepo;
 import com.FinalProject.AfterYou.repo.UserDetailsRepo;
 import com.FinalProject.AfterYou.repo.UserIdentityRepo;
+import jakarta.mail.MessagingException;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -202,5 +203,65 @@ public class UserService {
         if (!password.matches(".*[!@#$%^&*()].*")) {
             throw new RuntimeException("Password must contain at least one special character");
         }
+    }
+
+    @Value("${password.reset.code.expiry:300000}") // 5 minutes default
+    private long passwordResetCodeExpiry;
+
+    private ConcurrentHashMap<String, PasswordResetData> passwordResetCodes = new ConcurrentHashMap<>();
+
+    @Data
+    @AllArgsConstructor
+    private static class PasswordResetData {
+        private String code;
+        private long expiryTime;
+        private String email;
+    }
+
+    public void initiatePasswordReset(ForgotPasswordRequest request) {
+        String email = request.getEmail();
+        UserCredentials user = userRepo.findByEmail(email);
+
+        if (user == null) {
+            return;
+        }
+
+        String code = String.format("%05d", new Random().nextInt(100000));
+        long expiryTime = System.currentTimeMillis() + passwordResetCodeExpiry;
+
+        passwordResetCodes.put(email, new PasswordResetData(code, expiryTime, email));
+
+        try {
+            emailService.sendVerificationCode(email, code); // Fixed call
+        } catch (MessagingException e) {
+            throw new RuntimeException("Failed to send verification email", e);
+        }
+    }
+
+    public void verifyAndResetPassword(VerifyCodeRequest request) {
+        // Validate passwords match
+        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
+            throw new RuntimeException("Passwords do not match");
+        }
+
+        PasswordResetData resetData = passwordResetCodes.get(request.getEmail());
+
+        // Check if code exists and isn't expired
+        if (resetData == null || System.currentTimeMillis() > resetData.getExpiryTime()) {
+            throw new RuntimeException("Invalid or expired verification code");
+        }
+
+        // Verify code matches
+        if (!resetData.getCode().equals(request.getCode())) {
+            throw new RuntimeException("Invalid verification code");
+        }
+
+        // Update password
+        UserCredentials user = userRepo.findByEmail(request.getEmail());
+        user.setPassword(encoder.encode(request.getNewPassword()));
+        userRepo.save(user);
+
+        // Remove used code
+        passwordResetCodes.remove(request.getEmail());
     }
 }

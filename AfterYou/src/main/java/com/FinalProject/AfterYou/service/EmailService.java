@@ -5,7 +5,11 @@ import com.FinalProject.AfterYou.model.DeathCertificate;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.core.io.ByteArrayResource;
+
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -16,27 +20,47 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendVerificationEmail(String toEmail, String verificationLink) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+    @Value("${spring.mail.username}")
+    private String fromEmail;
 
-        helper.setFrom("keelsprojectmanagement@gmail.com");
-        helper.setTo(toEmail);
-        helper.setSubject("AfterYou Email Verification");
+    @Value("${app.verification.code.expiry:5}")
+    private int codeExpiryMinutes;
+
+    /**
+     * Sends a verification email with a 5-digit code (HTML version)
+     */
+// In EmailService:
+    public void sendVerificationCode(String toEmail, String verificationCode) throws MessagingException {
+        String subject = "Password Reset Verification Code"; // Fixed subject
+
+        String html = "<div style='font-family:sans-serif;padding:20px'>" +
+                "<h2>Password Reset Request</h2>" +
+                "<p>Your verification code is:</p>" +
+                "<div style='font-size:24px;font-weight:bold;margin:20px 0'>" + verificationCode + "</div>" +
+                "<p>This code will expire in " + codeExpiryMinutes + " minutes.</p>" +
+                "<p>If you didn't request this password reset, please ignore this email.</p></div>";
+
+        sendHtmlEmail(toEmail, subject, html);
+    }
+
+
+    /**
+     * Sends a verification email with HTML formatting
+     */
+    public void sendVerificationEmail(String toEmail, String verificationLink) throws MessagingException {
+        String subject = "Verify Your Email Address";
 
         String html = "<div style='font-family:sans-serif;padding:20px'>" +
                 "<h2>Welcome to AfterYou</h2>" +
                 "<p>Please click the button below to verify your email address:</p>" +
                 "<a href='" + verificationLink + "' " +
-                "style='padding:10px 20px;background:#4CAF50;color:white;text-decoration:none;border-radius:5px'>Verify Email</a>" +
-                "<p>If you didn’t sign up, you can ignore this email.</p></div>";
+                "style='display:inline-block;padding:10px 20px;background:#4CAF50;color:white;text-decoration:none;border-radius:5px;margin:10px 0'>" +
+                "Verify Email</a>" +
+                "<p>If you didn't create an account, please ignore this email.</p></div>";
 
-        helper.setText(html, true);
-
-        System.out.println("Sending email to: " + toEmail); // Debug log
-        mailSender.send(message);
-        System.out.println("Email sent successfully");
+        sendHtmlEmail(toEmail, subject, html);
     }
+
 
     public void sendExecutorInfoToLawyer(String toEmail, AssignExecutor executor, int userId) {
         String subject = "New Executor Assigned";
@@ -156,5 +180,21 @@ public class EmailService {
     }
 
 
+
+
+    /**
+     * Helper method to send HTML emails
+     */
+    private void sendHtmlEmail(String to, String subject, String htmlContent) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setFrom(fromEmail);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(htmlContent, true);
+
+        mailSender.send(message);
+    }
 
 }

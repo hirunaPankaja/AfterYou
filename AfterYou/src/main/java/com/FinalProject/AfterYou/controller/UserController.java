@@ -131,4 +131,31 @@ public class UserController {
         }
     }
 
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+        try {
+            service.initiatePasswordReset(request);
+            return ResponseEntity.ok().body(Map.of(
+                    "message", "If an account exists with this email, a verification code has been sent"
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", e.getMessage()
+            ));
+        }
+    }
+
+    @PostMapping("/verify-reset-code")
+    public ResponseEntity<?> verifyResetCode(@RequestBody VerifyCodeRequest request) {
+        try {
+            service.verifyAndResetPassword(request);
+            return ResponseEntity.ok().body(Map.of(
+                    "message", "Password has been reset successfully"
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", e.getMessage()
+            ));
+        }
+    }
 }
