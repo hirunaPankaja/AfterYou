@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        .requestMatchers("verify").permitAll()
+                        .requestMatchers("verify", "forgot-password", "verify-reset-code").permitAll()
                         .requestMatchers("api/executor/data/data/{executorId}","api/executor/data/download/{executorId}").permitAll()
                         .requestMatchers("verify","api/executors/executor/login","api/executors/profile/by-email","api/lawyers/details/{lawyerId}").permitAll()
                         .requestMatchers("api/death-certificates/upload","api/death-certificates/verify/{id}","api/death-certificates/by-executor/{executorId}","api/death-certificates/verified/{executorId}").permitAll()

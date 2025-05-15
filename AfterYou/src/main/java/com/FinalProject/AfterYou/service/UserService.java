@@ -244,20 +244,32 @@ public class UserService {
             throw new RuntimeException("Passwords do not match");
         }
 
+        // Validate password complexity
+        validatePassword(request.getNewPassword());
+
         PasswordResetData resetData = passwordResetCodes.get(request.getEmail());
 
         // Check if code exists and isn't expired
-        if (resetData == null || System.currentTimeMillis() > resetData.getExpiryTime()) {
-            throw new RuntimeException("Invalid or expired verification code");
+        if (resetData == null) {
+            throw new RuntimeException("No password reset request found for this email");
         }
 
-        // Verify code matches
-        if (!resetData.getCode().equals(request.getCode())) {
+        // Check if code is expired
+        if (System.currentTimeMillis() > resetData.getExpiryTime()) {
+            passwordResetCodes.remove(request.getEmail()); // Clean up expired code
+            throw new RuntimeException("Verification code has expired");
+        }
+
+        // Verify code matches (case insensitive)
+        if (!resetData.getCode().equalsIgnoreCase(request.getCode())) {
             throw new RuntimeException("Invalid verification code");
         }
 
         // Update password
         UserCredentials user = userRepo.findByEmail(request.getEmail());
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         user.setPassword(encoder.encode(request.getNewPassword()));
         userRepo.save(user);
 
