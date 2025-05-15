@@ -10,6 +10,31 @@ export const getUserProfile = (userId, token) =>
     
   });
 
+// Forgot Password Functions
+export const requestPasswordReset = async (email) => {
+  try {
+    const response = await axios.post(`${API}/forgot-password`, {
+      email: email
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.error || 'Failed to request password reset');
+  }
+};
+
+export const verifyResetCode = async (email, code, newPassword, confirmPassword) => {
+  try {
+    const response = await axios.post(`${API}/verify-reset-code`, {
+      email: email,
+      code: code,
+      newPassword: newPassword,
+      confirmPassword: confirmPassword
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.error || 'Failed to verify reset code');
+  }
+};
   
 export const submitSignupData = async (data) => {
   const formDataToSend = new FormData();

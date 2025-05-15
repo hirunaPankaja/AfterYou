@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { FaEye, FaEyeSlash, FaCheckCircle } from "react-icons/fa";
+import { requestPasswordReset, verifyResetCode } from "../Services/userService";
 import logo from "../assets/logo.png";
 import "../style/ForgotPassword.css";
 
@@ -10,6 +11,8 @@ const ForgotPassword = ({ onClose }) => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showSuccess, setShowSuccess] = useState(false);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState({
         newPassword: false,
         confirmPassword: false
@@ -17,9 +20,18 @@ const ForgotPassword = ({ onClose }) => {
     const otpInputs = useRef([]);
 
     // Step 1: Email submission
-    const handleEmailSubmit = (e) => {
+    const handleEmailSubmit = async (e) => {
         e.preventDefault();
-        setStep(2);
+        setLoading(true);
+        setError("");
+        try {
+            await requestPasswordReset(email);
+            setStep(2);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     // Step 2: OTP submission
@@ -29,10 +41,23 @@ const ForgotPassword = ({ onClose }) => {
     };
 
     // Step 3: Password reset submission
-    const handlePasswordSubmit = (e) => {
+    const handlePasswordSubmit = async (e) => {
         e.preventDefault();
-        if (password === confirmPassword) {
+        if (password !== confirmPassword) {
+            setError("Passwords don't match");
+            return;
+        }
+
+        setLoading(true);
+        setError("");
+        try {
+            const otpCode = otp.join('');
+            await verifyResetCode(email, otpCode, password, confirmPassword);
             setShowSuccess(true);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -54,9 +79,18 @@ const ForgotPassword = ({ onClose }) => {
         }
     };
 
-    const handleResendEmail = (e) => {
+    const handleResendEmail = async (e) => {
         e.preventDefault();
-        setStep(1);
+        setLoading(true);
+        setError("");
+        try {
+            await requestPasswordReset(email);
+            setError("New verification code sent");
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleDone = () => {
@@ -97,6 +131,7 @@ const ForgotPassword = ({ onClose }) => {
                             <h2 className="form-title">Forgot Password</h2>
                             <hr className="forgot-password-divider" />
                             <form onSubmit={handleEmailSubmit} className="forgot-password-form">
+                                {error && <div className="error-message">{error}</div>}
                                 <div className="form-group">
                                     <label htmlFor="email">Email</label>
                                     <input
@@ -108,7 +143,9 @@ const ForgotPassword = ({ onClose }) => {
                                         required
                                     />
                                 </div>
-                                <button type="submit">Submit</button>
+                                <button type="submit" disabled={loading}>
+                                    {loading ? "Sending..." : "Submit"}
+                                </button>
                             </form>
                         </>
                     ) : step === 2 ? (
@@ -117,6 +154,7 @@ const ForgotPassword = ({ onClose }) => {
                             <h2 className="form-title">Check Your Email</h2>
                             <hr className="forgot-password-divider" />
                             <form onSubmit={handleOtpSubmit} className="forgot-password-form-step2">
+                                {error && <div className="error-message">{error}</div>}
                                 <div className="form-group-step2">
                                     <label>Enter OTP</label>
                                     <div className="otp-container">
@@ -137,11 +175,20 @@ const ForgotPassword = ({ onClose }) => {
                                 </div>
                                 <p className="resend-text">
                                     Haven't got the email yet?{' '}
-                                    <a href="#" className="resend-link" onClick={handleResendEmail}>
-                                        Resend email
+                                    <a
+                                        href="#"
+                                        className={`resend-link ${loading ? 'disabled' : ''}`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            if (!loading) handleResendEmail(e);
+                                        }}
+                                    >
+                                        {loading ? "Sending..." : "Resend email"}
                                     </a>
                                 </p>
-                                <button type="submit">Verify Code</button>
+                                <button type="submit" disabled={loading}>
+                                    {loading ? "Verifying..." : "Verify Code"}
+                                </button>
                             </form>
                         </>
                     ) : (
@@ -150,6 +197,7 @@ const ForgotPassword = ({ onClose }) => {
                             <h2 className="form-title">Add New Password</h2>
                             <hr className="forgot-password-divider" />
                             <form onSubmit={handlePasswordSubmit} className="forgot-password-form-step3">
+                                {error && <div className="error-message">{error}</div>}
                                 <div className="form-group-step3">
                                     <label htmlFor="newPassword">New Password</label>
                                     <div className="forgot-password-input-container">
@@ -194,7 +242,9 @@ const ForgotPassword = ({ onClose }) => {
                                         </span>
                                     </div>
                                 </div>
-                                <button type="submit">Update</button>
+                                <button type="submit" disabled={loading}>
+                                    {loading ? "Updating..." : "Update"}
+                                </button>
                             </form>
                         </>
                     )}
