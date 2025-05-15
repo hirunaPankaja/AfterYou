@@ -3,6 +3,7 @@
   justify-content: center;
   padding: 30px;
   font-family: Arial, sans-serif;
+  margin-top: 5%;
 }
 
 .panel {
@@ -59,6 +60,14 @@ input[type="file"],
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.done-btn
+{
+  height: 10%;
+  margin-top: 15%;
+  margin-right: 12%;
+  margin-left: -18%;
 }
 
 .submit-btn:disabled,

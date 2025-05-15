@@ -99,6 +99,15 @@
   color: #ffffff;
 }
 
+.profile-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;     /* Makes the image circular */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+
 .will-title {
   font-size: 20px;
   margin: 0 0 10px 0;
