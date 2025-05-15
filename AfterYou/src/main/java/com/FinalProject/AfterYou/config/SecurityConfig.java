@@ -34,9 +34,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        .requestMatchers("verify").permitAll()
+                        .requestMatchers("api/executor/data/data/{executorId}","api/executor/data/download/{executorId}").permitAll()
                         .requestMatchers("verify","api/executors/executor/login","api/executors/profile/by-email","api/lawyers/details/{lawyerId}").permitAll()
                         .requestMatchers("api/death-certificates/upload","api/death-certificates/verify/{id}","api/death-certificates/by-executor/{executorId}","api/death-certificates/verified/{executorId}").permitAll()
-                        .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback","api/lawyers/by-email-and-user","/api/lawyers/complete-registration/{email}", "api/executors/by-email-and-user","/api/executors/assign","/api/executors/complete-registration/{executorEmail}/{userId}")
+                        .requestMatchers("verify","api/executors/executor/login", "api/executors/profile/by-email").permitAll()
+                        .requestMatchers("register","login","/oauth2/callback","/oauth2/authorize","oauth2/callback","api/lawyers/by-email-and-user","/complete-registration/{email}", "api/executors/by-email-and-user","/api/executors/assign","/api/executors/complete-registration/{executorEmail}/{userId}")
                         .permitAll()
                         .anyRequest().authenticated())
 //                .formLogin(Customizer.withDefaults())

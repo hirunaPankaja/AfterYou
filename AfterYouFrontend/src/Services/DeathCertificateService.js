@@ -19,6 +19,6 @@ export const getCertificateByExecutor = async (executorId) => {
 
 
 export const verified = async (executorId) => {
-  const response = await axios.get(`${API}}/verified/${executorId}`);
+  const response = await axios.get(`${API}/verified/${executorId}`);
   return response.data; // expected to be "yes" or something else
 };

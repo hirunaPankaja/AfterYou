@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface PrimaryAccountRepository extends JpaRepository<PrimaryAccount, Long> {
     Optional<PrimaryAccount> findByEmail(String email);
+    Optional<PrimaryAccount> findByUserId(int userId);
 }

@@ -1,55 +1,77 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../style/ExecutorExecutingProcess.css';
 
+const steps = [
+  'Verify Executor details',
+  'Verify Death certification',
+  'Waiting for Lawyer or assigned person acceptance',
+  'Start to Execute Last Will',
+  'Complete',
+];
+
 const ExecutorExecutingProcess = () => {
-  const navigate = useNavigate(); // Initialize navigation function
+  const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(-1);
+  const [doneEnabled, setDoneEnabled] = useState(false);
+
+  useEffect(() => {
+    if (currentStep < steps.length - 1) {
+      const timer = setTimeout(() => {
+        setCurrentStep((prev) => prev + 1);
+      }, 900);
+      return () => clearTimeout(timer);
+    } else {
+      setTimeout(() => setDoneEnabled(true), 1000);
+    }
+  }, [currentStep]);
 
   const handleDoneClick = () => {
-    navigate('/executor-home'); // Redirect to Executor Home page
+    if (doneEnabled) {
+      navigate('/executor-home');
+    }
   };
 
   return (
-    <div className="process-container">
-      <h1 className="process-title">Executing Last Will</h1>
-      <div className="steps-wrapper">
-        <div className="process-step">
-          <div className="step-line">
-            <div className="step-circle"></div>
+    <div className="modern-process-container">
+      <h2 className="modern-process-title">Executing Last Will</h2>
+      <div className="modern-steps-wrapper">
+        {steps.map((step, index) => (
+          <div key={index} className="modern-step">
+            <div className="circle-line-wrapper">
+              <div
+                className={`modern-step-circle ${
+                  index <= currentStep ? 'active' : ''
+                }`}
+              >
+                {index <= currentStep ? '✔' : ''}
+              </div>
+              {index < steps.length - 1 && (
+                <div
+                  className={`step-connector ${
+                    index < currentStep ? 'filled' : ''
+                  }`}
+                ></div>
+              )}
+            </div>
+            <span
+              className={`modern-step-text ${
+                index <= currentStep ? 'text-active' : ''
+              }`}
+            >
+              {step}
+            </span>
           </div>
-          <span className="step-description">Verify Executor details</span>
-          <span className="step-check"><div className="check-circle">✔</div></span>
-        </div>
-        <div className="process-step">
-          <div className="step-line">
-            <div className="step-circle"></div>
-          </div>
-          <span className="step-description">Verify Death certification</span>
-          <span className="step-check"><div className="check-circle">✔</div></span>
-        </div>
-        <div className="process-step">
-          <div className="step-line">
-            <div className="step-circle"></div>
-          </div>
-          <span className="step-description">Waiting for Lawyer or another assigned person acceptance</span>
-          <span className="step-check"><div className="check-circle">✔</div></span>
-        </div>
-        <div className="process-step">
-          <div className="step-line">
-            <div className="step-circle"></div>
-          </div>
-          <span className="step-description">Start to Execute Last Will</span>
-          <span className="step-check"><div className="check-circle">✔</div></span>
-        </div>
-        <div className="process-step">
-          <div className="step-line">
-            <div className="step-circle"></div>
-          </div>
-          <span className="step-description">Complete</span>
-          <span className="step-check"><div className="check-circle">✔</div></span>
-        </div>
+        ))}
       </div>
-      <button className="complete-button" onClick={handleDoneClick}>Done</button> {/* Added onClick event */}
+      <button
+        className="modern-complete-button"
+        onClick={handleDoneClick}
+        disabled={!doneEnabled}
+        style={{ opacity: doneEnabled ? 1 : 0.6 }}
+      >
+        Done
+      </button>
     </div>
   );
 };
