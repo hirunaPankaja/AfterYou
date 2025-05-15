@@ -1,0 +1,101 @@
+/* ExecutorProfile.css */
+
+.executor-profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.executor-id-display {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  background-color: #ecf0f1;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.primary-account {
+  background-color: #fef9f1;
+  border-left: 5px solid #f39c12;
+}
+
+.linked-accounts-grid,
+.subscriptions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.linked-account,
+.subscription {
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s ease;
+}
+
+.linked-account:hover,
+.subscription:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.linked-account h3,
+.subscription h3 {
+  color: #3498db;
+}
+
+.profile-link {
+  color: #2980b9;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+.download-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.download-btn:hover {
+  background-color: #27ae60;
+}
+
+.loading,
+.error,
+.no-data {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.error {
+  color: #e74c3c;
+}

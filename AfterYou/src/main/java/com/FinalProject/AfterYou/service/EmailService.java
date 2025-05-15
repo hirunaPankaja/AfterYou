@@ -178,6 +178,25 @@ public class EmailService {
         // Send the email with the attached PDF
         sendEmailWithAttachment(to, subject, body, cert.getDeathCertificate(), "death_certificate.pdf");
     }
+    public void sendPasswordEmail(String toEmail, String password) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setTo(toEmail);
+        helper.setSubject("Your Executor Data Package Password");
+
+        String htmlContent = "<html><body>" +
+                "<h2>Your Executor Data Package Password</h2>" +
+                "<p>Here is the password to access the executor data package:</p>" +
+                "<p style='font-size: 18px; font-weight: bold;'>" + password + "</p>" +
+                "<p>This password is required to open the ZIP file containing all the account details.</p>" +
+                "<p>Please keep this password secure and do not share it with others.</p>" +
+                "</body></html>";
+
+        helper.setText(htmlContent, true);
+        mailSender.send(message);
+    }
+
 
 
 

@@ -11,11 +11,18 @@ import com.FinalProject.AfterYou.repo.PrimaryAccountRepository;
 import com.FinalProject.AfterYou.repo.SubscriptionRepository;
 import com.FinalProject.AfterYou.util.PdfGenerator;
 import com.FinalProject.AfterYou.util.ZipUtil;
+import com.itextpdf.text.DocumentException;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,48 +83,91 @@ public class ExecutorDataService {
         return result;
     }
 
-    public byte[] generateExecutorDataZip(int executorId, String zipPassword) throws IOException {
-        // Retrieve userId from AssignExecutor
+    public void sendPasswordToExecutor(int executorId, String password) {
+        AssignExecutor executor = assignExecutorRepository.findById(executorId)
+                .orElseThrow(() -> new RuntimeException("Executor not found"));
+
+        try {
+            emailService.sendPasswordEmail(executor.getExecutorEmail(), password);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Failed to send password email", e);
+        }
+    }
+
+    public byte[] generateExecutorDataZip(int executorId, String zipPassword) throws IOException, DocumentException {
+        // Retrieve data
         int userId = assignExecutorRepository.findById(executorId)
                 .orElseThrow(() -> new RuntimeException("Executor not found"))
                 .getUserId();
 
-        // Retrieve PrimaryAccount
-        PrimaryAccount primaryAccount = primaryAccountRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("PrimaryAccount not found"));
-
-        // Retrieve LinkedAccounts and Subscriptions
-        List<LinkedAccount> linkedAccounts = linkedAccountRepository.findByPrimaryAccountAndIsDeletedFalse(primaryAccount);
-        List<Subscription> subscriptions = subscriptionRepository.findByPrimaryAccount(primaryAccount);
-
-        // Generate PDF
-        byte[] pdfBytes = PdfGenerator.generate(primaryAccount, linkedAccounts, subscriptions);
-
-        // Zip the PDF with password
-        return ZipUtil.createPasswordProtectedZip(pdfBytes, zipPassword);
-    }
-
-    public void sendExecutorDataEmail(int executorId, String zipPassword) throws IOException {
-        AssignExecutor executor = assignExecutorRepository.findById(executorId)
-                .orElseThrow(() -> new RuntimeException("Executor assignment not found"));
-
-        int userId = executor.getUserId();
-        PrimaryAccount primaryAccount = primaryAccountRepository.findByUserId(userId)
+        PrimaryAccount primary = primaryAccountRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Primary account not found"));
 
-        String executorEmail = executor.getExecutorEmail(); // Ensure this method or field exists
-        if (executorEmail == null || executorEmail.isEmpty()) {
-            throw new RuntimeException("Executor email is not available");
-        }
+        List<LinkedAccount> linkedAccounts = linkedAccountRepository.findByPrimaryAccountAndIsDeletedFalse(primary);
+        List<Subscription> subscriptions = subscriptionRepository.findByPrimaryAccount(primary);
 
+        // Generate enhanced PDF
+        byte[] pdfBytes = PdfGenerator.generate(
+                primary,
+                linkedAccounts,
+                subscriptions// Include decrypt password in PDF
+        );
+
+        // Create password-protected ZIP
+        return ZipUtil.createPasswordProtectedZip(pdfBytes, zipPassword);
+    }
+    public void handleExecutorDataDownload(int executorId, HttpServletResponse response) throws IOException, DocumentException {
+        // Generate a secure random password
+        String zipPassword = generateSecurePassword();
+
+        // Send password to executor's email
+        sendPasswordToExecutor(executorId, zipPassword);
+
+        // Generate the ZIP file
         byte[] zipBytes = generateExecutorDataZip(executorId, zipPassword);
 
-        String subject = "Your Assigned Digital Executor Package";
-        String htmlBody = "<p>Dear Executor,</p>" +
-                "<p>Attached is the digital data package (ZIP file) for your assigned user. The ZIP file is password-protected.</p>" +
-                "<p><strong>Password:</strong> " + zipPassword + "</p>" +
-                "<p>Keep it secure.</p>";
+        // Set response headers
+        response.setContentType("application/zip");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"executor_data.zip\"");
+        response.setContentLength(zipBytes.length);
 
-        emailService.sendEmailWithAttachment(executorEmail, subject, htmlBody, zipBytes, "executor_data.zip");
+        // Write ZIP file to response
+        response.getOutputStream().write(zipBytes);
+        response.getOutputStream().flush();
+    }
+
+    public String generateSecurePassword() {
+        // Your existing password generation logic
+        String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String lower = "abcdefghijklmnopqrstuvwxyz";
+        String digits = "0123456789";
+        String special = "!@#$%^&*";
+        String all = upper + lower + digits + special;
+
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder();
+
+        password.append(upper.charAt(random.nextInt(upper.length())));
+        password.append(lower.charAt(random.nextInt(lower.length())));
+        password.append(digits.charAt(random.nextInt(digits.length())));
+        password.append(special.charAt(random.nextInt(special.length())));
+
+        for (int i = 4; i < 12; i++) {
+            password.append(all.charAt(random.nextInt(all.length())));
+        }
+
+        return shuffleString(password.toString());
+    }
+
+    private String shuffleString(String input) {
+        char[] characters = input.toCharArray();
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < characters.length; i++) {
+            int randomIndex = random.nextInt(characters.length);
+            char temp = characters[i];
+            characters[i] = characters[randomIndex];
+            characters[randomIndex] = temp;
+        }
+        return new String(characters);
     }
 }

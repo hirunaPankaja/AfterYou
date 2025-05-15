@@ -2,7 +2,7 @@ package com.FinalProject.AfterYou.service;
 
 import com.FinalProject.AfterYou.model.PrimaryAccount;
 import com.FinalProject.AfterYou.repo.PrimaryAccountRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.FinalProject.AfterYou.util.AESEncryptionUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.Optional;
 public class PrimaryAccountService {
 
     private final PrimaryAccountRepository primaryAccountRepository;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public PrimaryAccountService(PrimaryAccountRepository primaryAccountRepository) {
         this.primaryAccountRepository = primaryAccountRepository;
@@ -25,11 +24,13 @@ public class PrimaryAccountService {
             throw new RuntimeException("Email already registered: " + email);
         }
 
-        PrimaryAccount primaryAccount = new PrimaryAccount(userId, email, password, recoveryCode);
+        // 🔐 Encrypt password using AES
+        String encryptedPassword = AESEncryptionUtil.encrypt(password);
+
+        PrimaryAccount primaryAccount = new PrimaryAccount(userId, email, encryptedPassword, recoveryCode);
         return primaryAccountRepository.save(primaryAccount);
     }
 
-    // ✅ Get Primary Account by Email
     public Optional<PrimaryAccount> getPrimaryAccount(String email) {
         return primaryAccountRepository.findByEmail(email);
     }
@@ -39,10 +40,7 @@ public class PrimaryAccountService {
                 .orElseThrow(() -> new RuntimeException("Primary account not found with ID: " + id));
     }
 
-
-
     public List<PrimaryAccount> getAllPrimaryAccounts() {
         return primaryAccountRepository.findAll();
     }
-
 }
