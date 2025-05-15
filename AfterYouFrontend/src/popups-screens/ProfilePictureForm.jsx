@@ -31,12 +31,13 @@ const ProfilePictureForm = ({ onClose, onSave }) => {
         .catch((error) => {
             console.error("Error uploading profile image:", error);
         });
-};
+    };
 
 
     const triggerFileInput = () => {
         fileInputRef.current.click();
     };
+
 
     return (
         <div className="picture-form-overlay">
@@ -73,6 +74,8 @@ const ProfilePictureForm = ({ onClose, onSave }) => {
             </div>
         </div>
     );
+
+
 };
 
 export default ProfilePictureForm;

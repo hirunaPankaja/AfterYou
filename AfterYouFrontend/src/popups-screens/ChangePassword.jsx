@@ -113,7 +113,7 @@ function ChangePassword() {
 
     const handleContinue = () => {
         // Optional: You may want to keep the user logged in after password change
-        navigate('/profile'); // Or wherever you want to redirect
+        navigate('/login/user'); // Or wherever you want to redirect
     };
 
     return (
