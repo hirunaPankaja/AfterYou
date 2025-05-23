@@ -83,13 +83,13 @@ This web application helps users plan their **digital afterlife** by:
 
 ---
 
-## 📦 Deployment (Free Tier Friendly)
+## 📦 Deployment 
 
-- **Frontend**: GitHub Pages or AWS Amplify  
-- **Backend**: AWS EC2 (Free Tier)  
-- **Database**: AWS RDS MySQL  
-- **File Storage**: AWS S3 (Free Tier)  
-- **Email**: EmailJS or AWS SES
+- **Frontend**: 
+- **Backend**:  
+- **Database**:  MySQL  
+- **File Storage**: 
+- **Email**: 
 
 ---
 
