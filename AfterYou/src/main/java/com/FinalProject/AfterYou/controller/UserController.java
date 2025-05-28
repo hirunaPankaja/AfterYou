@@ -96,7 +96,7 @@ public class UserController {
 
         if (profilePic != null && !profilePic.isEmpty()) {
             try {
-                user.setProfilePic(profilePic.getBytes());
+                 user.setProfilePic(profilePic.getBytes());
             } catch (IOException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error reading image.");
             }
